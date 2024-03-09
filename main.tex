@@ -565,7 +565,7 @@ x_{\phi}(t) = \frac{1}{C_{\psi}} \int_{0}^{\infty} \int_{-\infty}^{\infty}\frac{
 \end{equation}
 
 
-We can also choose a completely different wavelet function, Morlet's technique, like the Dirac-delta function $\delta\left(\frac{b-t}{a}\right)$, instead of the analysing wavelet \cite{doi:10.1146/annurev.fl.24.010192.002143}\cite{Roy_2022}. Here: 
+We can also choose a completely different wavelet function, Morlet's technique, like the Dirac-delta function $\delta\left(\frac{b-t}{a}\right)$, instead of the analysing wavelet \cite{doi:10.1146/annurev.fl.24.010192.002143,Roy_2022}. Here: 
 \begin{equation}
     x_{\phi}(t) = \frac{1}{C_{\psi}} \int_{0}^{\infty}\frac{1}{|a|} \left(\int_{-\infty}^{\infty} \tilde{X}_{w,\phi}(a,b)\delta\left(\frac{t-b}{a}\right)db\right)\frac{da}{a^2}
 \end{equation}
@@ -575,14 +575,14 @@ Recall for a Delta function, $\delta(-x)=\delta(x)$ and $\int_{-\infty}^{\infty}
 
 Using $b=ay$, and working through the double-integral, we have: $\int_{-\infty}^{\infty} \tilde{X}_{w,\phi}(a,b)\delta\left(\frac{t-b}{a}\right)db = a\tilde{X}_{w,\phi}(a,t)$.
 
-By direct substitution into equation 5, we arrive at a simplified single integral for our wavelet reconstruction given as \cite{doi:10.1146/annurev.fl.24.010192.002143}\cite{Roy_2022}\cite{APracticalGuidetoWaveletAnalysis}:
+By direct substitution into equation 5, we arrive at a simplified single integral for our wavelet reconstruction given as \cite{doi:10.1146/annurev.fl.24.010192.002143,Roy_2022,APracticalGuidetoWaveletAnalysis}:
 \begin{equation}
      x_{\phi}(t) = \frac{1}{C_{\delta}} \int_{0}^{\infty}\frac{\tilde{X}_{w,\phi}(a,t)}{|a|}\frac{da}{a}.
 \end{equation}
 Note: $C_{\psi}=C_{\delta}$, since we reconstructed the Fourier transforms using a Dirac delta function \cite{APracticalGuidetoWaveletAnalysis}.
 
 \subsubsection{Choice of Scale: From Dyadic to Linear Scale}
-Since we are working with nonorthogonal wavelet analysis, it is recommendable to use an arbitrary set of scale to build a more complete wavelet reconstruction formula for previous step above \cite{APracticalGuidetoWaveletAnalysis}. To enable us succeed in this case, we assume a variant of the dyadic scales given in \cite{pereyra2012harmonic}\cite{APracticalGuidetoWaveletAnalysis}: 
+Since we are working with nonorthogonal wavelet analysis, it is recommendable to use an arbitrary set of scale to build a more complete wavelet reconstruction formula for previous step above \cite{APracticalGuidetoWaveletAnalysis}. To enable us succeed in this case, we assume a variant of the dyadic scales given in \cite{pereyra2012harmonic,APracticalGuidetoWaveletAnalysis}: 
 \begin{equation}
     a_{j} =a_{0}2^{j\delta_{j}},
 \end{equation}
@@ -763,8 +763,37 @@ where $\Omega_{L}^{2} = \frac{G M_{P}}{r_{L}^{3}}$. When we substitute for $\Ome
 Here, $m$ is the azimuthal order of the wave signal. $x_{f}$ is the winding parameter from the Python Wave-fitting routine, measured in $Km$.  $r_{L}$ is the resonant radius of the wave-signal.  $M_{P}$ is the mass of Saturn ($5.6846 \times 10^{26}$ Kg). \textbf{Note:} The S.I. Unit of $\sigma_{0}$ corresponds with the standard measurement in $Kgm^{-2}$.
 
 
+\subsubsection{Mass Extinction Coefficient, $\kappa$}
+
+We can estimate the value of $\kappa$ by utilizing the surface mass density $\sigma_{0}$ and the average value of the optical depth profiles for the wave signals, denoted as $\tau_{av}$, following the formulation provided in the equation below:
+
+\begin{equation}
+    \kappa_{av} = \frac{\tau_{av}}{\sigma_{0}}.
+\end{equation}
+
+Typically, the normal optical depth is determined based on the slant angle, $B$, of the observed beam of light concerning the plane of the planetary ring. This computation is detailed on page 378 of Chapter 13 in Dougherty's work \cite{Dougherty2009SaturnFC}:
+
+\begin{equation}
+    \tau_{n} = \mu_{n} \ln\left(\frac{I_{0}}{I - b^{*}}\right),
+\end{equation}
+
+where $I$ represents the measured intensity of the occulted beam, $I_{0}$ stands for the unocculted intensity, $b^{*}$ accounts for any background signal, and $\mu_{n} = |\sin(B)|$. This formulation assumes negligible effects from self-gravity wakes while offering a consistent methodology for presenting occultation profiles. According to studies \cite{2011Icar..216..292B, ctx2241679689740001851}, the mass extinction coefficient for a differential particle size distribution, defined as $n(a^{*}) = n_{0}(\frac{a_{0}}{a^{*}})^{q}$ with $a^{*} \in [a_{min},a_{max}]$, can be represented as follows:
+
+\begin{equation}
+    \kappa = \frac{3(4 - q)}{4(3 - q)}\left(\frac{a_{max}^{3-q} - a_{min}^{3-q}}{a_{max}^{4-q} - a_{min}^{4-q}}\right)\frac{1}{\rho},
+\end{equation}
+
+where $\rho$ denotes the particle mass density. The estimation of the mass extinction coefficient at $q\approx3.1$ for the C-ring suggests an inverse relationship with the upper limit for the particle dimension \cite{2011Icar..216..292B}. Assuming uniform particles along the plane of the ring with a radius $R$ and density $\rho$, the mass extinction coefficient can be expressed as:
+
+\begin{equation}
+    \kappa = \frac{3}{4\rho R},
+\end{equation}
+
+consistent with initial observations indicating that larger opacities are associated with a higher proportion of smaller particles \cite{SHU1983185}.
+
+
 \subsubsection{Viscosity, $\nu$}
-Assuming the damping phenomenon is insufficient to allow several wavecycles, we can estimate the ring section's kinematic viscosity, $\nu$, as in the case \cite{GOLDREICH1978240}\cite{1984prin.conf..513S}\cite{Tiscareno_2007}:
+Assuming the damping phenomenon is insufficient to allow several wavecycles, we can estimate the ring section's kinematic viscosity, $\nu$, as in the case \cite{GOLDREICH1978240,1984prin.conf..513S,Tiscareno_2007}:
 \begin{equation}
     \nu = \frac{9}{7\Omega_{L}\xi_{D}^{3}}\left(\frac{r_{L}}{\mathcal{D}_{L}}\right)^{1/2}(2\pi G \sigma_{0})^{3/2}
 \end{equation}
@@ -797,12 +826,13 @@ From \cite{Marley1993PlanetaryAM} \cite{Zharkov1985ThePO}, we have:
 \end{equation}
 Note: $l$ = Angular degrees of the wave signals. $a$ = Equatorial radius of Saturn. $n$ = The mode of a particular wave signal (f-mode, $n$ = 0). 
 
+
 Using the choice of phase, $\phi$ = 0 (is the azimuthal angle \cite{A’Hearn_2022}), $\cos m\phi$ = 1, and $\sin m\phi$ = 0, the equation becomes:
 \begin{equation}
 \Phi{'}(t) = \frac{GM}{r}\sum_{n=0}^{\infty}\left\{ - \sum_{l=2}^{\infty}\left(\frac{a}{r}\right)^{l}J_{ln}^{'}P_{l}(\cos \theta) + \sum_{l=2}^{\infty}\sum_{m=-l}^{l}\left(\frac{a}{r}\right)^{l}P_{l}^{m}(\cos \theta)C_{lmn}^{'}\right\}
 \end{equation}
 
-Since the wave signals have certain numbers of spiral arms, associated with the azimuthal orders of the corresponding planetary oscillations (that is,$m \neq 0$), the $J_{ln}^{'}$ component is assumed negligible ($J_{ln}^{'}\approx 0$). The new expression becomes: 
+Since the wave signals have certain numbers of spiral arms, associated with the azimuthal orders of the corresponding planetary oscillations (that is, $m \neq 0$ for the case of non-axisymmetric oscillations), the $J_{ln}^{'}$ component is assumed negligible ($J_{ln}^{'}\approx 0$). The new expression becomes: 
 \begin{equation}
 \Phi{'}(t) = \frac{GM}{r}\sum_{n=0}^{\infty}\left\{\sum_{l=2}^{\infty}\sum_{m=-l}^{l}\left(\frac{a}{r}\right)^{l}P_{l}^{m}(\cos \theta)C_{lmn}^{'}\right\}
 \end{equation}
@@ -813,7 +843,7 @@ Recall, we are considering wave signals that are assumed to mostly be from funda
 \end{equation}
 
 
-For understanding the angles, $\theta$ (the colatitude), we are evaluating the potential in the rings, which are at the planet’s equator plane, and taken to be at $90^{o}$ to the (imaginary) vertical axis passing through the center of the planet, Saturn [M. Hedman, personal discussion (June, 2022), additional information from \cite{Mankovich_2019}]. We take $\mu = \cos\theta = 0$, and the new equation becomes: 
+For understanding the angles, $\theta$ (the colatitude), we are evaluating the potential in the rings, which are at the planet’s equator plane, and taken to be at $90^{o}$ to the (imaginary) vertical axis passing through the center of the planet, Saturn [M. Hedman and V. Afigbo, personal discussions (June, 2022), additional information from \cite{Mankovich_2019}]. We take $\mu = \cos\theta = 0$, and the new equation becomes: 
 
 \begin{equation}
 \Phi{'}(t) = \frac{GM}{r}\left\{\sum_{l=2}^{\infty}\sum_{m=-l}^{l}\left(\frac{a}{r}\right)^{l}P_{l}^{m}(\mu)C_{lm0}^{'}\right\},
@@ -821,13 +851,13 @@ For understanding the angles, $\theta$ (the colatitude), we are evaluating the p
 where r is the radius \cite{A’Hearn_2022}.
 
 Since we are considering fully normalized gravitational harmonic coefficients, we need to use the fully normalized Associated Legendre Polynomial functions. Considering the orthonormalized harmonics that are commonly used in
-the seismology community \cite{Jekeli2007PotentialTA} \cite{2015JASS...32..247S} \cite{https://doi.org/10.1029/2018GC007529}, and using only $|m| \neq 0$ cases, this implies, $P_{l}^{|m|} (\mu) \rightarrow \bar{P}_{l}^{|m|} (\mu)$, where:
+the seismology community \cite{Jekeli2007PotentialTA}\cite{2015JASS...32..247S}\cite{https://doi.org/10.1029/2018GC007529}, and using only $|m| \neq 0$ cases, this implies, $P_{l}^{|m|} (\mu) \rightarrow \bar{P}_{l}^{|m|} (\mu)$, where:
 
 \begin{equation}
     \bar{P}_{l}^{|m|} (\mu) = \sqrt{\frac{{(2-\delta_{0,|m|})(2l+1)(l-|m|)!}}{{4\pi (l+|m|)!}}} P^{|m|}_{l} (\mu)
 \end{equation}
 
-Here, $\delta_{0,|m|}$ = Kronecker delta function ( $\delta_{0,|m|}$ = 0, $ \forall |m| \neq 0$). $\bar{P}_{l}^{|m|} (\mu)$ = Normalized Associated Legendre Function. $P^{|m|}_{l} (\mu)$ = Unnormalized Associated Legendre Polynomial function derived from the standard Legendre polynomials using the relations below:
+Here, $\delta_{0,|m|}$ = Kronecker delta function ( $\delta_{0,|m|}$ = 0, $ \forall  |m| \neq 0$). $\bar{P}_{l}^{|m|} (\mu)$ is the Normalized Associated Legendre Function. $P^{|m|}_{l} (\mu)$ is the Unnormalized Associated Legendre Polynomial function derived from the standard Legendre polynomials using the relations below:
 \begin{equation}
     P^{|m|}_{l}(\mu) = (-1)^{|m|}(1-\mu^{2})^{\frac{|m|}{2}}\frac{d^{|m|}}{d\mu^{|m|}}P_{l}(\mu)
 \end{equation}
@@ -854,42 +884,61 @@ $\href{https://en.wikipedia.org/wiki/Associated_Legendre_polynomials}{https://en
 
 \vspace{3pt}
 
-\textbf{Rearragement of Equations:}
+\textbf{Rearrangement of Equations:}
 
 \vspace{3pt}
 
-From equation (10) above, let $k_{\alpha} = \sqrt{\frac{{(2-\delta_{0,|m|})(2l+1)(l-|m|)!}}{{4\pi (l+|m|)!}}}$, so that we have: 
+From equation (61) above, let $k_{\alpha} = \sqrt{\frac{{(2-\delta_{0,|m|})(2l+1)(l-|m|)!}}{{4\pi (l+|m|)!}}}$, so that we have, 
 
 \begin{equation}
-    \bar{P}_{l}^{|m|} (\mu) = k_{\alpha} P^{|m|}_{l} (\mu)
+    \bar{P}_{l}^{|m|} (\mu) = k_{\alpha} P^{|m|}_{l} (\mu).
 \end{equation}
 
-We also need to rewrite equation (9) in its new (normalized) form: 
+We also need to rewrite equation (60) in its new (normalized) form, using the procedures outlined below.
 
+Recall that,
 \begin{equation}
-\bar{\Phi}{'}(t) = \frac{GM}{r}\left\{\sum_{l=2}^{\infty}\sum_{m=-l}^{l}\left(\frac{a}{r}\right)^{l}\bar{P}_{l}^{|m|}(\mu)\bar{C}_{l|m|0}^{'}\right\}
+\Phi{'}(t) = \frac{GM}{r}\left\{\sum_{l=2}^{\infty}\sum_{m=-l}^{l}\left(\frac{a}{r}\right)^{l}P_{l}^{|m|}(\mu)C_{l|m|0}^{'}\right\}.
 \end{equation}
 
 Let $(\frac{a}{r})^{l} = a_{r}^{l}$, we have: 
 \begin{equation}
-\bar{\Phi}{'}(t) = \frac{GM}{r}\left\{\sum_{l=2}^{\infty}\sum_{m=-l}^{l}a_{r}^{l}\bar{P}_{l}^{|m|}(\mu)\bar{C}_{l|m|0}^{'}\right\}
+\Phi{'}(t) = \frac{GM}{r}\left\{\sum_{l=2}^{\infty}\sum_{m=-l}^{l}a_{r}^{l}P_{l}^{|m|}(\mu)C_{l|m|0}^{'}\right\}.
 \end{equation}
 
-By change of subject formula:
-
+By change of subject formula and further simplification, this gives us: 
 \begin{equation}
-\sum_{l=2}^{\infty}\sum_{m=-l}^{l}\bar{C}_{l|m|0}^{'} = \sum_{l=2}^{\infty}\sum_{m=-l}^{l}\frac{(\bar{\Phi}{'}(t))(r)}{(GM)(a_{r}^{l})(\bar{P}_{l}^{|m|}(\mu))}
+\sum_{l=2}^{\infty}\sum_{m=-l}^{l}C_{l|m|0}^{'} =\frac{r}{GM} \sum_{l=2}^{\infty}\sum_{m=-l}^{l}\frac{\Phi{'}(t)}{(a_{r}^{l})(P_{l}^{|m|}(\mu))}.
 \end{equation}
 
-Further simplification gives us: 
+At this juncture, we take into consideration the need for normalization, which changes our equation to:
 \begin{equation}
-\sum_{l=2}^{\infty}\sum_{m=-l}^{l}\bar{C}_{l|m|0}^{'} =\frac{r}{GM} \sum_{l=2}^{\infty}\sum_{m=-l}^{l}\frac{\bar{\Phi}{'}(t)}{(a_{r}^{l})(\bar{P}_{l}^{|m|}(\mu))}
+\sum_{l=2}^{\infty}\sum_{m=-l}^{l}\bar{C}_{l|m|0}^{'} =\frac{r}{GM} \sum_{l=2}^{\infty}\sum_{m=-l}^{l}\frac{\Phi{'}(t)}{(a_{r}^{l})(\bar{P}_{l}^{|m|}(\mu))},
+\end{equation}
+where $\bar{P}_{l}^{|m|} (\mu) = k_{\alpha} P^{|m|}_{l} (\mu)$ has been defined previously in equation (64). 
+
+Further simplification shows that,
+\begin{equation}
+\sum_{l=2}^{\infty}\sum_{m=-l}^{l}\bar{C}_{l|m|0}^{'} = \frac{r}{GM} \sum_{l=2}^{\infty}\sum_{m=-l}^{l}\frac{1}{k_{\alpha}} \left(\frac{\Phi{'}(t)}{(a_{r}^{l})(P_{l}^{|m|}(\mu))}\right),
+\end{equation}
+and finally,
+\begin{equation}
+\sum_{l=2}^{\infty}\sum_{m=-l}^{l}\bar{C}_{l|m|0}^{'} = \sum_{l=2}^{\infty}\sum_{m=-l}^{l}\frac{C_{l|m|0}^{'}}{k_{\alpha}}.
 \end{equation}
 
-Here, $\mathscr{\bar{C}'}_{l|m|0} = \sum_{l=2}^{\infty}\sum_{m=-l}^{l}\bar{C}_{l|m|0}^{'}$, the normal-mode amplitude for Saturn.
+Planetary normal-mode oscillations refer to the natural vibrational modes of a planet. These modes arise due to the body's internal structure and rotation. In these oscillations, different parts of the planet move in a coordinated manner at specific frequencies, forming standing waves. The amplitudes of these normal modes can be either positive or negative, depending on the specific mode and its associated motion. For example, in a normal mode, regions of the planet may move outward (positive amplitude) or inward (negative amplitude) relative to their equilibrium positions. A more laconic expression can be employed to account for the resultant normal-mode amplitude, which is usually positive, using the steps below\cite{Zharkov1985ThePO}.
 
-Note: 
-We intentionally left $\bar{\Phi}{'}(t)$ at the numerator, and after the summation symbols, because this parameter is a function of $l$ and $m$, as we shall see in the next section. 
+Say, 
+\begin{equation}
+\bar{C}_{l|m|0}^{'}\cos m\phi + \bar{S}_{l|m|0}^{'}\sin m\phi = \bar{A}_{l|m|0}^{'}\cos m(\phi-\phi_{l|m|0}). 
+\end{equation}
+Here, $\bar{C}_{l|m|0}^{'} = \bar{A}_{l|m|0}^{'}\cos m\phi_{l|m|0}$ and $\bar{S}_{l|m|0}^{'} = \bar{A}_{l|m|0}^{'}\sin m\phi_{l|m|0}$, so that
+\begin{equation}
+\bar{A}_{l|m|0}^{'} = \sqrt{(\bar{C}_{l|m|0}^{'})^{2} + (\bar{S}_{l|m|0}^{'})^{2}},
+\end{equation}
+based on the condition that $\forall \phi \neq \phi_{l|m|0} : (\phi - \phi_{l|m|0} \rightarrow 0) \land (\bar{A}_{l|m|0}^{'} \approx \bar{C}_{l|m|0}^{'}) \land (0 < \bar{A}_{l|m|0}^{'} \ll 1)$.
+
+Here, $\mathscr{\bar{A}'}_{l|m|0} = \sum_{l=2}^{\infty}\sum_{m=-l}^{l}\bar{A}_{l|m|0}^{'}$, the normalized form of the normal-mode amplitude for Saturn. We intentionally left $\Phi{'}(t)$ at the numerator, and after the summation symbols, because this parameter is a function of $l$ and $m$, as we shall see in the next section. 
 
 \vspace{3pt}
 
@@ -968,12 +1017,12 @@ Ultimately, we can say that:
 \begin{equation}
   A_{\sigma_{0}}(r) = \pm \frac{\Psi_{m}^{'}}{\sqrt{\pi}G\sigma_{0} r_{L}} \sqrt{\frac{3|m - 1|M_{P}}{4 \pi \sigma_{0}r_{L}^{2}}} \frac{(r - r_{L})}{r_{L}}e^{-(|(r - r_{L})/r_{D}|)^{3}},
 \end{equation}
-where $\xi = \sqrt{\frac{3|m - 1|M_{P}}{4 \pi \sigma_{0}r_{L}^{2}}}\frac{(r - r_{L})}{r_{L}}$ holds the same meaning as equation (10) from \cite{Nicholson1990AnAR}. Exploring density wave signals within the context of normalized background surface density and optical depth fluctuations is essential for a comprehensive understanding of its dynamics. In this intricate analysis, it becomes imperative to articulate the amplitude of the wave in terms of its fractional form. By doing so, we delve into a nuanced examination of the intricate interplay between density variations and optical depth, unraveling deeper insights into the underlying dynamics. This approach not only enhances the precision of our observations but also paves the way for a more thorough exploration of the intricate patterns and behaviors exhibited by these density waves.
+where $\xi = \sqrt{\frac{3|m - 1|M_{P}}{4 \pi \sigma_{0}r_{L}^{2}}}\frac{(r - r_{L})}{r_{L}}$ holds the same meaning as equation (10) from \cite{Nicholson1990AnAR}. Exploring density wave signals within the context of normalized background surface density and optical depth fluctuations is essential for a comprehensive understanding of its dynamics. In this analysis, it becomes imperative to articulate the amplitude of the wave in terms of its fractional form. By doing so, we delve into an examination of the interplay between density variations and optical depth, unraveling deeper insights into the underlying dynamics. This approach not only enhances the precision of our observations but also paves the way for a more thorough exploration of the patterns and behaviors exhibited by these density waves.
 
 
 From the Python Wave-Fitting routine, the wave profile is given as a variant of equation (30):
 \begin{equation}
-    y(x) = a(\frac{x-x_{r}}{x_{f}})e^{-\frac{(|x-x_{r}|)^{3}}{(x_{d}x_{f})^{3}}}\cos\left[\phi_{0} - \frac{3\pi}{4} - \frac{{(x-x_{r})^2}}{{x_{f}^{2}}}\right]\zeta(\frac{x-x_{r}}{x_{f}}), 
+    y(x) = a(\frac{x-x_{r}}{x_{f}})e^{-\left(\frac{|x-x_{r}|}{x_{d}x_{f}}\right)^{3}}\cos\left(\phi_{0} - \frac{3\pi}{4} - \frac{{(x-x_{r})^2}}{{x_{f}^{2}}}\right)\zeta(\frac{x-x_{r}}{x_{f}}), 
 \end{equation}
 where,  $\zeta(\frac{x-x_{r}}{x_{f}})$ is similar to  $\zeta(\xi)$, but it has been customized to account for waves with differing azimuthal orders, m.            
 
@@ -989,14 +1038,14 @@ and $\mathrm{sgn}(m) \mathrm{sgn}(\frac{x-x_{r}}{x_{f}}) = \left\{ \begin{array}
 
 Let the direct amplitude of the Wave-fit routine be given as:
 \begin{equation}
-    a(x) = a(\frac{x-x_{r}}{x_{f}})e^{-\frac{(|x-x_{r}|)^{3}}{(x_{d}x_{f})^{3}}}[1 + \mathrm{sgn}(m) \mathrm{sgn}(\frac{x-x_{r}}{x_{f}})]
+    a(x) = a(\frac{x-x_{r}}{x_{f}})e^{-\left(\frac{|x-x_{r}|}{x_{d}x_{f}}\right)^{3}}[1 + \mathrm{sgn}(m) \mathrm{sgn}(\frac{x-x_{r}}{x_{f}})]
 \end{equation}
 
 The component, $\zeta(\frac{x-x_{r}}{x_{f}})$ is only relevant in the wave-fitting procedure. Since the wave signals are usually detected at particular resonance locations, for both the retrograde ($m<0$) and prograde ($m>0$) cases, this implies that $\zeta(\frac{x-x_{r}}{x_{f}}) \rightarrow 2, \forall  x \in (-\infty,+\infty)$ respectively.
 
 Hence,
 \begin{equation}
-    a(x) = 2a(\frac{x-x_{r}}{x_{f}})e^{-\frac{(|x-x_{r}|)^{3}}{(x_{d}x_{f})^{3}}}
+    a(x) = 2a(\frac{x-x_{r}}{x_{f}})e^{-\left(\frac{|x-x_{r}|}{x_{d}x_{f}}\right)^{3}}
 \end{equation}
 
 Here, we treat both non-exponential terms for equations (82) and (86) on the basis that $a(x) = A_{\sigma_{0}}(r) \rightarrow r-r_{L} = x-x_{r}$:
@@ -1008,28 +1057,29 @@ Assuming $a = a_{fit}$, the dimensionless amplitude derived from the wave-fittin
    \Psi^{'}_{m} = \ 2a_{\text{fit}} \frac{\sqrt{4\pi^{2}\sigma_{0}^{3}G^{2}r_{L}^{6}}}{\sqrt{3|m-1|M_{P} x_{f}^{2}}}
 \end{equation}
 
+
 Recall, from \cite{Marley1993PlanetaryAM}, equation (19), we provide the link between the planetary perturbation potential and that from the density wave oscillations across the ring as:
 \begin{equation}
-    \Psi^{'}_{m} = r \frac{d \bar{\Phi}{'}(t)}{dr} \pm 2m\bar{\Phi}{'}(t).
+    \Psi^{'}_{m} = r \frac{{d \Phi}{'}(t)}{dr} \pm 2m\Phi{'}(t).
 \end{equation}
 
-The given equation is a first-order linear partial differential equation. It involves a partial derivative with respect to $r$ and describes a relationship between the functional perturbation potentials, $\Phi^{'}_{m}$ and $\bar{\Phi}{'}(t)$ (for the density wave across the ring surface and the planet, respectively) and $r$. The presence of the partial derivative indicates that the equation involves more than one independent variable. Resolution of the differential equation results to the general solution, say $\bar{\Phi}{'}(t) = \Phi{'}_{lm0}$:
+The given equation is a first-order linear partial differential equation. It involves a partial derivative with respect to $r$ and describes a relationship between the functional perturbation potentials, $\Psi^{'}_{m}$ and $\Phi{'}(t)$ (for the density wave across the ring surface and the planet, respectively) and $r$. The presence of the partial derivative indicates that the equation involves more than one independent variable. Resolution of the differential equation results to the general solution, say $\Phi{'}(t) = \Phi{'}_{lm0}$:
 \begin{equation}
-   \Psi^{'}_{m} = (2m +l+1)\Phi{'}_{lm0}.
+   \Psi^{'}_{m} = (2m +l+1)\Phi{'}_{l|m|0}.
 \end{equation}
 
 This is a standard planetary model of degree $l$ and azimuthal wavenumber, $m$. $\Phi{'}_{lm0}$ is the relevant component of the planet’s gravitational potential due to that normal-mode oscillation. 
 
-For our case, we have: $\Phi{'}_{l|m|0} = \frac{\Psi^{'}_{m}}{(2|m| + l + 1)}$. Recall, equation (68): $\sum_{l=2}^{\infty}\sum_{m=-l}^{l}\bar{C}_{l|m|0}^{'} =\frac{r}{GM} \sum_{l=2}^{\infty}\sum_{m=-l}^{l}\frac{\bar{\Phi}{'}(t)}{(a_{r}^{l})(\bar{P}_{l}^{|m|}(\mu))}$. 
+For our case, we have: $\Phi{'}_{l|m|0} = \frac{\Psi^{'}_{m}}{(2|m| + l + 1)}$. Recall, equation (68): $\sum_{l=2}^{\infty}\sum_{m=-l}^{l}\bar{A}_{l|m|0}^{'} =\frac{r}{GM} \sum_{l=2}^{\infty}\sum_{m=-l}^{l}\frac{{\Phi}{'}(t)}{(a_{r}^{l})(\bar{P}_{l}^{|m|}(\mu))}$. 
 
-Let $\Phi{'}_{l|m|0} = \bar{\Phi}{'}(t)$. This is the component of the time varying gravitational potential required to estimate the normal-mode amplitudes for Saturn, considering the wave signals detected. 
+Let $\Phi{'}_{l|m|0} = \Phi{'}(t)$. This is the component of the time varying gravitational potential required to estimate the normal-mode amplitudes for Saturn, considering the wave signals detected. 
 
 The new equation (68) becomes: 
 \begin{equation}
-    \sum_{l=2}^{\infty}\sum_{m=-l}^{l}\bar{C}_{l|m|0}^{'} =\frac{r}{GM} \sum_{l=2}^{\infty}\sum_{m=-l}^{l}\frac{{\Phi}^{'}_{l|m|0}}{(a_{r}^{l})(\bar{P}_{l}^{|m|}(\mu))},
+    \sum_{l=2}^{\infty}\sum_{m=-l}^{l}\bar{A}_{l|m|0}^{'} =\frac{r}{GM} \sum_{l=2}^{\infty}\sum_{m=-l}^{l}\frac{{\Phi}^{'}_{l|m|0}}{(a_{r}^{l})(\bar{P}_{l}^{|m|}(\mu))},
 \end{equation}
 
-where $\mathscr{\bar{C}'}_{l|m|0} = \sum_{l=2}^{\infty}\sum_{m=-l}^{l}\bar{C}_{l|m|0}^{'}$, which symbolizes the estimated model for Saturn's \textbf{normal-mode amplitude}.
+where $\mathscr{\bar{A}'}_{l|m|0} = \sum_{l=2}^{\infty}\sum_{m=-l}^{l}\bar{A}_{l|m|0}^{'}$, which symbolizes the estimated model for Saturn's \textbf{normal-mode amplitude}.
 
 \paragraph{Alternative Expression for $\Psi^{'}_{m}$:}
 %From \cite{Nicholson1990AnAR}, we recall that the amplitude factor, $A_{L}$, may be calculated in terms of the perturbing satellite’s mass, $\mathcal{M}_{s}$, the orbital distance, $a_{s}$, and the background surface mass density of the ring(s), $\sigma_{0}$, as:
@@ -1064,33 +1114,46 @@ To gain a comprehensive understanding of the interplay between $m$ and $\alpha$ 
 
 %Generally, there is a trend of increase in $\Upsilon(m,\alpha) = \Upsilon(0,\alpha)$, from a region of $\Upsilon(0,\alpha) \in (0,1)$ to $\Upsilon(0,\alpha) \approx 5$, $\forall \alpha \in [0.5,0.9]$. As the values of $m$ increase for each given value of $\alpha$, each curve achieves a certain peak value in $\Upsilon(m,\alpha)$. For increasing $m$ values that are extremely large, each curve experiences a sharp descent; this sharp descent simply plateaus out for extremely large values of $m$. A direct similar effect on $\Phi_{m}^{'}$ simply holds for all values of $m$ and $\alpha$, and this might suggest that the gravitational potential for such values are negligible for extremely large $m$.
 
+Considering figure 12, we can clearly determine the behaviour of the Laplace coefficients as the value of $m$ increases. With respect to the aforesaid coefficients and the variants in the scatter plot, the trend shows that,
+\begin{equation}
+    b_{1/2}^{m}(\alpha) \rightarrow \frac{2\alpha^{|m|}}{\sqrt{|m|\pi(1 - \alpha^{2})}}, \forall \alpha \in [0,1) \land m \rightarrow \infty,
+\end{equation}
+which is a clear case of an exponential decay that could be modeled as $\frac{e^{(|m|\log\alpha)}}{\sqrt{|m|}}$, $\forall |m| \rightarrow \infty$ \cite{tremaine2023dynamics}.
+
+From figure 13, the limiting case simply shows that for values of $m$ that are fixed and nonzero, 
+\begin{equation}
+b_{1/2}^{m}(\alpha) \rightarrow \frac{2}{\pi}\left( - \gamma^{*} - \log\left[\frac{1}{2}|m(1-\alpha)|\right] + \mathcal{O}\left(|m(1-\alpha)|^{2}\log|m(1-\alpha)|\right) \right), \quad \forall \alpha \rightarrow 1,
+\end{equation}
+which shows a clear case of divergence for the Laplace coefficients and its variants, as given on page 245 by \cite{tremaine2023dynamics}. Numerically, the $\gamma^{*}$ is equivalent to $0.577216...$, which is the Euler's constant.
+
 In general, there is an observed trend of initial sudden increase in $\Upsilon(m,\alpha)$, for each given $\alpha$ and corresponding $m$ values, specifically from $\Upsilon(0,\alpha)$. This increase is noticeable within the first few range of $m$ values, for each value of $\alpha$. When the values of $m$ increase continuously beyond those few values, for a given $\alpha$, each corresponding curve reaches a distinct peak in $\Upsilon(m,\alpha)$. As $m$ values increase significantly, each curve undergoes a rapid descent, and this descent stabilizes into a plateau for extremely large $m$ values. A similar effect is observed directly on $\Psi_{m}^{'}$ across all values of $m$ and $\alpha$. This observation suggests that the gravitational potential for these values becomes negligible as $m$ becomes extremely large.
 
 \begin{figure}
     \centering
-    \includegraphics[width=1\linewidth]{all_plots_versus_m_laplacecoefficients.png}
+    \includegraphics[width=1\linewidth]{laplace_plot_A.png}
     \caption{A numerical plot showing trends for Laplace Coefficient versus $m$, for varying values of $\alpha$.}
     \label{fig:enter-label}
 \end{figure}
+
 
 The trend of behavior of the function $\Upsilon(m,\alpha)$ versus given $\alpha$ values, for varying $m$ values, is characterized by a gradual increase from $\alpha =0.5$, where the values of $\Upsilon(m,\alpha)$  grow as $\alpha$ increases in the interval \([0.5, 1)\). However, a notable shift occurs as the function approaches \(\alpha=1\), signaling the presence of a vertical asymptote around that region. At this point, the function does not simply continue to increase; rather, it starts to increase towards infinity. Mathematically, this behavior is expressed through limits: $\lim_{{\alpha \to 1}} \Upsilon(m,\alpha) = \infty$, and this implies that the function would exhibit a steep upward slope as $\alpha$ approaches 1, without actually crossing the vertical line $\alpha=1$. The unbounded growth of the function near $\alpha=1$ suggests that the function values become arbitrarily large as $\alpha$ gets arbitrarily close to 1, highlighting a characteristic behavior often observed in functions with vertical asymptotes, particularly in cases where the denominator approaches zero as $\alpha$ approaches the location of the asymptote. 
 
 \begin{figure}
     \centering
-    \includegraphics[width=1\linewidth]{laplace_coefficients_for_different_mvalues.png}
+    \includegraphics[width=1\linewidth]{laplace_plot_B.png}
     \caption{A numerical plot showing trends for Laplace Coefficient versus $\alpha$, for varying values of $m$.}
     \label{fig:enter-label}
 \end{figure}
 
+%.................................%.....................................%......................................
 
 \subsubsection{Sample Wave-fitting Routine and Parameters}
 
-In regard to the wave-fitting routine, we recall our model below:
+In regard to the wave-fitting routine, we recall our model for the wave-fitting routine, 
 \begin{equation}
-    y(x) = a\left(\frac{x-x_{r}}{x_{f}}\right)e^{-\frac{(|x-x_{r}|)^{3}}{(x_{d}x_{f})^{3}}}\cos\left[\phi_{0} - \frac{3\pi}{4} - \frac{{(x-x_{r})^2}}{{x_{f}^{2}}}\right]\zeta\left(\frac{x-x_{r}}{x_{f}}\right).
+    y(x) = a(\frac{x-x_{r}}{x_{f}})e^{-\left(\frac{|x-x_{r}|}{x_{d}x_{f}}\right)^{3}}\cos\left(\phi_{0} - \frac{3\pi}{4} - \frac{{(x-x_{r})^2}}{{x_{f}^{2}}}\right)\zeta(\frac{x-x_{r}}{x_{f}}), 
 \end{equation}
-
-When implemented, the aforesaid operation simply produces $a$, $x_{d}$, $\phi_{0}$, $x_{r}$ and $x_{f}$ as the wave-fit parameters.
+which when implemented, the aforesaid operation simply produces $a$, $x_{d}$, $\phi_{0}$, $x_{r}$ and $x_{f}$ as the wave-fit parameters.
 
 \vspace{3pt}
 
@@ -1164,45 +1227,33 @@ In the process of conducting wave-fitting procedures for background optical dept
 
 Since each density wave profile comprises a series of occultations, there is a requirement for a precise yet efficient method to quantify uncertainties or variations in the (independent) parameters resulting from the wave-fitting routine for each wave signal. Therefore, there is a necessity for bootstrap resampling.
 
-Bootstrap resampling is a powerful statistical technique that involves drawing multiple samples with replacement from the observed data to simulate a distribution of parameter values or estimate the uncertainty or variability in a parameter without relying on assumptions about the underlying population distribution\cite{Chernick2007BootstrapMA}\cite{davison_hinkley_1997}. By repetitively resampling the data, we can generate a range of potential parameter sets, allowing us to assess the robustness and reliability of the fitted wave profiles. That way we tend to capture the inherent variability in the data and provide a more comprehensive understanding of the uncertainties associated with the density wave parameters\cite{Efron1994AnIT}\cite{article}. This method is particularly useful for error analysis in measurements. The following steps outline the process along with relevant equations:
+Bootstrap resampling is a powerful statistical technique that involves drawing multiple samples, in this case without replacement, from the observed data to simulate a distribution of parameter values or estimate the uncertainty or variability in a parameter without relying on assumptions about the underlying population distribution\cite{Chernick2007BootstrapMA,davison_hinkley_1997}. By repetitively resampling the data, we can generate a range of potential parameter sets, allowing us to assess the robustness and reliability of the fitted wave profiles. That way we tend to capture the inherent variability in the data and provide a more comprehensive understanding of the uncertainties associated with the density wave parameters\cite{Efron1994AnIT,article}. This method is particularly useful for error analysis in measurements. The following steps outline the process along with relevant equations.
 
 \paragraph{Generate Resampled Datasets:}
-Let $\mathbf{X} = \{x_1, x_2, \ldots, x_n\}$ represent the original dataset with $n$ measurements of a parameter (e.g., density). To perform bootstrap resampling, generate a large number of resampled datasets, denoted as $\mathbf{X}^{*}_1, \mathbf{X}^{*}_2, \ldots, \mathbf{X}^{*}_B$, each with the same size as the original dataset ($n$). Resampling is done by randomly sampling, with replacement, from the original dataset\cite{Chernick2007BootstrapMA}\cite{davison_hinkley_1997}\cite{Efron1994AnIT}\cite{article}:
+Let $\mathbf{X} = \{x_1, x_2, \ldots, x_n\}$ represent the original occultation dataset, from which we can derive measurements of particular wave-fit parameters (for example, the amplitude of a particular wave signal). To perform bootstrap resampling, we generate a class of consistent number of resampled datasets by excluding a portion of the profiles in a given order, denoted as $\mathbf{X}^{*}_B$, and subsequently replacing the previous portion of profiles with a differently ordered set\cite{Chernick2007BootstrapMA,davison_hinkley_1997,Efron1994AnIT,article}. To complete the process, we can set the number of occultation profiles required for the bootstrap procedure as,
 \begin{equation}
-\mathbf{X}^{*}_b = \{x^{*}_{b1}, x^{*}_{b2}, \ldots, x^{*}_{bn}\}, \quad b = 1, 2, \ldots, B
+    \mathcal{X}_{b}= \mathbf{X}-\mathbf{X}^{*}_B.
 \end{equation}
 
 \paragraph{Compute the Parameter of Interest:}
-For each resampled dataset $\mathbf{X}^{*}_b$, where $b = 1, 2, \ldots, B$, calculate the parameter of interest, denoted as $\theta$. For example, if the interest is in the mean, the parameter estimate for the $b$th resampled dataset, denoted as $\theta^{*}_{b}$, is calculated as\cite{Chernick2007BootstrapMA}\cite{davison_hinkley_1997}\cite{Efron1994AnIT}\cite{article}:
+For each resampled dataset $\mathcal{X}_{b}$, we calculate the parameter of interest, denoted as $\theta$. For example, if the interest is in the mean, the parameter estimate for the $b$th resampled dataset, denoted as $\theta^{*}_{b}$, is calculated as\cite{Chernick2007BootstrapMA,davison_hinkley_1997,Efron1994AnIT,article}:
 \begin{equation}
-\theta^{*}_{b} = g(\mathbf{X}^{*}_b),
+\theta^{*}_{b} = g(\mathcal{X}_{b}),
 \end{equation}
 where $g(.)$ represents the function or statistic used to calculate the parameter estimate.
 \paragraph{Calculate Variability:}
-After obtaining the parameter estimates $\theta^{*}_{1}, \theta^{*}_{2}, \ldots, \theta^{*}_{B}$ for all resampled datasets, analyze the distribution of these estimates to determine variability. Calculate the mean estimate ($\bar{\theta}^{*}$) and standard deviation estimate ($s^{*}$) as follows\cite{Chernick2007BootstrapMA}\cite{Efron1994AnIT}:
+After obtaining the parameter estimates $\theta^{*}_{b}$ for all resampled datasets, we analyze the distribution of these estimates to determine variability. Calculate the mean estimate ($\bar{\theta}^{*}$) and standard deviation estimate ($s^{*}$) as follows\cite{Chernick2007BootstrapMA,davison_hinkley_1997,Efron1994AnIT}:
 \begin{equation}
-\bar{\theta}^{*} = \frac{1}{B}\sum_{b=1}^{B}\theta^{*}_{b},
+\bar{\theta}^{*} = \frac{1}{N_{b}}\sum_{b=1}^{N_{b}}\theta^{*}_{b},
 \end{equation}
 
 \begin{equation}
-s^{*} = \sqrt{\frac{1}{B-1}\sum_{b=1}^{B}(\theta^{*}_{b} - \bar{\theta}^{*})^2}
+s^{*} = \sqrt{\frac{1}{N_{b}-1}\sum_{b=1}^{N_{b}}(\theta^{*}_{b} - \bar{\theta}^{*})^2}
 \end{equation}
 
-We can compute the standard error ($SE$) using the given expression\cite{Chernick2007BootstrapMA}\cite{davison_hinkley_1997}\cite{Efron1994AnIT}:
+For our case, we can assume the estimate of the Standard Error ($SE$) to be equivalent to the aforesaid standard deviation estimate ($s^{*}$) for the sample dataset in the previous step, and apply the aforesaid results to our work. Note that in the provided equation, we are calculating the sample standard deviation estimate ($s^{*}$), which typically involves using the divisor $N_{b}-1$ instead of $N_{b}$ when calculating the variance to account for the fact that we are working with a sample or portion of the dataset rather than the entire population of the dataset.
 
-\begin{equation}
-SE = \frac{s^{*}}{\sqrt{B}},
-\end{equation}
-and apply the aforesaid operations to our work.
-
-%\begin{equation}
-%\text{Confidence interval} = \left[\bar{\theta}^{*} - z \cdot SE, \bar{\theta}^{*} + z \cdot SE\right]
-%\end{equation}
-
-%where $z$ 
-
-\paragraph{Interpret the Results:}
-Based on the distribution of the parameter estimates, express the uncertainty in the measurement. Report the mean value and provide a confidence interval, which gives a range within which the true parameter value is likely to fall. Bootstrap resampling allows for estimating the sampling variability of a parameter without assuming a specific distribution, providing a robust method for error analysis in measurements. In essence, bootstrap resampling serves as a powerful tool for refining our analyses and ensuring that the derived parameters are not overly sensitive to specific data points, contributing to a more robust and reliable characterization of density wave profiles.
+Based on the distribution of the parameter estimates, we can express the uncertainty in the measurement. Bootstrap resampling allows for estimating the sampling variability of a parameter without assuming a specific distribution, providing a robust method for error analysis in measurements. In essence, bootstrap resampling serves as a powerful tool for refining our analyses and ensuring that the derived parameters are not overly sensitive to specific data points, contributing to a more robust and reliable characterization of density wave profiles.
 
 %......................................................................................
 \subsubsection{Error Analysis for Dependent Parameters: Method of Propagation}
@@ -1212,7 +1263,7 @@ In scientific and engineering applications, it is common to encounter functions 
 
 %When variables are uncorrelated, the error propagation formula simplifies, making the computation more straightforward. We explore this special case, providing a simplified expression that is often used in practice.
 
-Deriving the error propagation formula from Taylor's theorem for a general case with \( n \) variables \( x_1, x_2, \ldots, x_n \) and a function \( w = f(x_1, x_2, \ldots, x_n) \), Taylor's theorem for a multivariable function is given by\cite{taylor2022introduction}\cite{LUO201723}:
+Deriving the error propagation formula from Taylor's theorem for a general case with \( n \) variables \( x_1, x_2, \ldots, x_n \) and a function \( w = f(x_1, x_2, \ldots, x_n) \), Taylor's theorem for a multivariable function is given by\cite{taylor2022introduction,LUO201723}:
 \begin{equation}
 f(x_1 + \Delta x_1, x_2 + \Delta x_2, \ldots, x_n + \Delta x_n) \approx f(x_1, x_2, \ldots, x_n) + \sum_{i=1}^{n} \frac{\partial f}{\partial x_i} \Delta x_i
 \end{equation}
@@ -1244,7 +1295,7 @@ Now, we can rewrite the expression:
 \langle (\Delta w)^2 \rangle \approx \sum_{i=1}^{n} \langle \left(\frac{\partial w}{\partial x_i}\right)^2 \rangle \langle (\Delta x_i)^2 \rangle + 2 \sum_{i=1}^{n} \sum_{j=i+1}^{n} \langle \frac{\partial w}{\partial x_i} \frac{\partial w}{\partial x_j} \rangle \text{Cov}(x_i, x_j)
 \end{equation}
 
-Finally, dividing both sides by \(w^2\) and taking the square root, we get the error propagation formula with correlation for \( n \) variables\cite{articleb}\cite{taylor2022introduction}\cite{weisstein2000error}\cite{LUO201723}:
+Finally, dividing both sides by \(w^2\) and taking the square root, we get the error propagation formula with correlation for \( n \) variables\cite{articleb,taylor2022introduction,weisstein2000error,LUO201723}:
 \begin{equation}
 \frac{\sigma_w}{w} \approx \sqrt{\sum_{i=1}^{n} \left(\frac{\partial w}{\partial x_i}\right)^2 \left(\frac{\sigma_{x_i}}{x_i}\right)^2 + 2 \sum_{i=1}^{n} \sum_{j=i+1}^{n} \frac{\partial w}{\partial x_i} \frac{\partial w}{\partial x_j} \frac{\text{Cov}(x_i, x_j)}{x_i x_j}}
 \end{equation}
@@ -1255,7 +1306,7 @@ This formula accounts for both the individual uncertainties in each variable (\(
 \frac{\sigma_w}{w} \approx \sqrt{\sum_{i=1}^{n} \left(\frac{\partial w}{\partial x_i}\right)^2 \left(\frac{\sigma_{x_i}}{x_i}\right)^2}
 \end{equation}
 
-Examining the spread of errors through differential calculus proves effective for models defined by smooth and differentiable relationships. This method offers valuable insights into error propagation and uncertainty, particularly in compact theoretical models. It establishes a conceptual framework for understanding how variability moves through complex systems of equations\cite{articleb}. However, limitations exist. The approach assumes differentiability, making it unsuitable for models with discontinuities, step functions, or conditional logic. Additionally, it is inherently local, disregarding higher-order terms and lacking information on outliers\cite{articleb}. Variance-based error analysis assumes a symmetric distribution, limiting its applicability to skewed distributions like the log-normal distribution\cite{MCKAY199944}. Despite these drawbacks, the differential analysis remains a valuable guide for comprehending uncertainty propagation in predictive models\cite{articleb}\cite{taylor2022introduction}\cite{LUO201723}.
+Examining the spread of errors through differential calculus proves effective for models defined by smooth and differentiable relationships. This method offers valuable insights into error propagation and uncertainty, particularly in compact theoretical models. It establishes a conceptual framework for understanding how variability moves through complex systems of equations\cite{articleb}. However, limitations exist. The approach assumes differentiability, making it unsuitable for models with discontinuities, step functions, or conditional logic. Additionally, it is inherently local, disregarding higher-order terms and lacking information on outliers\cite{articleb}. Variance-based error analysis assumes a symmetric distribution, limiting its applicability to skewed distributions like the log-normal distribution\cite{MCKAY199944}. Despite these drawbacks, the differential analysis remains a valuable guide for comprehending uncertainty propagation in predictive models\cite{articleb,taylor2022introduction,LUO201723}.
 %......................................................................................
 
 \subsubsection{Discussions on Model Parameters For the Wave-Fit Procedures:}
@@ -1290,7 +1341,7 @@ In this section, we feature the predicted gravitational potential estimate resul
 \subsubsection{Satellite Waves: Predicted Estimates for Gravitational Potential}
 Starting with the satellite wave, we present the given table containing predicted values for the respective gravitational potentials, using the normalized torque expression for equation (61) from \cite{Hedman_2022}:
 \begin{equation}
-    \Psi_{m}^{'} = \sqrt{\frac{3|m - 1|n_{L}^{2}}{m\pi^{2}} \left|\frac{\mathcal{T}}{\sigma_{0}}\right|},
+    \Psi_{m,p}^{'} = \sqrt{\frac{3|m - 1|n_{L}^{2}}{m\pi^{2}} \left|\frac{\mathcal{T}}{\sigma_{0}}\right|},
 \end{equation}
 where $n_{L}^{2} = \frac{G M_{P}}{r_{L}^{3}}$.
 
@@ -1300,7 +1351,7 @@ where $n_{L}^{2} = \frac{G M_{P}}{r_{L}^{3}}$.
 \rotatebox{0}{
 \begin{tabular}{|c|c|c|c|c|}
 \hline
-Resonance Name & $m$ & $r_{L}$ (Km) & $\mathcal{T}/\sigma_{0}$ (Km$^{4}$s$^{-2}$) & $\Psi_{m}^{'} (m^{2}s^{-2})$ \\
+Resonance Name & $m$ & $r_{L}$ (Km) & $\mathcal{T}/\sigma_{0}$ (Km$^{4}$s$^{-2}$) & $\Psi_{m,p}^{'} (m^{2}s^{-2})$ \\
 \hline
 Mimas 4:1 & 2 & 74890.067 & -8.987453e-08 & 0.035125 \\
 Pan 2:1 & 2 & 85105.021 & -2.971890e-09 & 0.005273 \\
@@ -1327,32 +1378,28 @@ Analysis of such waves reveals key characteristics and resonance patterns. It id
 
 \begin{table}
 \centering
+\vspace{-1.5cm}
 \rotatebox{90}{
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
 \hline
-\stackon[0pt]{\textbf{Name}}{\stackon[3pt]{\textbf{Resonance}}{}} & \stackon[0pt]{\textbf{(Km)}\stackon[3pt]{\textbf{Range}}{\textbf{Radial}}} & \textbf{$m$} & \stackon[0pt]{\textbf{(Km)}\stackon[3pt]{\textbf{Location}}{\textbf{Resonance}}} & \stackon[0pt]{\textbf{($^{o}$/day)}\stackon[3pt]{\textbf{Speed}}{\textbf{Pattern}}} & \textbf{$a_{fit}$ (Units)} & \textbf{$x_{d}$ (Units)} & \textbf{$\phi_{0}$ (rad)} & \textbf{$x_{r}$ (Km)} & \textbf{$x_{f}$ (Km)} \\
+\stackon[0pt]{\textbf{Name}}{\stackon[3pt]{\textbf{Resonance}}{}} & \stackon[0pt]{\stackon[3pt]{\textbf{Range (Km)}}{\textbf{Radial}}} & \stackon[0pt]{\stackon[3pt]{\textbf{Location (Km)}}{\textbf{Resonance}}} & \textbf{$m$} & \stackon[0pt]{\stackon[3pt]{\textbf{Speed ($^{o}$/day)}}{\textbf{Pattern}}} & \textbf{$a_{fit}$ (Units)} & \textbf{$x_{d}$ (Units)} & \textbf{$\phi_{0}$ (rad)} & \textbf{$x_{r}$ (Km)} & \textbf{$x_{f}$ (Km)} \\
 \hline
-Mimas 4:1 & 74880 - 74895 & 2 & 74890.07 & 762.988 & $0.2229 \pm 0.0407$ & $2.7986 \pm 0.1062$ & $-4.1870 \pm 0.9080$ & $2.6125 \pm 0.6756$ & $1.5657 \pm 0.1732$ \\
-\hline
-Pan 2:1 & 85090 - 85130 & 2 & 85105.02 & 626.032 & $0.0139 \pm 0.0027$ & $4.5691 \pm 0.7583$ & $-6.2832 \pm 1.1633$ & $1.1439 \pm 0.3908$ & $2.6895 \pm 0.1644$ \\
-\hline
-Atlas 2:1 & 87640 - 87650 & 2 & 87645.68 & 598.312 & $0.1707 \pm 0.0282$ & $2.2338 \pm 0.1125$ & $-0.8399 \pm 0.2801$ & $0.3770 \pm 0.1735$ & $1.0418 \pm 0.0405$ \\
-\hline
-Prometheus 4:2 & 88420 - 88440 & 3 & 88434.12 & 782.128 & $0.0067 \pm 0.0006$ & $5.8369 \pm 0.3091$ & $0.2629 \pm 0.4976$ & $0.4764 \pm 0.3487$ & $1.6954 \pm 0.0611$ \\
-\hline
-Mimas 6:2 & 89870 - 89890 & 3 & 89884.00 & 762.977 & $0.0128 \pm 0.0017$ & $4.8527 \pm 0.2474$ & $-1.7461 \pm 0.7624$ & $1.2660 \pm 0.2117$ & $1.6616 \pm 0.0113$ \\
-\hline
-Pandora 4:2 & 89887 - 89897 & 3 & 89893.68 & 762.852 & $0.0074 \pm 0.0031$ & $6.9140 \pm 0.7697$ & $-3.2364 \pm 0.4213$ & $0.2341 \pm 0.2050$ & $1.8745 \pm 0.0683$ \\
+Mimas 4:1 & 74880.00 - 74895.00 & 74890.07 & 2 & 762.988 & 0.2229 $\pm$ 0.0305 & 2.7986 $\pm$ 0.0723 & -4.1869 $\pm$ 0.8471 & 2.6125 $\pm$ 1.0523 & 1.5657 $\pm$ 0.2979 \\
+Pan 2:1 & 85090.00 - 85130.00 & 85105.02 & 2 & 626.032 & 0.0139 $\pm$ 0.0013 & 4.5691 $\pm$ 0.1661 & -6.2832 $\pm$ 2.7684e-12 & 1.1439 $\pm$ 0.0288 & 2.6895 $\pm$ 0.0088 \\
+Atlas 2:1 & 87640.00 - 87650.00 & 87645.68 & 2 & 598.312 & 0.1684 $\pm$ 0.0200 & 2.2372 $\pm$ 0.0908 &   -0.8166 $\pm$ 0.1451 & 0.3621 $\pm$ 0.0346 & 1.0447 $\pm$ 0.0149 \\
+Prometheus 4:2 & 88420.00 - 88440.00 & 88434.12 & 3 & 782.128 & 0.0067 $\pm$ 0.0003 & 5.8369 $\pm$ 0.0941 & 0.2629 $\pm$ 0.1654 & 0.4764 $\pm$ 0.0652 & 1.6954 $\pm$ 0.0068 \\
+Mimas 6:2 & 89870.00 - 89890.00 & 89884.00 & 3 & 762.977 & 0.0128 $\pm$ 0.0013 & 4.8527 $\pm$ 0.2113 &    -1.7461 $\pm$ 0.8968 & 1.2660 $\pm$ 0.4235 & 1.6616 $\pm$ 0.0572 \\
+Pandora 4:2 & 89887.00 - 89897.00 & 89893.68 & 3 & 762.852 & 0.0074 $\pm$ 0.0003 & 6.9140 $\pm$ 0.0368 &   -3.2364 $\pm$ 0.0662 & 0.2341 $\pm$ 0.0271 & 1.8745 $\pm$ 0.0025 \\
 \hline
 \end{tabular}
+\vspace{-1.0cm}
 }
 \caption{Data for wave-fitting parameters for spiral density waves excited by Saturn's Satellite resonances.}
 \end{table}
 
-
 %................................................................
 
-\subsubsection{Model Computations for Surface Mass Density and Mass Extinction Coefficients: Satellite Resonances}
+\subsubsection{Model Computations for Ring Properties using Satellite Resonances}
 
 The mass extinction coefficient ($\kappa$) plays a crucial role in understanding the properties and composition of Saturn's rings. It relates the average optical depth ($\tau_{av}$), which measures how much light the ring system blocks, to the surface mass density ($\sigma_{0}$), which indicates the amount of mass per unit area within the ring. It simply tells us how efficiently the ring particles block light based on their mass. The mass extinction coefficient is significant, since it reveals ring particle properties such as the following below:
 
@@ -1383,25 +1430,37 @@ This resonance occurs between Saturn's moon Mimas and its C-ring. $\tau_{av}$ is
 This resonance involves Saturn's moon Pandora and its C-ring. $\tau_{av}$ is 0.361360, indicating the highest opacity among the listed resonances. $\sigma_{0}$ is $1.460548 g/cm^{2}$, suggesting a higher mass density. $\kappa$ is 0.247414 $cm^{2}/g$, indicating a moderate light-blocking efficiency per unit mass. Finally, the Pandora 4:2 resonance presents the highest $\kappa$ value alongside a moderate $\sigma_{0}$. This suggests a relatively dense particle population with high light absorption or scattering efficiency, during such resonance phenomenon.
 %.......................................................................................
 
+
+
 \begin{table}
 \centering
-\rotatebox{0}{
+\rotatebox{90}{
 %\begin{tabular}{lllll}
 \begin{tabular}{|c|c|c|c|c|c|c|c|}
 \hline
-\stackon[0pt]{Name}{\stackon[0pt]{Resonance}}& \stackon[0pt]{(Km)}{\stackon[0pt]{Range}{Radial}} &  $m$ & \stackon[0pt]{(Km)}{\stackon[0pt]{Location}{Resonance}} & $\tau_{av}$ & $\sigma_{0} (g/cm^{2})$ & $\kappa = \frac{\tau_{av}}{\sigma_{0}} (cm^{2}/g)$ \\
+
+\stackon[0pt]{\textbf{Name}}{\stackon[3pt]{\textbf{Resonance}}{}} & \stackon[0pt]{\stackon[3pt]{\textbf{Range (Km)}}{\textbf{Radial}}} & \stackon[0pt]{\stackon[3pt]{\textbf{Location (Km)}}{\textbf{Resonance}}} & \textbf{$m$} & $\tau_{av}$ & $\sigma_{0} (g/cm^{2})$ & $\kappa = \frac{\tau_{av}}{\sigma_{0}} (cm^{2}/g)$  & $\nu (cm^{2}/s)$ \\
 \hline
-Mimas 4:1 & 74880 - 74895 & 2 & 74890.07 & 0.034336 & 1.057663 $\pm$ 0.233949 & 0.032464 $\pm$ 0.007181 \\
-Pan 2:1 & 85090 - 85130 & 2 & 85105.02 & 0.082371 & 1.871221 $\pm$ 0.228758 &  0.044020 $\pm$ 0.005381 \\
-Atlas 2:1 & 87640 - 87650 & 2 & 87645.68 & 0.061705 & 0.249596 $\pm$ 0.019406 &  0.247220 $\pm$ 0.019221 \\
-Prometheus 4:2 & 88420 - 88440 & 3 & 88434.12 & 0.241621 & 1.275612 $\pm$ 0.091986 & 0.189415 $\pm$ 0.013659 \\
-Mimas 6:2 & 89870 - 89890 & 3 & 89884.00 & 0.340543 & 1.148003 $\pm$ 0.015584 &  0.296640 $\pm$ 0.004027 \\
-Pandora 4:2 & 89887 - 89897 & 3 & 89893.68 & 0.361360 & 1.460548 $\pm$ 0.106368 & 0.247414 $\pm$ 0.018018 \\
+
+Mimas 4:1 & 74880.00 - 74895.00 & 74890.07 & 2 & 0.034336 & 1.057663 $\pm$ 0.402423 & 0.032464 $\pm$ 0.012352 & 9.483924 $\pm$ 5.462388 \\
+Pan 2:1 & 85090.00 - 85130.00 & 85105.02 & 2 & 0.082371 & 1.871221 $\pm$ 0.012231 & 0.044020 $\pm$ 0.000288 & 8.041822 $\pm$ 0.880359 \\
+Atlas 2:1 & 87640.00 - 87650.00 & 87645.68 & 2 & 0.061705 & 0.250998 $\pm$ 0.007156 & 0.245840 $\pm$ 0.007009 & 3.732417 $\pm$ 0.481570 \\
+Prometheus 4:2 & 88420.00 - 88440.00 & 88434.12 & 3 & 0.241621 & 1.275612 $\pm$ 0.010282 & 0.189415 $\pm$ 0.001527 & 1.768575 $\pm$ 0.088186 \\
+Mimas 6:2 & 89870.00 - 89890.00 & 89884.00 & 3 & 0.340543 & 1.148003 $\pm$ 0.079018 & 0.29664 $\pm$ 0.020418 & 2.781585 $\pm$ 0.463107 \\
+Pandora 4:2 & 89887.00 - 89897.00 & 89893.68 & 3 & 0.361360 & 1.460548 $\pm$ 0.003932 & 0.247414 $\pm$ 0.000666 & 1.380620 $\pm$ 0.022726 \\
+
 \hline
 \end{tabular}
 }
-\caption{Data for Average Optical Depth ($\tau_{av}$), Surface Mass Density ($\sigma_{0}$) and Mass extinction coefficient ($\kappa$) estimates from theoretical model for spiral density waves excited by Saturn's Satellite resonances.}
+\caption{Data for Average Optical Depth ($\tau_{av}$), Surface Mass Density ($\sigma_{0}$), Mass extinction coefficient ($\kappa$) and Viscosity($\nu$) estimates from theoretical model for spiral density waves excited by Saturn's Satellite resonances.}
 \end{table}
+
+
+
+%.......................................................................................................
+%.......................................................................................................
+%.......................................................................................................
+
 
 %.......................................................................................
 
@@ -1433,52 +1492,27 @@ Pandora 4:2 & 89887 - 89897 & 3 & 89893.68 & 762.852 & ["gamCru291i","RCas243i",
 
 %.....................................................................................
 
-
-\subsubsection{Model Computations for Damping Parameter and Viscosity: Satellite Resonances}
-
-\begin{table}
-\centering
-\rotatebox{0}{
-%\begin{tabular}{lllll}
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
-\hline
-\stackon[0pt]{Name}{\stackon[0pt]{Resonance}}& \stackon[0pt]{(Km)}{\stackon[0pt]{Range}{Radial}} &  m & \stackon[0pt]{(Km)}{\stackon[0pt]{Location}{Resonance}} & $x_{d}$ (Km) & $\nu (cm^{2}/s)$ \\
-\hline
-Mimas 4:1 & 74880 - 74895 & 2 & 74890.07 & 2.7986 $\pm$ 0.1062 & 9.483924 $\pm$ 3.326769 \\
-Pan 2:1 & 85090 - 85130 & 2 & 85105.02 & 4.5691 $\pm$ 0.7583 & 8.041822 $\pm$ 4.267033 \\
-Atlas 2:1 & 87640 - 87650 & 2 & 87645.68 & 2.2338 $\pm$ 0.1125 &  3.717680 $\pm$ 0.709654 \\
-Prometheus 4:2 & 88420 - 88440 & 3 & 88434.12 & 5.8369 $\pm$ 0.3091 & 1.768575 $\pm$ 0.339908 \\
-Mimas 6:2 & 89870 - 89890 & 3 & 89884.00 & 4.8527 $\pm$ 0.2474 & 2.781585 $\pm$ 0.429199 \\
-Pandora 4:2 & 89887 - 89897 & 3 & 89893.68 & 6.9140 $\pm$ 0.7697 &  1.380620 $\pm$ 0.485124 \\
-\hline
-\end{tabular}
-}
-\caption{Damping parameter and Viscosity estimates from theoretical model for spiral density waves excited by Saturn's Satellite resonances.}
-\end{table}
-
-The table presents the dataset on damping parameters and viscosity ($\nu$) estimates derived from our theoretical model for spiral density waves excited by Saturn's satellite resonances. Analysis in this regard are as follows.
-
-Here, $\nu (cm^{2}/s)$ represents the viscosity, which indicates the resistance within Saturn's C-ring, offered to the flow or propagation of density waves by the particles making up the resonance location of the specific wave. Higher viscosity implies higher resistance to propagation of the aforesaid density waves.
+The table also presents the dataset on satellite resonance viscosity ($\nu$) estimates derived from our theoretical model. Here, $\nu (cm^{2}/s)$ represents the viscosity, which indicates the resistance within Saturn's C-ring, offered to the flow or propagation of density waves by the particles making up the resonance location of the specific wave. Higher viscosity implies higher resistance to propagation of the aforesaid density waves.
 
 \textbf{Mimas 4:1:}
-This resonance is associated with Mimas, one of Saturn's moons. The damping parameter ($x_d$) suggests a moderate rate of amplitude decay, while the viscosity ($\nu$) indicates relatively high resistance within Saturn's C-ring. This resonance likely generates two spiral arms with a moderate damping effect.
+This resonance is associated with Mimas, one of Saturn's moons. The damping parameter ($x_d$) suggests a moderate rate of amplitude decay, while the viscosity ($\nu$) indicates relatively high resistance within Saturn's C-ring.
 
 \textbf{Pan 2:1:}
 Pan's 2:1 resonance indicates a wider radial range compared to Mimas 4:1. The damping parameter is higher, suggesting a faster decay of density waves. However, the viscosity remains moderately high, indicating significant resistance to flow within the affected region.
 
 \textbf{Atlas 2:1:}
-This resonance associated with Atlas exhibits a narrower radial range and a relatively lower damping parameter compared to Pan 2:1. The viscosity is moderate, indicating a moderate resistance to flow within the affected region.
+This resonance associated with Atlas exhibits a narrower radial range and a relatively lower damping parameter compared to Pan 2:1. The viscosity is moderate, indicating a moderate resistance to ring particle interactions within the affected region.
 
 \textbf{Prometheus 4:2:}
-This resonance, associated with Prometheus, features a wider radial range and a higher number of spiral arms (3). The damping parameter is relatively high, indicating a fast decay of density waves, while the viscosity is lower compared to others, suggesting less resistance to flow within the affected region.
+This resonance, associated with Prometheus, features a wider radial range and a higher number of spiral arms (3). The damping parameter is relatively high, indicating a fast decay of density waves, while the viscosity is lower compared to others, suggesting less resistance to the flow of particle interactions within the affected region.
 
 \textbf{Mimas 6:2:}
 This resonance associated with Mimas shows a moderate damping parameter and viscosity. The radial range and the number of spiral arms are similar to Prometheus 4:2, but both damping and viscosity values are slightly lower.
 
 \textbf{Pandora 4:2:}
-The resonance associated with Pandora exhibits a wider radial range and a higher damping parameter, indicating a slower decay of density waves compared to other resonances. The viscosity is the lowest among all resonances, suggesting relatively less resistance to flow within the affected region.
+The resonance associated with Pandora exhibits a wider radial range and a higher damping parameter, indicating a slower decay of density waves compared to other resonances. The viscosity is the lowest among all resonances, suggesting relatively less resistance to the flow of particle interactions within the affected region.
 
-The damping parameters vary across the different resonances, indicating varying rates of decay in the amplitude of the density waves. For instance, Prometheus 4:2 has a relatively high damping parameter (5.8369 Km), suggesting a slower decay compared to others like Mimas 4:1 (2.7986 Km). The viscosity also varies, implying differences in the resistance within Saturn's C-ring at different locations affected by the resonances. For example, Pandora 4:2 shows a lower viscosity (1.38062 $cm^{2}/s$) compared to Atlas 2:1 (3.71768 $cm^{2}/s$), indicating potentially different physical properties or conditions in these regions.
+The damping parameters vary across the different resonances, indicating varying rates of decay in the amplitude of the density waves. For instance, Prometheus 4:2 has a relatively high damping parameter (5.8369), suggesting a faster decay compared to others like Mimas 4:1 (2.7986). The viscosity also varies, implying differences in the resistance within Saturn's C-ring at different locations affected by the resonances. For example, Pandora 4:2 shows a lower viscosity (1.38062 $cm^{2}/s$) compared to Atlas 2:1 (3.71768 $cm^{2}/s$), indicating potentially different physical properties or conditions in these regions.
 
 %................................................................................
 
@@ -1489,24 +1523,24 @@ This sub-section compares the gravitational potentials computed by our theoretic
 Our examination centers on comparing $\Psi_{m}^{'}$ values extracted from both tables for each wave characterized by their azimuthal orders $m$ values. This approach unveils the precise strengths and characteristics of the predicted and observed waves.
 
 \textbf{Mimas 4:1}
-Table 8 reveals a $\Psi_{m}^{'} = 0.041771 \pm 0.016477$ $m^{2}s^{-2}$ for $m = 2$, hinting at a potentially stronger wave compared to observations. Table 3 presents a slightly lower value of $0.035125$ $m^{2}s^{-2}$ for the same m. This observed discrepancy is partly due to the complexity in accurately observing the Mimas resonances, and might suggest a possible model evaluation to account for this phenomenon.
+Table 7 reveals a $\Psi_{m,d}^{'} = 0.041771 \pm 0.025772$ $m^{2}s^{-2}$ for $m = 2$, hinting at a potentially stronger wave compared to observations. Table 3 presents a slightly lower value of $0.035125$ $m^{2}s^{-2}$ for the same m. This observed discrepancy is partly due to the complexity in accurately observing the Mimas resonances.
 
 \textbf{Pan 2:1}
-We witness a remarkable congruence between the model prediction and observed value for this wave. Table 8 presents a $\Psi_{m}^{'} = 0.005243 \pm 0.001448$ $m^{2}s^{-2}$ for m = 2, aligning closely with the $0.005273$ $m^{2}s^{-2}$ recorded in Table 2. This impressive agreement bolsters the model's accuracy for specific wave profiles.
+We witness a remarkable congruence between the model prediction and observed value for this wave. Table 7 presents a $\Psi_{m,d}^{'} = 0.005243 \pm 0.000489$ $m^{2}s^{-2}$ for m = 2, aligning closely with the $0.005273$ $m^{2}s^{-2}$ recorded in Table 3. This impressive agreement bolsters the model's accuracy for such wave profiles.
 
 \textbf{Atlas 2:1}
-A puzzling divergence emerges for this resonance. Table 8 showcases a $\Psi_{m}^{'} = 0.008836 \pm 0.001821$ $m^{2}s^{-2}$ for m = 2, exceeding the observed value of $0.006767$ $m^{2}s^{-2}$ from Table 3. This overestimation by the model necessitates further investigation to pinpoint the source of the discrepancy, whether it lies in model limitations or external factors influencing the resonance.
+A puzzling divergence is seen for this resonance. Table 7 showcases a $\Psi_{m,d}^{'} = 0.008767 \pm 0.001115$ $m^{2}s^{-2}$ for m = 2, exceeding the observed value of $0.006767$ $m^{2}s^{-2}$ from Table 3. This overestimation by the model necessitates further investigation to pinpoint the source of the discrepancy, whether it lies in model limitations or external factors influencing the resonance.
 
 \textbf{Prometheus 4:2}
-Here we see an interesting concordance for this wave. Table 8 presents a $\Psi_{m}^{'} = 0.001794 \pm 0.000252$ $m^{2}s^{-2}$ for m = 3, closely mirroring the $0.001717$ $m^{2}s^{-2}$ observed in Table 3. This close agreement indicates the model's accurate predictions.
+Here we see an interesting concordance for this wave. Table 7 presents a $\Psi_{m,d}^{'} = 0.001794 \pm 0.000082$ $m^{2}s^{-2}$ for m = 3, closely mirroring the $0.001717$ $m^{2}s^{-2}$ observed in Table 3. This close agreement indicates the model's accurate predictions.
 
 \textbf{Mimas 6:2}
- There is an alignment between the model and observations. Table 8 showcases a $\Psi_{m}^{'} = 0.003120 \pm 0.000419$ $m^{2}s^{-2}$ for m = 3, closely resembling the observed value of $0.003209$ $m^{2}s^{-2}$ from Table 3. This consistent agreement further validates the model's efficacy for spiral density wave profiles.
+ There is an alignment between the model and observations. Table 7 showcases a $\Psi_{m,d}^{'} = 0.003120 \pm 0.000472$ $m^{2}s^{-2}$ for m = 3, closely resembling the observed value of $0.003209$ $m^{2}s^{-2}$ from Table 3. This consistent agreement further validates the model's efficacy for spiral density wave profiles.
 
 \textbf{Pandora 4:2}
-Lastly, the model presents itself for this final resonance. Table 8 reveals a $\Psi_{m}^{'} = 0.002284 \pm 0.000994$ $m^{2}s^{-2}$ for m = 3, falling slightly short of the observed value of $0.002755$ $m^{2}s^{-2}$ from Table 3, further validating the model's efficiency in spiral density wave analysis.
+Lastly, the model presents itself for this final resonance. Table 7 reveals a $\Psi_{m,d}^{'} = 0.002284 \pm 0.000097$ $m^{2}s^{-2}$ for m = 3, falling slightly short of the observed value of $0.002755$ $m^{2}s^{-2}$ from Table 3, further validating the model's efficiency in spiral density wave analysis.
 
-We checked our model against real observations of waves in Saturn's rings. They mostly matched up! This shows that our model and the real data work well together to understand how Satellite gravity makes waves in Saturn's rings. Now we can use this knowledge and the model to study other kinds of waves, Spiral density waves excited by Saturn across its rings.
+We checked our model against real observations of satellite waves in Saturn's rings. They mostly matched up! This shows that our model and the real data work well together to understand how Satellite gravity makes waves in Saturn's rings, as seen in the compared values for the gravitational potential estimates in Table 7. Now we can use this knowledge and the model to study other kinds of waves, Spiral density waves excited by Saturn across its rings.
 
 \begin{table}
 \centering
@@ -1514,15 +1548,14 @@ We checked our model against real observations of waves in Saturn's rings. They 
 %\begin{tabular}{lllll}
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
 \hline
-\stackon[0pt]{Name}{\stackon[0pt]{Resonance}}& \stackon[0pt]{(Km)}{\stackon[0pt]{Range}{Radial}} &  $m$ & \stackon[0pt]{(Km)}{\stackon[0pt]{Location}{Resonance}} & $\Psi_{m}^{'} (m^{2}s^{-2})$ \\
+\stackon[0pt]{Name}{\stackon[0pt]{Resonance}}& \stackon[0pt]{(Km)}{\stackon[0pt]{Range}{Radial}} & \stackon[0pt]{(Km)}{\stackon[0pt]{Location}{Resonance}} & $m$ & $\Psi_{m,d}^{'} (m^{2}s^{-2})$ & $\Psi_{m,p}^{'} (m^{2}s^{-2})$\\
 \hline
-
-Mimas 4:1 & 74880 - 74895 & 2 & 74890.07 & 0.041771 $\pm$ 0.016477 \\
-Pan 2:1 & 85090 - 85130 & 2 & 85105.02 & 0.005243 $\pm$ 0.001448 \\
-Atlas 2:1 & 87640 - 87650 & 2 & 87645.68 & 0.008836 $\pm$ 0.001821 \\
-Prometheus 4:2 & 88420 - 88440 & 3 & 88434.12 & 0.001794 $\pm$ 0.000252 \\
-Mimas 6:2 & 89870 - 89890 & 3 & 89884.00 & 0.003120 $\pm$ 0.000419 \\
-Pandora 4:2 & 89887 - 89897 & 3 & 89893.68 & 0.002284 $\pm$ 0.000994 \\
+Mimas 4:1 & 74880.00 - 74895.00 & 74890.07 & 2 & 0.041771 $\pm$ 0.025772 & 0.035125 \\
+Pan 2:1 & 85090.00 - 85130.00 & 85105.02 & 2 & 0.005243 $\pm$ 0.000489 & 0.005273 \\
+Atlas 2:1 & 87640.00 - 87650.00 & 87645.68 & 2 & 0.008767 $\pm$ 0.001115 & 0.006767 \\
+Prometheus 4:2 & 88420.00 - 88440.00 & 88434.12 & 3 & 0.001794 $\pm$ 0.000082 & 0.001717 \\
+Mimas 6:2 & 89870.00 - 89890.00 & 89884.00 & 3 & 0.003120 $\pm$ 0.000472 & 0.003209 \\
+Pandora 4:2 & 89887.00 - 89897.00 & 89893.68 & 3 & 0.002284 $\pm$ 0.000097 & 0.002755 \\
 
 \hline
 \end{tabular}
@@ -1534,38 +1567,29 @@ Pandora 4:2 & 89887 - 89897 & 3 & 89893.68 & 0.002284 $\pm$ 0.000994 \\
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\linewidth]{calculated_and_predicted_satellite_potential.png}
+    \includegraphics[width=0.8\linewidth]{satellitepotentialUpdated.png}
     \caption{Scatter Plot for calculated and predicted gravitational potential estimates (for satellite waves).}
     \label{fig:enter-label}
 \end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\linewidth]{calculated_and_predicted_satellite_potential_Main.png}
-    \caption{Scatter Plot for calculated and predicted gravitational potential estimates (for satellite waves).}
-    \label{fig:enter-label}
-\end{figure}
-
 
 %................../////////////////////////......................////////////////////
 \subsection{Preliminary Result II: Applications to non-Satellite Resonances}
+In this section, we start by describing the parameters used in the wave-fitting routine.
 
 \subsubsection{Wave-fitting Routine For non-Satellite Resonances}
-The Table 9 contains the results for the wave-fitting routine involving non-satellite resonances.
+The Table 8 contains the results for the wave-fitting routine involving non-satellite resonances.
 
 \textbf{Wave ID:} This column simply provides an identifier for each data entry for the spiral density wave. It serves as a reference point for distinguishing between different waves and their corresponding parameters. The encoded numbers are just synonymous with the resonant locations of the waves, while the "Wave" identity is for the waves being analyzed. Each wave likely corresponds to a specific resonance pattern or phenomenon under investigation.
+
+\textbf{Radial Range (Km):} The " Radial Range (Km)" column defines the range of distance in kilometers within which the resonance selection was made. It provides information about the spatial extent of the resonance phenomenon.
     
 \textbf{Resonance Location (Km):} This column specifies the precise location of the resonance in kilometers. It indicates where the resonance occurs within the system or environment being studied (with respect to the center of the planet).
-    
-\textbf{Radial Range (Km):} The " Radial Range (Km)" column defines the range of distance in kilometers within which the resonance selection was made. It provides information about the spatial extent of the resonance phenomenon.
     
 \textbf{\(l\):} \(l\) represents the angular degree, which characterizes the component of the normal-mode system. It indicates the rotational behavior associated with the resonance.
     
 \textbf{\(m\):} The \(m\) column represents the azimuthal order. It describes the orientation or number of spiral arms for the specific density wave influenced by the resonance.
     
 \textbf{Pattern Speed (\(^{o}/day\)):} This column specifies the speed of the resonance, measured in degrees per day. It indicates the rate of change of the resonance over time.
-    
-\textbf{$\tau_{av}$:} The "Average value of \(\tau\)" column provides the estimates for the average value of the optical depth magnitude for each spiral density wave profile. These optical depth profiles are likely a characteristic timescale or period associated with the resonance phenomenon.
     
 \textbf{\(a_{fit}\):} \(a_{fit}\) is a fitted parameter obtained from the wave-fitting routine, which represents the dimensionless amplitude of the spiral density wave profile analyzed.
     
@@ -1581,66 +1605,129 @@ The Table 9 contains the results for the wave-fitting routine involving non-sate
 \centering
 \vspace{-1.5cm} % Adjust the value as needed for vertical spacing before the table
 \rotatebox{90}{
-\normal
+%\normal
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
-\stackon[0pt]{ID}{\stackon[0pt]{Wave}} & \stackon[0pt]{(Km)}{\stackon[0pt]{Location ($r_{L}$)}{Resonance}} & \stackon[0pt]{(Km)}{\stackon[0pt]{Range}{Radial}} &  $l$ &  $m$ & \stackon[0pt]{$(^{o}/day)$}{\stackon[0pt]{Speed}{Pattern}} & $\tau_{av}$ & $a_{fit}$ & $x_{d}$ & $\phi_{0}(rad)$ & $x_{r}(Km)$ & $x_{f}(Km)$ \\
+Wave ID & \stackon[0pt]{(Km)}{\stackon[0pt]{Range}{Radial}} & \stackon[0pt]{(Km)}{\stackon[0pt]{Location ($r_{L}$)}{Resonance}} &  $l$ &  $m$ & \stackon[0pt]{$(^{o}/day)$}{\stackon[0pt]{Speed}{Pattern}} & $a_{fit}$ & $x_{d}$ & $\phi_{0}(rad)$ & $x_{r}(Km)$ & $x_{f}(Km)$ \\
 \hline
-W74.51 & 74506.90 & 74501.00 - 74509.00 & 12 & -8 & 1697.339 & 0.055950 & 0.6998 $\pm$ 0.1333 & 2.1436 $\pm$ 0.2211 & -1.6261 $\pm$ 1.0547 & 0.3115 $\pm$ 0.0927 & 0.7179 $\pm$ 0.0236 \\
-W74.74 & 74739.85 & 74736.00 - 74743.00 & 15 & 13 & 1390.843 & 0.036219 & 0.1723 $\pm$ 0.0110 & 1.7856 $\pm$ 0.0589 & 6.0904 $\pm$ 1.9130 & -0.3983 $\pm$ 0.0519 & 0.3919 $\pm$ 0.014 \\
-W74.75 & 74748.30 & 74746.00 - 74748.00 & 11 & 11 & 1369.932 & 0.029636 & 0.2000 $\pm$ 0.0250 & 1.2123 $\pm$ 0.0428 & -1.7116 $\pm$ 0.1072 & 0.0687 $\pm$ 0.0903 & 0.9133 $\pm$ 0.0745 \\
-W74.76 & 74756.60 & 74752.00 - 74762.00 & 19 & -11 & 1638.389 & 0.027992 & 0.2000 $\pm$ 0.0061 &  1.492 $\pm$ 0.0298 & -0.8651 $\pm$ 0.0604 & -0.0497 $\pm$ 0.0046 & 0.3314 $\pm$ 0.0016 \\
-W75.14 & 75143.00 & 75142.00 - 75144.00 & 16 & -10 & 1638.983 & 0.029031 & 0.2774 $\pm$ 0.0848 &  1.7827 $\pm$ 0.1460 & 0.8276 $\pm$ 0.5147 & 0.4986 $\pm$ 0.1962 & 0.5114 $\pm$ 0.1089 \\
-W76.02A & 76018.10 & 76016.00 - 76018.00 & 13 & -9 & 1626.530 & 0.049630 & 0.5711 $\pm$ 0.2128 & 1.9183 $\pm$ 0.1719 & 1.4200 $\pm$ 0.7157 & 0.7562 $\pm$ 0.2237 & 0.9157 $\pm$ 0.0400 \\
-W76.44 & 76435.40 & 76433.00 - 76436.00 & 2 & -2 & 2169.260 & 0.029827 & 0.2265 $\pm$ 0.0590 & 2.5640 $\pm$ 0.1692 & -1.3821 $\pm$ 0.6745 & 0.1697 $\pm$ 0.2805 & 0.9200 $\pm$ 0.0609 \\
-W76.46 & 76459.50 & 76457.00 - 76462.00 & 9 & -7 & 1657.720 & 0.030282 & 6.2705 $\pm$ 2.2741 &  1.1980 $\pm$ 0.1167 & 1.3760 $\pm$ 0.9465 & 0.4186 $\pm$ 0.1495 & 0.4318 $\pm$ 0.1124 \\
-W77.34 & 77338.90 & 77337.00 - 77339.00 & 14 & -10 & 1569.078 & 0.040235 & 0.1590 $\pm$ 0.0194 & 2.2988 $\pm$ 0.1007 & -1.6487 $\pm$ 0.7073 & 0.1711 $\pm$ 0.1083 & 0.5362 $\pm$ 0.0214 \\
-W78.51 & 78506.75 & 78503.00 - 78509.00 & 15 & -11 & 1521.410 & 0.047065 & 0.3983 $\pm$ 0.0397 & 1.7636 $\pm$ 0.1346 & -1.0069 $\pm$ 0.4811 & 0.0743 $\pm$ 0.0992 & 0.6044 $\pm$ 0.0196 \\
-W79.04 & 79042.30 & 79039.00 - 79045.00 & 11 & -9 & 1533.336 & 0.078261 & 0.0888 $\pm$ 0.0221 & 2.5361 $\pm$ 0.2238 & -3.8004 $\pm$ 0.8611 & 0.2564 $\pm$ 0.1362 & 0.7877 $\pm$ 0.0380 \\
-W79.55 & 79548.92 & 79546.00 - 79550.00 & 16 & -12 & 1481.152 & 0.072853 & 0.0704 $\pm$ 0.0214 &  2.4876 $\pm$ 0.2170 & -2.102 $\pm$ 0.4191 & 0.2901 $\pm$ 0.0653 & 0.6299 $\pm$ 0.0396 \\
-W80.49 & 80486.10 & 80484.00 - 80488.00 & 17 & -13 & 1446.654 & 0.101275 & 0.0515 $\pm$ 0.0106 & 2.0756 $\pm$ 0.2754 & -3.3740 $\pm$ 0.5555 & -0.2457 $\pm$ 0.1978 & 0.6728 $\pm$ 0.0472 \\
-W80.99 & 80986.15 & 80983.00 - 80989.00 & 4 & -4 & 1660.363 & 0.104347 & 0.1700 $\pm$ 0.0064 & 3.4683 $\pm$ 0.0961 & -3.207 $\pm$ 0.0353 & 0.2585 $\pm$ 0.0219 & 1.5753 $\pm$ 0.0062 \\
-W81.023A & 81023.10 & 81018.00 - 81030.00 & 5 & -5 & 1593.630 & 0.102109 & 0.0444 $\pm$ 0.0386 & 3.0357 $\pm$ 0.3163 & -1.746 $\pm$ 0.5553 & -0.1003 $\pm$ 0.2475 & 1.1562 $\pm$ 0.0294 \\
-W81.024B & 81024.15 & 81018.00 - 81030.00 & 13 & -11 & 1450.495 & 0.102109 & 0.0582 $\pm$ 0.0069 & 2.877 $\pm$ 0.1260 & -1.0586 $\pm$ 0.1373 & 0.4178 $\pm$ 0.1169 & 0.904 $\pm$ 0.0293 \\
-W81.33 & 81334.27 & 81333.00 - 81336.00 & 18 & -14 & 1416.734 & 0.086512 & 0.0378 $\pm$ 0.0224 &  2.1450 $\pm$ 0.2271 & -5.7389 $\pm$ 0.9617 & -0.2744 $\pm$ 0.1511 & 0.5961 $\pm$ 0.0392 \\
-W81.43 & 81429.55 & 81420.00 - 81430.00 & 6 & -6 & 1538.237 & 0.094085 & 0.0197 $\pm$ 0.0068 & 2.6979 $\pm$ 0.1798 & 2.1297 $\pm$ 1.0736 & 0.7173 $\pm$ 0.1921 & 1.2245 $\pm$ 0.1174 \\
-W81.96 & 81962.45 & 81959.00 - 81965.00 & 7 & -7 & 1492.457 & 0.120603 & 0.0299 $\pm$ 0.0063 &   2.851 $\pm$ 0.3490 & 3.0115 $\pm$ 0.7567 & -0.95 $\pm$ 0.2164 & 1.0838 $\pm$ 0.0508 \\
-W82.01 & 82007.75 & 82004.00 - 82009.00 & 3 & -3 & 1736.645 & 0.153753 & 0.1009 $\pm$ 0.0050 & 3.7871 $\pm$ 0.0765 & -0.7900 $\pm$ 0.0932 & -0.2765 $\pm$ 0.0658 & 1.9368 $\pm$ 0.0106 \\
-W82.06 & 82059.40 & 82055.00 - 82065.00 & 3 & -3 & 1734.999 & 0.131704 & 0.2113 $\pm$ 0.0099 & 3.7659 $\pm$ 0.0272 & -0.9592 $\pm$ 0.3610 & 0.2273 $\pm$ 0.3273 & 2.5483 $\pm$ 0.0565 \\
-W82.21 & 82207.50 & 82187.50 - 82207.51 & 3 & -3 & 1730.293 & 0.119105 & 0.2536 $\pm$ 0.0069 & 3.5938 $\pm$ 0.1002 & -0.8110 $\pm$ 0.0969 & 0.4772 $\pm$ 0.0986 & 1.9758 $\pm$ 0.0240 \\
-W82.53 & 82528.75 & 82510.00 - 82530.00 & 8 & -8 & 1454.224 & 0.105020 & 0.0109 $\pm$ 0.0059 & 3.4632 $\pm$ 0.2418 & 0.5753 $\pm$ 1.2460 & 0.2177 $\pm$ 0.0870 & 1.0787 $\pm$ 0.1054 \\
-W82.61 & 82607.75 & 82606.00 - 82608.00 & 15 & -13 & 1390.843 & 0.114571 & 0.0214 $\pm$ 0.0062 & 2.6706 $\pm$ 0.5402 & -1.6706 $\pm$ 1.0888 & 0.5028 $\pm$ 0.7798 & 1.0285 $\pm$ 0.1743 \\
-W83.09 & 83090.65 & 83086.00 - 83096.00 & 9 & -9 & 1421.844 & 0.127997 & 0.0402 $\pm$ 0.0051 & 2.8967 $\pm$ 0.2076 & -4.0353 $\pm$ 0.5240 & -0.2088 $\pm$ 0.2902 & 1.1950 $\pm$ 0.0616 \\
-W83.63 & 83632.02 & 83612.02 - 83637.02 & 10 & -10 & 1394.056 & 0.084198 & 0.2737 $\pm$ 0.0158 & 2.6295 $\pm$ 0.0867 & -0.9169 $\pm$ 0.1084 & 0.3456 $\pm$ 0.0420 & 1.0516 $\pm$ 0.0111 \\
-W84.15 & 84147.10 & 84140.00 - 84150.00 & 11 & -11 & 1369.910 & 0.102993 & 0.0137 $\pm$ 0.0029 & 3.1846 $\pm$ 0.1923 & -5.2746 $\pm$ 0.9934 & 0.2660 $\pm$ 0.2357 & 0.9899 $\pm$ 0.0603 \\
-W84.64 & 84643.20 & 84630.00 - 84650.00 & 2 & -2 & 1860.752 & 0.087528 & 0.1829 $\pm$ 0.0105 &  3.9257 $\pm$ 0.0990 & 1.2049 $\pm$ 0.2642 & 0.3505 $\pm$ 0.2225 & 2.0115 $\pm$ 0.0414 \\
-W87.19 & 87192.80 & 87170.00 - 87210.00 & 2 & -2 & 1779.548 & 0.196865 & 0.0494 $\pm$ 0.0072 & 5.2729 $\pm$ 0.0595 & -4.3997 $\pm$ 0.6983 & 0.3902 $\pm$ 0.2939 & 1.8039 $\pm$ 0.0324 \\
+
+$W74.51^{av}$ & 74501.00 - 74509.00 & 74506.90 & 12 & -8 & 1697.339 & 0.6998 $\pm$ 0.1447 & 2.1436 $\pm$ 0.2624 & -1.6261 $\pm$ 2.9571 & 0.3115 $\pm$ 0.2709 & 0.7179 $\pm$ 0.0745 \\
+
+W74.74 & 74736.00 - 74743.00 & 74739.85 & 15 & 13 & 1390.843 & 0.1723 $\pm$ 0.0274 & 1.7856 $\pm$ 0.1474 &  6.0904 $\pm$ 4.7825 & -0.3983 $\pm$ 0.1299 & 0.3919 $\pm$ 0.0349 \\
+
+W74.75 & 74746.00 - 74748.00 & 74748.30 & 11 & 11 & 1369.932 & 0.2000 $\pm$ 0.0624 & 1.2123 $\pm$ 0.1070 & -1.7116 $\pm$ 0.2681 & 0.0687 $\pm$ 0.2258 & 0.9133 $\pm$ 0.1862 \\
+
+W74.76 & 74752.00 - 74762.00 & 74756.60 & 19 & -11 & 1638.389 & 0.2000 $\pm$ 0.0154 & 1.4920 $\pm$ 0.0744 & -0.8651 $\pm$ 0.1511 & -0.0497 $\pm$ 0.0114 & 0.3314 $\pm$ 0.0040 \\
+         
+W75.14 & 75142.00 - 75144.00 & 75143.00 & 16 & -10 & 1638.983 & 0.2774 $\pm$ 0.0311 & 1.7827 $\pm$ 0.1049 &  0.8276 $\pm$ 0.5898 & 0.4986 $\pm$ 0.1000 & 0.5114 $\pm$ 0.0339 \\
+
+W76.02A & 76016.00 - 76018.00 & 76018.10 & 13 & -9 & 1626.530 & 0.5711 $\pm$ 0.0763 & 1.9183 $\pm$ 0.0596 & 1.4200 $\pm$ 0.1741 & 0.7562 $\pm$ 0.0546 & 0.9157 $\pm$ 0.0231 \\
+
+W76.44 & 76433.00 - 76436.00 & 76435.40 & 2 & -2 & 2169.260 & 0.2265 $\pm$ 0.0343 & 2.5640 $\pm$ 0.1227 & -1.3821 $\pm$ 0.1955 & 0.1697 $\pm$ 0.0969 & 0.9200 $\pm$ 0.0248 \\
+    
+$W76.46^{av}$ & 76457.00 - 76462.00 & 76459.50 & 9 & -7 & 1657.720 & 0.1716 $\pm$ 0.0318 & 2.4535 $\pm$ 0.1146 & -0.3696 $\pm$ 0.4269 & 0.1361 $\pm$ 0.0598 & 0.5913 $\pm$ 0.0132 \\
+         
+W77.34 & 77337.00 - 77339.00 & 77338.90 & 14 & -10 & 1569.078 & 0.1590 $\pm$ 0.0141 & 2.2988 $\pm$ 0.0356 & -1.6487 $\pm$ 0.0668 & 0.1711 $\pm$ 0.0299 & 0.5362 $\pm$ 0.0119 \\
+
+W78.51 & 78503.00 - 78509.00 & 78506.75 & 15 & -11 & 1521.410 & 0.3983 $\pm$ 0.0350 & 1.7636 $\pm$ 0.0614 &  -1.0069 $\pm$ 0.1360 & 0.0743 $\pm$ 0.0275 & 0.6044 $\pm$ 0.0141 \\
+
+W79.04 & 79039.00 - 79045.00 & 79042.30 & 11 & -9 & 1533.336 & 0.0888 $\pm$ 0.0122 & 2.5361 $\pm$ 0.1297 & -3.8004 $\pm$ 0.1893 & 0.2564 $\pm$ 0.0671 & 0.7877 $\pm$ 0.0200 \\
+
+W79.55 & 79546.00 - 79550.00 & 79548.92 & 16 & -12 & 1481.152 & 0.0704 $\pm$ 0.0234 & 2.4876 $\pm$ 0.2693 &  -2.1020 $\pm$ 0.8213 & 0.2901 $\pm$ 0.2261 & 0.6299 $\pm$ 0.0481 \\
+
+W80.49 & 80484.00 - 80488.00 & 80486.10 & 17 & -13 & 1446.654 & 0.0515 $\pm$ 0.0112 & 2.0756 $\pm$ 0.3069 &  -3.3740 $\pm$ 0.9352 & -0.2457 $\pm$ 0.3462 & 0.6728 $\pm$ 0.0840 \\
+
+W80.99 & 80983.00 - 80989.00 & 80986.15 & 4 & -4 & 1660.363 & 0.1700 $\pm$ 0.0042 & 3.4683 $\pm$ 0.0364 &  -3.2070 $\pm$ 0.0901 & 0.2585 $\pm$ 0.0361 & 1.5753 $\pm$ 0.0046 \\
+
+W81.023A & 81018.00 - 81030.00 & 81023.10 & 5 & -5 & 1593.630 & 0.0444 $\pm$ 0.0062 & 3.0357 $\pm$ 0.1988 &  -1.7460 $\pm$ 1.0195 & -0.1003 $\pm$ 0.4762 & 1.1562 $\pm$ 0.0928 \\
+
+W81.024B & 81018.00 - 81030.00 & 81024.15 & 13 & -11 & 1450.495 & 0.0582 $\pm$ 0.0024 &  2.8770 $\pm$ 0.0803 & -1.0586 $\pm$ 0.0564 & 0.4178 $\pm$ 0.0396 & 0.9040 $\pm$ 0.0100 \\
+         
+W81.33 & 81333.00 - 81336.00 & 81334.27 & 18 & -14 & 1416.734 & 0.0378 $\pm$ 0.0025 & 2.1450 $\pm$ 0.1614 & -5.7389 $\pm$ 0.7457 & -0.2744 $\pm$ 0.3107 & 0.5961 $\pm$ 0.0897 \\
+
+W81.43 & 81420.00 - 81430.00 & 81429.55 & 6 & -6 & 1538.237 & 0.0197 $\pm$ 0.0042 & 2.6979 $\pm$ 0.2250 &  2.1297 $\pm$ 1.1163 & 0.7173 $\pm$ 0.5615 & 1.2245 $\pm$ 0.1165 \\
+
+W81.96 & 81959.00 - 81965.00 & 81962.45 & 7 & -7 & 1492.457 & 0.0299 $\pm$ 0.0024 & 2.8510 $\pm$ 0.1394 &  3.0115 $\pm$ 0.8872 & -0.9500 $\pm$ 0.3823 & 1.0838 $\pm$ 0.0674 \\
+
+W82.01 & 82004.00 - 82009.00 & 82007.75 & 3 & -3 & 1736.645 & 0.1009 $\pm$ 0.0013 & 3.7871 $\pm$ 0.0096 &   -0.7900 $\pm$ 0.0265 & -0.2765 $\pm$ 0.0214 & 1.9368 $\pm$ 0.0045 \\
+         
+W82.06 & 82055.00 - 82065.00 & 82059.40 & 3 & -3 & 1734.999 & 0.2113 $\pm$ 0.0035 & 3.7659 $\pm$ 0.0351 &  -0.9592 $\pm$ 0.1470 & 0.2273 $\pm$ 0.1551 & 2.5483 $\pm$ 0.0287 \\
+
+W82.21 & 82187.50 - 82207.51 & 82207.50 & 3 & -3 & 1730.293 & 0.2536 $\pm$ 0.0046 & 3.5938 $\pm$ 0.0536 &  -0.8110 $\pm$ 0.0633 & 0.4772 $\pm$ 0.0731 & 1.9758 $\pm$ 0.0167 \\
+
+W82.53 & 82510.00 - 82530.00 & 82528.75 & 8 & -8 & 1454.224 & 0.0109 $\pm$ 0.0029 & 3.4632 $\pm$ 0.3486 &  0.5753 $\pm$ 2.7935 & 0.2177 $\pm$ 0.0556 & 1.0787 $\pm$ 0.0202 \\
+
+W82.61 & 82606.00 - 82608.00 & 82607.75 & 15 & -13 & 1390.843 & 0.0214 $\pm$ 0.0028 & 2.6706 $\pm$ 0.0938 &  -1.6706 $\pm$ 0.2270 & 0.5028 $\pm$ 0.0966 & 1.0285 $\pm$ 0.0151 \\
+         
+W83.09 & 83086.00 - 83096.00 & 83090.65 & 9 & -9 & 1421.844 & 0.0402 $\pm$ 0.0010 & 2.8967 $\pm$ 0.0856 &  -4.0353 $\pm$ 0.1450 & -0.2088 $\pm$ 0.0609 & 1.1950 $\pm$ 0.0118 \\
+
+W83.63 & 83612.02 - 83637.02 & 83632.02 & 10 & -10 & 1394.056 & 0.2737 $\pm$ 0.0113 & 2.6295 $\pm$ 0.0469 & -0.9169 $\pm$ 0.0708 & 0.3456 $\pm$ 0.0262 & 1.0516 $\pm$ 0.0038 \\
+
+W84.15 & 84140.00 - 84150.00 & 84147.10 & 11 & -11 & 1369.910 & 0.0137 $\pm$ 0.0016 & 3.1846 $\pm$ 0.1332 & -5.2746 $\pm$ 0.4688 & 0.2660 $\pm$ 0.1842 & 0.9899 $\pm$ 0.0339 \\
+
+W84.64 & 84630.00 - 84650.00 & 84643.20 & 2 & -2 & 1860.752 & 0.1829 $\pm$ 0.0037 & 3.9257 $\pm$ 0.0402 &  1.2049 $\pm$ 0.0867 & 0.3505 $\pm$ 0.0874 & 2.0115 $\pm$ 0.0152 \\
+
+W87.19 & 87170.00 - 87210.00 & 87192.80 & 2 & -2 & 1779.548 & 0.0494 $\pm$ 0.0017 & 5.2729 $\pm$ 0.0468 & -4.3997 $\pm$ 2.6259 & 0.3902 $\pm$ 0.0882 & 1.8039 $\pm$ 0.0106 \\
+
 \hline
 \end{tabular}
 \vspace{-1.5cm} % Adjust the value as needed for vertical spacing after the table
 }
-\caption{Data for Wave-fitting routine for non-Satellite resonances.}
+\caption{Data for Wave-fitting routine for Planetary resonances.}
 \end{table}
 
 
-\subsubsection{Model Computations for non-Satellite Resonances:}
+\subsubsection{Model Computation for Ring Properties using non-Satellite Resonances:}
 
-\textbf{Optical Depth ($\tau_{av}$):}
-The average optical depth characterizes the opacity of the C-ring to radiation. It quantifies the extent to which light is absorbed or scattered as it passes through the ring. Higher values of $\tau_{av}$ indicate greater opacity, suggesting more efficient absorption or scattering of light within the C-ring.
+\paragraph{Optical Depth ($\tau_{av}$):}
+From figure 16, we have a panel which shows four plots corresponding to the key properties of Saturn's C-Ring. The continuous plot with the blue line at the top of the panel represents the complete optical depth profile for the extent of the ring, given between 74000 Km to 90000 Km. While the black and red scatter plots represent data from planetary and satellite resonances, respectively. The trend clearly shows an increase in optical(average) depth as per our archived wave signals. 
 
-\textbf{Surface Mass Density ($\sigma_{0}$):}
-Surface mass density represents the amount of mass per unit area at the surface of the C-ring. Variations in $\sigma_{0}$ reflect differences in the density and distribution of ring material. The values provided indicate the spatial heterogeneity of the C-ring, with some regions being denser than others.
+The average optical depth characterizes the opacity of the C-ring to radiation, mostly visible light. It quantifies the extent to which light is absorbed or scattered as it passes through the ring. Higher values of $\tau_{av}$ indicate greater opacity, suggesting more efficient absorption or scattering of light within the C-ring, while lower values of $\tau_{av}$ indicate more transparent regions of the particular planetary ring under investigation.
 
-\textbf{Mass Extinction Coefficient ($\kappa$):}
+Statistically, the average optical depth of approximately 0.102 for Saturn's C-Ring suggests that, on average, the particles within the ring are relatively transparent, allowing some light to pass through but not completely transparent. A moderate standard deviation of 0.078 indicates that while the average optical depth is around 0.102, there is variability in the opacity of different parts of the C-Ring. This variability could be due to variations in particle density or size within the ring. The range from approximately 0.028 to 0.361 indicates that there are areas within the C-Ring where the optical depth is significantly lower or higher than the average. The minimum value suggests areas where the ring is relatively transparent, while the maximum value suggests regions of higher opacity, potentially due to denser particle concentrations or different particle compositions. Based on the quartile values, 25 percent of the observations have an optical depth value below approximately 0.048. The median optical depth value (50th percentile) is around 0.088, indicating that half of the observations have optical depth values below this value, while 75 percent of the observations have an optical depth value below approximately 0.117. The quartile values provide insights into the distribution of optical depth values within the C-Ring. The 25th percentile (Q1) and 75th percentile (Q3) values indicate the range in which the majority of the data falls, with the median (50th percentile) representing the middle point of this distribution. 
+
+Overall, these observations suggest that Saturn's C-Ring exhibits variability in opacity, with areas of relatively low and high optical depth. Further analysis could be conducted to investigate the factors influencing this variability, such as particle size distribution, composition, or external influences such as gravitational forces.
+
+\paragraph{Surface Mass Density ($\sigma_{0}$):}
+Surface mass density represents the amount of mass per unit area at the surface of the C-ring. Variations in $\sigma_{0}$ reflect differences in the density and distribution of ring material. The second row from the panel of plot in figure 16, shows the trends of values which indicate the spatial heterogeneity of the C-ring, with some regions being denser than others. 
+
+Generally, between 74000 Km and around 82000 Km, there is a trend of increase in surface mass density distribution with a gradient of roughly around $1.613 g/cm^{2}$ per Km. There are notable high points around 75000 Km and 82000 Km, with the latter showing the highest peak value, which might imply the region along the C-Ring with the highest distribution of mass per area. Beyond 82000 Km, there is a somewhat steady decrease in surface mass density distribution with an average magnitude of roughly $1.46g/cm^{2}$ per Km, except for the gap within the radial range of 85000 Km to 87000 Km.
+
+By analyzing 35 wave samples (satellite and planetary resonances), we observed the following results on the distribution of mass within Saturn's C-Ring. The average density of $2.49 g/cm^{2}$ provides a baseline understanding of the typical mass per unit area within the ring, while the standard deviation of $1.51 g/cm^{2}$ suggests that the C-Ring is not uniform in density. There are regions with significantly lower or higher density compared to the average. The minimum and maximum values highlight the significant variation in mass density across the C-Ring. Some areas have densities as low as $0.25 g/cm^{2}$, while others reach up to around $7.77 g/cm^{2}$. The quartile values (25 percent and 75 percent) provide information about how the data is spread.  For instance, 75 percent of the measurements fall below $3.31 g/cm^{2}$, indicating that a large portion of the C-Ring has a mass density below this value.
+
+This data analysis paves the way for further investigation into the factors influencing the variability of mass density within the C-Ring.
+
+\textbf{Particle Composition:} The types of materials making up the ring particles could influence their mass density. Denser materials like water ice would contribute to higher mass density regions, while less dense materials like porous dust might be found in lower density areas.
+
+\textbf{Particle Size and Distribution:}  Variations in particle size and how they are distributed within the C-Ring could also play a role. Larger, more massive particles might be concentrated in specific regions, leading to higher densities.
+
+\textbf{Gravitational Interactions:} The gravitational influence of Saturn and its moons could potentially affect the distribution of mass within the C-Ring. Regions experiencing stronger gravitational forces might have a more tightly packed structure, resulting in higher density.
+
+
+\paragraph{Mass Extinction Coefficient ($\kappa$):}
 The mass extinction coefficient quantifies the efficiency of light extinction per unit mass of the C-ring material. It combines the effects of absorption and scattering of light. Higher values of $\kappa$ suggest that the C-ring material is more effective at extinguishing light per unit mass.
 
+To start with, the third (semi-log) plot in the panel shows the results for the mass extinction coefficient ($\kappa$), versus the radial range of the C-ring containing majority of the waves detected. The trend for mass extinction coefficient($\kappa$) shows some aliquot amount of instability between the radial range of 74000 Km to 85000 Km, with a fitted slope of around 0.04 per Km, except for the gap-region between 85000 Km and around 87000 Km where there a no wave signals detected. Such region corresponds with the elevated areas of the C-ring optical depth. Beyond, say 87000 Km, there is a noticeable increase in mass extinction coefficient. This implies that between the radial range of 74000 Km to 85000 Km, the C-ring is mostly populated by materials with higher radii compare to regions between 87000 Km to 90000 Km, which are populated by materials with smaller radii. 
 
-Each resonance exhibits unique characteristics in terms of opacity, mass density, and light-blocking efficiency within Saturn's C-ring. These differences likely arise from variations in the density and distribution of ring material influenced by the gravitational interactions between Saturn's moons and the C-ring.
+An exploratory data analysis for the mass extinction coefficient, measured in \( \text{cm}^2/\text{g} \), provides valuable insights into the distribution and characteristics of this property within Saturn's C-Ring. A detailed interpretation is found below.
+
+Considering the 35 observations in the dataset, indicating the sample size, the mean mass extinction coefficient is \(0.058148 \, \text{cm}^2/\text{g}\), which represents the average value of the mass extinction coefficient across all observations. The standard deviation of \(0.070492 \, \text{cm}^2/\text{g}\) indicates the degree of dispersion or variability of the mass extinction coefficient values around the mean. The relatively high standard deviation suggests that the data points are widely spread out from the mean, indicating significant variability in the scattering and absorption properties of the particles within the C-Ring. The minimum and maximum mass extinction coefficient values are \(0.008173 \, \text{cm}^2/\text{g}\) and \(0.296640 \, \text{cm}^2/\text{g}\), respectively. This indicates a wide range of variation in the scattering and absorption properties of the particles within the C-Ring. The presence of such a broad range of values suggests some form of heterogeneity in the composition, size, and spatial distribution of the particles within the ring. The \(25^{th}\) percentile (Q1) is \(0.027268 \, \text{cm}^2/\text{g}\), indicating that \(25\%\) of the observations have a mass extinction coefficient value below this threshold, while the median (or \(50^{th}\) percentile, Q2) is \(0.033066 \, \text{cm}^2/\text{g}\), representing the middle value of the data set. This indicates that \(50\%\) of the observations have a mass extinction coefficient value below this value; the \(75^{th}\) percentile (Q3) is \(0.044598 \, \text{cm}^2/\text{g}\), indicating that \(75\%\) of the observations have a mass extinction coefficient value below this threshold. These statistics collectively suggest a significant variation of the mass extinction coefficient of Saturn's C-Ring across different regions, indicating variations in particle size, composition, and density within the ring.
 
 
-\textbf{Viscosity Estimates $\nu(cm^{2}/s)$:}
+\paragraph{Viscosity Estimates ($\nu$):}
+Figure 16d shows the semi-log plot for the kinematic viscosity estimates ($\nu$) derived from equation 57, versus the radial extent of the C-Ring, showing a somewhat consistent trend of decrease over the radial range of 74000 Km to 90000 Km, with a negative slope of around 0.098690 per Km: between 74000 Km and 85000 Km, the is a slightly stable decrease in the kinematic viscosity from a high point above 100.00 units to a low point around 10.00 unit, on the semi-log plot. The gap-region is currently unjustifiable and does not contain enough information to fit the current trend for the result. Regions between 87000 Km to 90000 Km are characterized by another steep descent in viscosity, from around 0.50 to around 0.1 on the semi-log plot.
 
+From \cite{araki1986dynamics, Dougherty2009SaturnFC, 1988AJ.....95..925W}, we derive a fundamental relationship shedding light on the interplay between kinematic viscosity and the root-mean-square (rms) random velocity, denoted as $c$, of particles within Saturn's rings. This relationship is expressed mathematically as:
+\begin{equation}
+    \nu = k_{1}\frac{c^{2}}{\Omega}\left(\frac{\tau}{1+\tau^{2}}\right) + k_{2}\Omega D^{2}\tau,
+\end{equation}
+Here, $\nu$ signifies the kinematic viscosity, $\tau$ represents the local optical depth, $\Omega$ stands for the orbital frequency, and $D$ denotes the particle diameter. The constants $k_{1}$ and $k_{2}$ are characteristic coefficients typically on the order of unity.
 
+This equation reveals a connection: regions characterized by higher kinematic viscosity tend to exhibit higher root-mean-square random velocities of ring particles ($c$), whereas regions with lower kinematic viscosity tend to manifest lower random velocities. This observation aligns with comprehensive optical depth profiles given in the first plot. For instance, in regions like 74000 km to 85000 km, characterized by more stable plateaus, an abundance of ring particles facilitates increased interactions among themselves, consequently augmenting their random velocities. Conversely, in less stable-plateau regions, such as 87000 km to 90000 km, fewer particle interactions occur, leading to diminished random velocities due to decreased kinematic viscosity. This dynamic interplay underscores the complex relationship between kinematic viscosity and particle dynamics within Saturn's C-Ring, which might shed more light on the intricate mechanisms governing their behavior.
+
+Our analysis of 35 kinematic viscosity measurements within the extent of Saturn's C-Ring reveals intriguing details about the region's particles' behavior. The average viscosity of $23.49cm^{2}/s$ indicates the typical rate of fluid flow per unit area. However, a standard deviation of $39.33cm^{2}/s$ points to significant variations across the data, suggesting the C-Ring's fluidity is not uniform. This variability is further highlighted by the wide range of viscosity values, from a low of $1.38cm^{2}/s$ to a high of $236.57cm^{2}/s$. Additionally, quartile analysis shows that the lower half of the data falls below $7.25cm^{2}/s$, while the upper half falls below $23.52cm^{2}/s$. The median viscosity of $14.81cm^{2}/s$ reinforces the notion of a broad spectrum of fluid flow behaviors within the C-Ring. These findings suggest that factors like particle size distribution, temperature variations, and gravitational interactions with moons might influence viscosity patterns within the C-Ring. Further investigation into these factors could shed light on the mechanisms behind the observed variability, leading to a more comprehensive understanding of the ring's fluid dynamics.
+
+Saturn's C-Ring particles do not have a simple viscosity value. They behave like a very slow-moving fluid: collisions between particles and the influence of Saturn's gravity create a slight resistance to changes in their motion. This resistance is similar to viscosity in a fluid. The trends from the results might show that the C-Ring materials are more fluffy around 87000 Km to 90000Km, and less fluffy at other regions. The particles' gravity may be the main contributor to the overall viscosity, as it is especially in the denser A ring\cite{https://doi.org/10.1029/2005GL025163}.
 
 
 % DATA FOR TAU_AV + SIGMA + KAPPA + VISCOSITY
@@ -1649,40 +1736,69 @@ Each resonance exhibits unique characteristics in terms of opacity, mass density
 \centering
 \vspace{-1.5cm} % Adjust the value as needed for vertical spacing before the table
 \rotatebox{90}{
-\normal
+%\normal
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
 \hline
-\stackon[0pt]{ID}{\stackon[0pt]{Wave}} & \stackon[0pt]{(Km)}{\stackon[0pt]{Range}{Radial}} & \stackon[0pt]{(Km)}{\stackon[0pt]{Location ($r_{L}$)}{Resonance}} & $l$ & $m$ & \stackon[0pt]{$(^{o}/day)$}{\stackon[0pt]{Speed}{Pattern}} & $\tau_{av}$ & $\sigma_{0} (g/cm^{2})$ & $\kappa = \frac{\tau_{av}}{\sigma_{0}} (cm^{2}/g)$ & $\nu (cm^{2}/s)$\\
+Wave ID & \stackon[0pt]{(Km)}{\stackon[0pt]{Range}{Radial}} & \stackon[0pt]{(Km)}{\stackon[0pt]{Location ($r_{L}$)}{Resonance}} & $l$ & $m$ & \stackon[0pt]{$(^{o}/day)$}{\stackon[0pt]{Speed}{Pattern}} & $\tau_{av}$ & $\sigma_{0} (g/cm^{2})$ & $\kappa = \frac{\tau_{av}}{\sigma_{0}} (cm^{2}/g)$ & $\nu (cm^{2}/s)$\\
 \hline
-W74.51 & 74501 - 74509 & 74506.90 & 12 & -8 & 1697.339 & 0.055950 & 2.042644 $\pm$ 0.134149 & 0.027391 $\pm$ 0.001799 &    18.853480 $\pm$ 6.123723 \\
-W74.74 & 74736 - 74743 & 74739.85 & 15 & 13 & 1390.843 & 0.036219 & 0.801756 $\pm$ 0.057178 & 0.045175 $\pm$ 0.003222 &    7.025685 $\pm$ 1.024217 \\
-W74.75 & 74746 - 74748 & 74748.30 & 11 & 11 & 1369.932 & 0.029636 & 3.625972 $\pm$ 0.591474 & 0.008173 $\pm$ 0.001333 & 236.570543 $\pm$ 63.078521 \\
-W74.76 & 74752 - 74762 & 74756.60 & 19 & -11 & 1638.389 & 0.027992 & 0.572831 $\pm$ 0.005536 & 0.048866 $\pm$ 0.000472 &    7.278997 $\pm$ 0.448322 \\
-W75.14 & 75142 - 75144 & 75143.00 & 16 & -10 & 1638.983 & 0.029031 & 1.224586 $\pm$ 0.521647 & 0.023707 $\pm$ 0.010099 &   14.181319 $\pm$ 9.708134 \\
-W76.02A &       76016-76018 &                76018.10 &   13 &   -9 &          1626.530 & 0.049630 & 3.407717\$\textbackslash pm\$0.298065 & 0.014564\$\textbackslash pm\$0.001274 &   57.68703\$\textbackslash pm\$17.252484 \\
-  W76.44 &       76433-76436 &                76435.40 &    2 &   -2 &          2169.260 & 0.029827 &  1.00959\$\textbackslash pm\$0.133655 & 0.029544\$\textbackslash pm\$0.003911 &    7.219514\$\textbackslash pm\$2.024419 \\
-  W76.46 &       76457-76462 &                76459.50 &    9 &   -7 &          1657.720 & 0.030282 & 0.592315\$\textbackslash pm\$0.308322 & 0.051125\$\textbackslash pm\$0.026612 &  19.573354\$\textbackslash pm\$16.318754 \\
-  W77.34 &       77337-77339 &                77338.90 &   14 &  -10 &          1569.078 & 0.040235 & 1.199843\$\textbackslash pm\$0.095764 & 0.033534\$\textbackslash pm\$0.002676 &    7.092551\$\textbackslash pm\$1.260624 \\
-  W78.51 &       78503-78509 &                78506.75 &   15 &  -11 &          1521.410 & 0.047065 & 1.566088\$\textbackslash pm\$0.101536 & 0.030053\$\textbackslash pm\$0.001948 &   23.633482\$\textbackslash pm\$5.879107 \\
-  W79.04 &       79039-79045 &                79042.30 &   11 &   -9 &          1533.336 & 0.078261 &  2.15727\$\textbackslash pm\$0.208131 &   0.036278\$\textbackslash pm\$0.0035 &   14.408114\$\textbackslash pm\$4.346872 \\
-  W79.55 &       79546-79550 &                79548.92 &   16 &  -12 &          1481.152 & 0.072853 & 1.748319\$\textbackslash pm\$0.219919 &  0.04167\$\textbackslash pm\$0.005242 &    9.993651\$\textbackslash pm\$3.224418 \\
-  W80.49 &       80484-80488 &                80486.10 &   17 &  -13 &          1446.654 & 0.101275 & 2.049558\$\textbackslash pm\$0.287599 & 0.049413\$\textbackslash pm\$0.006934 &   21.921085\$\textbackslash pm\$9.871282 \\
-  W80.99 &       80983-80989 &                80986.15 &    4 &   -4 &          1660.363 & 0.104347 & 3.914558\$\textbackslash pm\$0.030707 & 0.026656\$\textbackslash pm\$0.000209 &   21.162051\$\textbackslash pm\$1.777329 \\
-W81.023A &       81018-81030 &                81023.10 &    5 &   -5 &          1593.630 & 0.102109 & 2.525872\$\textbackslash pm\$0.128462 & 0.040425\$\textbackslash pm\$0.002056 &    14.964272\$\textbackslash pm\$4.81472 \\
-W81.024B &       81018-81030 &                81024.15 &   13 &  -11 &          1450.495 & 0.102109 & 3.088057\$\textbackslash pm\$0.199887 &  0.033066\$\textbackslash pm\$0.00214 &   16.826878\$\textbackslash pm\$2.749178 \\
-  W81.33 &       81333-81336 &                81334.27 &   18 &  -14 &          1416.734 & 0.086512 & 1.652931\$\textbackslash pm\$0.217607 &  0.052339\$\textbackslash pm\$0.00689 &   14.416529\$\textbackslash pm\$5.392331 \\
-  W81.43 &       81420-81430 &                81429.55 &    6 &   -6 &          1538.237 & 0.094085 & 3.239715\$\textbackslash pm\$0.621298 & 0.029041\$\textbackslash pm\$0.005569 &  29.184327\$\textbackslash pm\$10.224575 \\
-  W81.96 &       81959-81965 &                81962.45 &    7 &   -7 &          1492.457 & 0.120603 & 2.825534\$\textbackslash pm\$0.264793 &    0.042683\$\textbackslash pm\$0.004 &   19.281665\$\textbackslash pm\$7.582327 \\
-  W82.01 &       82004-82009 &                82007.75 &    3 &   -3 &          1736.645 & 0.153753 & 4.502252\$\textbackslash pm\$0.049321 &  0.03415\$\textbackslash pm\$0.000374 &   23.400998\$\textbackslash pm\$1.469168 \\
-  W82.06 &       82055-82065 &                82059.40 &    3 &   -3 &          1734.999 & 0.131704 &  7.77442\$\textbackslash pm\$0.344545 & 0.016941\$\textbackslash pm\$0.000751 &   54.118157\$\textbackslash pm\$3.783773 \\
-  W82.21 & 82187.50-82207.51 &                82207.50 &    3 &   -3 &          1730.293 & 0.119105 & 4.639812\$\textbackslash pm\$0.112728 &  0.02567\$\textbackslash pm\$0.000624 &   28.893884\$\textbackslash pm\$2.637084 \\
-  W82.53 &       82510-82530 &                82528.75 &    8 &   -8 &          1454.224 & 0.105020 &  3.06346\$\textbackslash pm\$0.598631 & 0.034281\$\textbackslash pm\$0.006699 &   11.731227\$\textbackslash pm\$4.226469 \\
-  W82.61 &       82606-82608 &                82607.75 &   15 &  -13 &          1390.843 & 0.114571 & 4.315586\$\textbackslash pm\$1.462514 & 0.026548\$\textbackslash pm\$0.008997 &  34.433086\$\textbackslash pm\$27.256355 \\
-  W83.09 &       83086-83096 &                83090.65 &    9 &   -9 &          1421.844 & 0.127997 & 4.065678\$\textbackslash pm\$0.419435 & 0.031482\$\textbackslash pm\$0.003248 &   29.780509\$\textbackslash pm\$7.888268 \\
-  W83.63 & 83612.02-83637.02 &                83632.02 &   10 &  -10 &          1394.056 & 0.084198 & 3.374606\$\textbackslash pm\$0.071511 &  0.02495\$\textbackslash pm\$0.000529 &     29.3666\$\textbackslash pm\$3.051786 \\
-  W84.15 &       84140-84150 &                84147.10 &   11 &  -11 &          1369.910 & 0.102993 &  3.18296\$\textbackslash pm\$0.387581 &  0.032358\$\textbackslash pm\$0.00394 &    14.814989\$\textbackslash pm\$3.81132 \\
-  W84.64 &       84630-84650 &                84643.20 &    2 &   -2 &          1860.752 & 0.087528 &  3.20939\$\textbackslash pm\$0.132172 & 0.027273\$\textbackslash pm\$0.001123 &   16.286891\$\textbackslash pm\$1.590603 \\
-  W87.19 &       87170-87210 &                87192.80 &    2 &   -2 &          1779.548 & 0.196865 &  2.29214\$\textbackslash pm\$0.082378 & 0.085887\$\textbackslash pm\$0.003087 &    4.500236\$\textbackslash pm\$0.286519 \\
+
+$W74.51^{av}$ & 74501.00 - 74509.00 & 74506.90 & 12 & -8 & 1697.339 & 0.055950 & 2.042644 $\pm$ 0.424109 & 0.027391 $\pm$ 0.005687 & 18.853480 $\pm$ 9.077400 \\
+
+W74.74 & 74736.00 - 74743.00 & 74739.85 & 15 & 13 & 1390.843 & 0.036219 & 0.801756 $\pm$ 0.142944 & 0.045175 $\pm$ 0.008054 & 7.025685 $\pm$ 2.560542 \\
+
+W74.75 & 74746.00 - 74748.00 & 74748.30 & 11 & 11 & 1369.932 & 0.029636 & 3.625972 $\pm$ 1.478684 & 0.008173 $\pm$ 0.003333 & 236.570543 $\pm$ 157.696303 \\
+
+W74.76 & 74752.00 - 74762.00 & 74756.60 & 19 & -11 & 1638.389 & 0.027992 & 0.572831 $\pm$ 0.013839 & 0.048866 $\pm$ 0.001181 & 7.278997 $\pm$ 1.120804 \\
+
+W75.14 & 75142.00 - 75144.00 & 75143.00 & 16 & -10 & 1638.983 & 0.029031 & 1.224586 $\pm$ 0.162585 & 0.023707 $\pm$ 0.003148 & 14.181319 $\pm$ 3.774694 \\
+        
+W76.02A & 76016.00 - 76018.00 & 76018.10 & 13 & -9 & 1626.530 & 0.049630 & 3.407717 $\pm$ 0.172025 & 0.014564 $\pm$ 0.000735 & 57.687030 $\pm$ 6.930285 \\
+
+W76.44 & 76433.00 - 76436.00 & 76435.40 & 2 & -2 & 2169.260 & 0.029827 & 1.009590 $\pm$ 0.054527 & 0.029544 $\pm$ 0.001596 & 7.219514 $\pm$ 1.190432 \\
+    
+$W76.46^{av}$ & 76457.00 - 76462.00 & 76459.50 & 9 & -7 & 1657.720 & 0.030282 & 1.110717 $\pm$ 0.049593 & 0.027264 $\pm$ 0.001217 & 5.850474 $\pm$ 0.908774 \\
+         
+W77.34 & 77337.00 - 77339.00 & 77338.90 & 14 & -10 & 1569.078 & 0.040235 & 1.199843 $\pm$ 0.053105 & 0.033534 $\pm$ 0.001484 & 7.092551 $\pm$ 0.574918 \\
+
+W78.51 & 78503.00-78509.00 &                78506.75 &   15 &  -11 &          1521.410 & 0.047065 &   1.566088 $\pm$ 0.072900 & 0.030053 $\pm$ 0.001399 & 23.633482 $\pm$ 2.970882 \\
+
+W79.04 & 79039.00 - 79045.00 & 79042.30 & 11 & -9 & 1533.336 & 0.078261 & 2.157270 $\pm$ 0.109815 & 0.036278 $\pm$ 0.001847 & 14.408114 $\pm$ 2.469182 \\
+         
+W79.55 & 79546.00 - 79550.00 & 79548.92 & 16 & -12 & 1481.152 & 0.072853 & 1.748319 $\pm$ 0.266793 &  0.041670 $\pm$ 0.006359 & 9.993651 $\pm$ 3.971079 \\
+         
+W80.49 & 80484.00 - 80488.00 & 80486.10 & 17 & -13 & 1446.654 & 0.101275 & 2.049558 $\pm$ 0.512051 & 0.049413 $\pm$ 0.012345 & 21.921085 $\pm$ 12.728644 \\
+
+W80.99 & 80983.00 - 80989.00 & 80986.15 & 4 & -4 & 1660.363 & 0.104347 & 3.914558 $\pm$ 0.023021 & 0.026656 $\pm$ 0.000157 & 21.162051 $\pm$ 0.691595 \\
+
+W81.023A & 81018.00 - 81030.00 & 81023.10 & 5 & -5 & 1593.630 & 0.102109 & 2.525872 $\pm$ 0.405641 & 0.040425 $\pm$ 0.006492 & 14.964272 $\pm$ 4.651246 \\
+
+W81.024B & 81018.00 - 81030.00 & 81024.15 & 13 & -11 & 1450.495 & 0.102109 & 3.088057 $\pm$ 0.068118 & 0.033066 $\pm$ 0.000729 & 16.826878 $\pm$ 1.514519 \\
+
+W81.33 & 81333.00 - 81336.00 & 81334.27 & 18 & -14 & 1416.734 & 0.086512 & 1.652931 $\pm$ 0.497447 & 0.052339 $\pm$ 0.015751 & 14.416529 $\pm$ 7.276442 \\
+
+W81.43 & 81420.00 - 81430.00 & 81429.55 & 6 & -6 & 1538.237 & 0.094085 & 3.239715 $\pm$ 0.616404 & 0.029041 $\pm$ 0.005526 & 29.184327 $\pm$ 11.076517 \\
+
+W81.96 & 81959.00 - 81965.00 & 81962.45 & 7 & -7 & 1492.457 & 0.120603 & 2.825534 $\pm$ 0.351220 & 0.042683 $\pm$ 0.005306 & 19.281665 $\pm$ 4.573847 \\
+
+W82.01 & 82004.00 - 82009.00 & 82007.75 & 3 & -3 & 1736.645 & 0.153753 & 4.502252 $\pm$ 0.020979 &  0.034150 $\pm$ 0.000159 & 23.400998 $\pm$ 0.241861 \\
+
+W82.06 & 82055.00 - 82065.00 & 82059.40 & 3 & -3 & 1734.999 & 0.131704 & 7.77442 $\pm$ 0.175027 & 0.016941 $\pm$ 0.000381 & 54.118157 $\pm$ 2.372218 \\
+
+W82.21 & 82187.50 - 82207.51 & 82207.50 & 3 & -3 & 1730.293 & 0.119105 & 4.639812 $\pm$ 0.078567 &  0.025670 $\pm$ 0.000435 & 28.893884 $\pm$ 1.485897 \\
+         
+W82.53 & 82510.00 - 82530.00 & 82528.75 & 8 & -8 & 1454.224 & 0.105020 & 3.063460 $\pm$ 0.114483 & 0.034281 $\pm$ 0.001281 & 11.731227 $\pm$ 3.603032 \\
+
+W82.61 & 82606.00 - 82608.00 & 82607.75 & 15 & -13 & 1390.843 & 0.114571 & 4.315586 $\pm$ 0.126316 & 0.026548 $\pm$ 0.000777 & 34.433086 $\pm$ 3.931101 \\
+         
+W83.09 & 83086.00 - 83096.00 & 83090.65 & 9 & -9 & 1421.844 & 0.127997 & 4.065678 $\pm$ 0.080627 & 0.031482 $\pm$ 0.000624 & 29.780509 $\pm$ 2.784707 \\
+         
+W83.63 & 83612.02 - 83637.02 & 83632.02 & 10 & -10 & 1394.056 & 0.084198 & 3.374606 $\pm$ 0.024093 &  0.024950 $\pm$ 0.000178 & 29.366600 $\pm$ 1.603583 \\
+         
+W84.15 & 84140.00 - 84150.00 & 84147.10 & 11 & -11 & 1369.910 & 0.102993 & 3.182960 $\pm$ 0.218083 & 0.032358 $\pm$ 0.002217 & 14.814989 $\pm$ 2.403297 \\
+         
+W84.64 & 84630.00 - 84650.00 & 84643.20 & 2 & -2 & 1860.752 & 0.087528 & 3.209390 $\pm$ 0.048403 & 0.027273 $\pm$ 0.000411 & 16.286891 $\pm$ 0.621132 \\
+         
+W87.19 & 87170.00 - 87210.00 & 87192.80 & 2 & -2 & 1779.548 & 0.196865 & 2.292140 $\pm$ 0.027028 & 0.085887 $\pm$ 0.001013 & 4.500236 $\pm$ 0.143787 \\
 
 \hline
 \end{tabular}
@@ -1691,29 +1807,20 @@ W81.024B &       81018-81030 &                81024.15 &   13 &  -11 &          
 \caption{Data table for Average optical depth, surface mass density mass extinction coefficient and viscosity for satellite and non-Satellite resonances.}
 \end{table}
 
-
-
 % Corresponding Plot For Surface Mass Density and Mass Extinction Coefficient values for non-Satellite resonances.
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.9\linewidth]{tau_sigma_kappa_nu.png}
+    \includegraphics[width=0.9\linewidth]{tau_sigma_kapp_nu_Updated.png}
     \caption{A panel of plots for: Average optical depth, surface mass density mass extinction coefficient and viscosity for satellite and non-Satellite resonances.}
     \label{fig:enter-label}
 \end{figure}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.9\linewidth]{tau_sigma_kapp_nu_capederrorbar.png}
-    \caption{A panel of plots for: Average optical depth, surface mass density mass extinction coefficient and viscosity for satellite and non-Satellite resonances.}
-    \label{fig:enter-label}
-\end{figure}
 %..........................................%....................................%..........
 
-
-
 \subsubsection{Model Computation for Saturn's Planetary Normal-mode Amplitudes:}
+Figure 17 (a) shows a semi-log plot for the normal-mode amplitude for Saturn, $\mathscr{\bar{A}'}_{l|m|0}$, versus the angular degree $l$, computed using the 29 density wave samples. The colour code $l-|m|$ is proportional to the number of cycles of latitudinal oscillations that take place during Saturn's normal-mode oscillation. The format of such cycle is equivalent to $\sin(\frac{l-|m|+1}{2})$, which shows that there is always a half-cycled oscillation that passes to the equator of the planet for every occurrence of $l-|m|$. From the aforesaid figure, we can see that the normal-mode amplitude is a complex function of the angular degree, as well as $l-|m|$. Again, the figure shows some notable peak amplitudes at $l = 3, 13$ with amplitude values ranging between the set $[10^{-10}, 10^{-9}]$ on the semi-log scale of the plot. Also, we see a notable deep in the trend of result between $l=5$ and $l=8$. A closer look at the result simply shows that between $l=2$ and $l=11$, there are more occurrence of normal-mode oscillations with approximately $l-|m|=0$ cycles with amplitudes ranging between roughly $10^{-11}$ to around $10^{-9}$, except for the two dataset with $l-|m|=2$ that occur within the range of angular degree in description. Also, considering the regions of angular degree $l$ with the set $(11,19]$, we see a trend of result that shows more occurrence of normal-mode oscillations with $l-|m|=4$ compared to those with $l-|m|=2,6,8$. This might suggest there are some form of latitudinal influence on the normal-mode oscillations of Saturn, perhaps latitudinal structures that tend to favour these sorts of pattern we see in the preliminary result. 
 
-
+On the other hand, figure 17(b) is a semi-log plot for the normal-mode amplitude for Saturn, $\mathscr{\bar{A}'}_{l|m|0}$, versus the oscillation frequency, $\sigma_{lm0}$ computed using the 29 density wave samples. The colour code $l-|m|$ has the same meaning as described previously. The result here shows that, the normal-mode amplitude is also a complex function of the oscillation frequency and also $l-|m|$. Again, the figure shows some notable peak amplitudes between the range $[10^{-10}, 10^{-9}]$ on the log-scale and around $175\mu Hz$ and $475\mu Hz$, and low amplitude of around $10^{-11}$ on a log-scale, between $300\mu Hz$ and $375\mu Hz$. The deep region for this normal-mode frequency spectrum exist between the range of, say, $250\mu Hz$ to around $375\mu Hz$. Normal-modes with $l-|m|=0$ occupy a wider frequency spectrum, between $100\mu Hz$ and $500\mu Hz$, while those modes with $l-|m|=2$ overlap regions with $l-|m|=0$ by occupying between, say,  $375\mu Hz$ and $580\mu Hz$. Also, normal-modes with $l-|m|=4$ occupy the second broadest frequency spectrum (after $l-|m|=0$) within the range of around $440\mu Hz$ to around $650\mu Hz$. Currently we do not have enough data to quantify the trends and spectrum for normal-modes with $l-|m|=6,8$: these are single occurring data points and existing within the range $500\mu Hz$ and $600\mu Hz$. Between  $450\mu Hz$ and $600\mu Hz$, we observed the most overlap in terms of frequency spectrum: normal-mode amplitudes with $l-|m|=0,2,4,6,8$ all coexist within this region, making it complex to attach a defined trend to the frequency spectrum of defined normal-mode oscillations. We can also see that this region is characterized by the most scatter, compared to other regions with little or no scattered data point, hence buttressing our previous statement that the normal-mode amplitude is a complex function of oscillation frequency. 
 
 
 % DATA TABLE FOR SATURN'S NORMAL-MODE OSCILLATIONS
@@ -1721,41 +1828,40 @@ W81.024B &       81018-81030 &                81024.15 &   13 &  -11 &          
 \centering
 \vspace{-1.5cm} % Adjust the value as needed for vertical spacing before the table
 \rotatebox{90}{
-\normal
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+%\normal
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}  
 \hline
-\stackon[0pt]{ID}{\stackon[0pt]{Wave}} & \stackon[0pt]{(Km)}{\stackon[0pt]{Range}{Radial}} & \stackon[0pt]{(Km)}{\stackon[0pt]{Location ($r_{L}$)}{Resonance}} & $l$ & $m$ & $\sigma_{l|m|0} = |m|\Omega_{P}(\mu Hz)$ & $\mathscr{\bar{C}'}_{l|m|0} (Unit)$\\
+\stackon[0pt]{ID}{\stackon[0pt]{Wave}} & \stackon[0pt]{(Km)}{\stackon[0pt]{Range}{Radial}} & \stackon[0pt]{(Km)}{\stackon[0pt]{Location ($r_{L}$)}{Resonance}} & $l$ & $m$ & \stackon[0pt]{(^{o}/day)}{\stackon[0pt]{Speed ($\Omega_{P}$)}{Pattern}} & \stackon[0pt]{$(\mu Hz)$}{\stackon[0pt]{$\sigma_{l|m|0} = |m|\Omega_{P}$}}& \stackon[0pt]{(Unit)}{\stackon[0pt]{$\mathscr{\bar{A}'}_{l|m|0}\times 10^{-10}$}}\\
 \hline
-
-W74.51 & 74501 - 74509 & 74506.90 & 12 & -8 & 436.555591 & 4.188953e-10 $\pm$ 9.08638686201066e-11 \\
-W74.74 & 74736 - 74743 & 74739.85 & 15 & 13 & 581.302832 & 4.689349e-11 $\pm$ 6.069622565529452e-12 \\
-W74.75 & 74746 - 74748 & 74748.30 & 11 & 11 & 484.476452 & 1.000367e-10 $\pm$ 2.8666476850200178e-11 \\
-W74.76 & 74752 - 74762 & 74756.60 & 19 & -11 & 579.416270 & 1.128411e-10 $\pm$ 3.869982729607055e-12 \\
-W75.14 & 75142 - 75144 & 75143.00 & 16 & -10 & 526.933034 & 2.150641e-10 $\pm$ 1.5906540027912975e-10 \\
-W76.02A & 76016 - 76018 & 76018.10 & 13 & -9 & 470.636456 & 8.496996e-10 $\pm$ 3.3775057534260376e-10 \\
-W76.44 & 76433 - 76436 & 76435.40 & 2 & -2 & 139.483418 & 3.49768e-11 $\pm$ 1.169095756845831e-11 \\
-W76.46 & 76457 - 76462 & 76459.50 & 9 & -7 & 373.069886 & 8.733231e-10 $\pm$ 7.854656521749417e-10 \\
-W77.34 & 77337 - 77339 & 77338.90 & 14 & -10 & 504.458577 & 1.246061e-10 $\pm$ 2.1866315650799288e-11 \\
-W78.51 & 78503 - 78509 & 78506.75 & 15 & -11 & 538.046647 & 6.120969e-10 $\pm$ 8.751725686614641e-11 \\
-W79.04 & 79039 - 79045 & 79042.30 & 11 & -9 & 443.670772 & 8.555296e-11 $\pm$ 2.493772204353166e-11 \\
-W79.55 & 79546 - 79550 & 79548.92 & 16 & -12 & 571.428442 & 1.823376e-10 $\pm$ 6.632611390492991e-11 \\
-W80.49 & 80484 - 80488 & 80486.10 & 17 & -13 & 604.629039 & 2.371932e-10 $\pm$ 7.160645585280036e-11 \\
-W80.99 & 80983 - 80989 & 80986.15 & 4 & -4 & 213.522682 & 1.086303e-10 $\pm$ 4.2853424216725595e-12 \\
-W81.023A & 81018 - 81030 & 81023.10 & 5 & -5 & 256.176022 & 1.910794e-11 $\pm$ 1.6680963681098168e-11 \\
-W81.024B & 81018 - 81030 & 81024.15 & 13 & -11 & 512.967557 & 1.607331e-10 $\pm$ 2.5086230878333616e-11 \\
-W81.33 & 81333 - 81336 & 81334.27 & 18 & -14 & 637.671973 & 2.134102e-10 $\pm$ 1.3424905569069266e-10 \\
-W81.43 & 81420 - 81430 & 81429.55 & 6 & -6 & 296.725917 & 1.226262e-11 $\pm$ 5.619514589249917e-12 \\
-W81.96 & 81959 - 81965 & 81962.45 & 7 & -7 & 335.877448 & 1.942463e-11 $\pm$ 5.025957998511546e-12 \\
-W82.01 & 82004 - 82009 & 82007.75 & 3 & -3 & 167.499410 & 8.105936e-11 $\pm$ 4.283173298165008e-12 \\
-W82.06 & 82055 - 82065 & 82059.40 & 3 & -3 & 167.340654 & 2.941676e-10 $\pm$ 2.4783276550337975e-11 \\
-W82.21 & 82187.50 - 82207.51 & 82207.50 & 3 & -3 & 166.886760 & 2.125972e-10 $\pm$ 1.0009094460311652e-11 \\
-W82.53 & 82510 - 82530 & 82528.75 & 8 & -8 & 374.026413 & 9.549933e-12 $\pm$ 5.9599248907322086e-12 \\
-W82.61 & 82606 - 82608 & 82607.75 & 15 & -13 & 581.302832 & 1.722142e-10 $\pm$ 1.0471062933275468e-10 \\
-W83.09 & 83086 - 83096 & 83090.65 & 9 & -9 & 411.410561 & 5.97726e-11 $\pm$ 1.2381732337849746e-11 \\
-W83.63 & 83612.02 - 83637.02 & 83632.02 & 10 & -10 & 448.189004 & 4.438521e-10 $\pm$ 2.957716019579732e-11 \\
-W84.15 & 84140 - 84150 & 84147.10 & 11 & -11 & 484.468671 & 2.798985e-11 $\pm$ 8.072492543093606e-12 \\
-W84.64 & 84630 - 84650 & 84643.20 & 2 & -2 & 119.646354 & 1.349655e-10 $\pm$ 1.1716662008330833e-11 \\
-W87.19 & 87170 - 87210 & 87192.80 & 2 & -2 & 114.424936 & 2.933112e-11 $\pm$ 4.591094292323476e-12 \\
+$W74.51^{av}$ & 74501.00 - 74509.00 & 74506.90 & 12 & -8 & 1697.339 & 436.556 & 4.188953 $\pm$ 1.625144 \\
+W74.74 & 74736.00 - 74743.00 & 74739.85 & 15 & 13 & 1390.843 & 581.303 & 0.468935 $\pm$ 0.151741 \\
+W74.75 & 74746.00 - 74748.00 & 74748.30 & 11 & 11 & 1369.932 & 484.476 & 1.000367 $\pm$ 0.716662 \\
+W74.76 & 74752.00 - 74762.00 & 74756.60 & 19 & -11 & 1638.389 & 579.416 & 1.128411 $\pm$ 0.096750 \\
+W75.14 & 75142.00 - 75144.00 & 75143.00 & 16 & -10 & 1638.983 & 526.933 & 2.150641 $\pm$ 0.511749 \\
+W76.02A & 76016.00 - 76018.00 & 76018.10 & 13 & -9 & 1626.530 & 470.636 & 8.496996 $\pm$ 1.322658 \\
+W76.44 & 76433.00 - 76436.00 & 76435.40 & 2 & -2 & 2169.260 & 139.483 & 0.349768 $\pm$ 0.060859 \\
+$W76.46^{av}$ & 76457.00 - 76462.00 & 76459.50 & 9 & -7 & 1657.720 & 373.070 & 0.448199 $\pm$ 0.088837 \\
+W77.34 & 77337.00 - 77339.00 & 77338.90 & 14 & -10 & 1569.078 & 504.459 & 1.246061 $\pm$ 0.140534 \\
+W78.51 & 78503.00 - 78509.00 & 78506.75 & 15 & -11 & 1521.410 & 538.047 & 6.120969 $\pm$ 0.702114 \\
+W79.04 & 79039.00 - 79045.00 & 79042.30 & 11 & -9 & 1533.336 & 443.671 & 0.855530 $\pm$ 0.136226 \\
+W79.55 & 79546.00 - 79550.00 & 79548.92 & 16 & -12 & 1481.152 & 571.428 & 1.823376 $\pm$ 0.748287 \\
+W80.49 & 80484.00 - 80488.00 & 80486.10 & 17 & -13 & 1446.654 & 604.629 & 2.371932 $\pm$ 1.070324 \\
+W80.99 & 80983.00 - 80989.00 & 80986.15 & 4 & -4 & 1660.363 & 213.523 & 1.086303 $\pm$ 0.028567 \\
+W81.023A & 81018.00 - 81030.00 & 81023.10 & 5 & -5 & 1593.630 & 256.176 & 0.191079 $\pm$ 0.055287 \\
+W81.024B & 81018.00 - 81030.00 & 81024.15 & 13 & -11 & 1450.495 & 512.968 & 1.607331 $\pm$ 0.086647 \\
+W81.33 & 81333.00 - 81336.00 & 81334.27 & 18 & -14 & 1416.734 & 637.672 & 2.134102 $\pm$ 1.025221 \\
+W81.43 & 81420.00 - 81430.00 & 81429.55 & 6 & -6 & 1538.237 & 296.726 & 0.122626 $\pm$ 0.045158 \\
+W81.96 & 81959.00 - 81965.00 & 81962.45 & 7 & -7 & 1492.457 & 335.877 & 0.194246 $\pm$ 0.041141 \\
+W82.01 & 82004.00 - 82009.00 & 82007.75 & 3 & -3 & 1736.645 & 167.499 & 0.810594 $\pm$ 0.012101 \\
+W82.06 & 82055.00 - 82065.00 & 82059.40 & 3 & -3 & 1734.999 & 167.341 & 2.941676 $\pm$ 0.115643 \\
+W82.21 & 82187.50 - 82207.51 & 82207.50 & 3 & -3 & 1730.293 & 166.887 & 2.125972 $\pm$ 0.068838 \\
+W82.53 & 82510.00 - 82530.00 & 82528.75 & 8 & -8 & 1454.224 & 374.026 & 0.095499 $\pm$ 0.025765 \\
+W82.61 & 82606.00 - 82608.00 & 82607.75 & 15 & -13 & 1390.843 & 581.303 & 1.722142 $\pm$ 0.241385 \\
+W83.09 & 83086.00 - 83096.00 & 83090.65 & 9 & -9 & 1421.844 & 411.411 & 0.597726 $\pm$ 0.023984 \\
+W83.63 & 83612.02 - 83637.02 & 83632.02 & 10 & -10 & 1394.056 & 448.189 & 4.438521 $\pm$ 0.190089 \\
+W84.15 & 84140.00 - 84150.00 & 84147.10 & 11 & -11 & 1369.910 & 484.469 & 0.279899 $\pm$ 0.043982 \\
+W84.64 & 84630.00 - 84650.00 & 84643.20 & 2 & -2 & 1860.752 & 119.646 & 1.349655 $\pm$ 0.042135 \\
+W87.19 & 87170.00 - 87210.00 & 87192.80 & 2 & -2 & 1779.548 & 114.425 & 0.293311 $\pm$ 0.011653 \\
 \hline
 \end{tabular}
 \vspace{-1.5cm}
@@ -1763,14 +1869,50 @@ W87.19 & 87170 - 87210 & 87192.80 & 2 & -2 & 114.424936 & 2.933112e-11 $\pm$ 4.5
 \caption{Data table for Saturn's Normal-mode Amplitudes and corresponding oscillation frequencies for each non-Satellite resonances.}
 \end{table}
 
-
 % PLOTS FOR NORMAL-MODE OSCILLATIONS FOR SATURN
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{0.5\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{updated_NORMALMODEAMPLITUDE.png}
+        \caption{}
+        \label{fig:amplitude_vs_degree}
+    \end{subfigure}
+    \hspace{0.5cm}
+    \begin{subfigure}[b]{0.5\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{amplitude_PLUS_frequency.png}
+        \caption{}
+        \label{fig:amplitude_vs_frequency}
+    \end{subfigure}
+    \hspace{0.5cm}
+    \begin{subfigure}[b]{0.5\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{normal_mode_RATIOPLOT.png}
+        \caption{}
+        \label{fig:normal_mode_RATIOPLOT}
+    \end{subfigure}
+    \caption{A semi-log plot for Saturn's normal-mode amplitude. (a) Versus angular degree. (b) Versus oscillation frequency. (c) Versus mode energy mid-point radii.}
+    \label{fig:saturn_normal_mode_amplitude}
+\end{figure}
 
 %.................................................................................
 \section{Discussions}
 Here, discuss Chris Mankovitch's plots and how they are related to your results. Talk about the general implications for your research.
 
 2. Here add the Chris Mankovich's ratio table + ratio plots. Discuss both 1 and 2 here.
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.1\linewidth]{mode_energy_integrands (2).pdf}
+    \caption{Enter Caption}
+    \label{fig:enter-label}
+\end{figure}
+
+
+
 
 %.................................................................................
 

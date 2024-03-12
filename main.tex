@@ -21,8 +21,39 @@
 \usepackage{stackengine}
 \usepackage{url}
 \usepackage{mathrsfs}
+\usepackage{subfig}
+\usepackage{afterpage}
+\usepackage{wasysym}
+\usepackage{listings} % for code snippets
+\usepackage{color} % for defining colors
+% Define colors for syntax highlighting
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
 
+% Define style for Python code
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\small,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
 
+% Apply style
+\lstset{style=mystyle}
 %\usepackage{hyperref}
 %\usepackage{xurl}
 %\usepackage{unicode-math}
@@ -100,6 +131,34 @@ Starting from the planet, and further out within the stretch of the C-ring, we a
 %........................................................................................................
 
 \section{Background}
+
+Asteroseismology, the study of stellar oscillations, provides invaluable insights into the internal structure, composition, and evolution of stars. These oscillations, akin to seismic waves on Earth, are driven by the interplay of gravity, pressure, and nuclear reactions within stellar interiors. The frequencies and modes of oscillation carry crucial information about a star's properties, including its mass, radius, temperature, and chemical composition. One key aspect of asteroseismology is the distinction between different types of oscillations, such as radial, non-radial, and global modes, each revealing distinct features of a star's structure.
+
+Radial oscillations involve expansion and contraction of a star's entire structure, akin to pulsations. They are characterized by changes in radius without significant changes in shape. The periods of radial oscillations are determined by the star's density profile and can be described by the pulsation equation:
+\begin{equation}
+P = 2\pi \sqrt{\frac{R^3}{GM}}
+\end{equation}
+where \(P\) is the period, \(R\) is the star's radius, \(G\) is the gravitational constant, and \(M\) is the star's mass.
+
+Non-radial oscillations, on the other hand, involve changes in the star's shape without significant variations in its overall size. These oscillations manifest as surface waves or internal gravity waves, revealing information about the star's internal structure and rotation. Non-radial modes are characterized by spherical harmonic functions and can be described by equations such as the Laplace tidal equations.
+
+Global oscillations encompass a wide range of frequencies and modes, reflecting the entire spectrum of oscillatory behavior within a star. By analyzing the frequencies and amplitudes of these oscillations, asteroseismologists can probe the star's internal conditions, such as the presence of convective zones, chemical gradients, and magnetic fields. These observations provide constraints for theoretical models of stellar structure and evolution.
+
+In addition to the pulsation equation mentioned earlier, another important equation in asteroseismology is the Brunt-Väisälä frequency (\(N\)), which characterizes the stability of a stratified fluid medium such as a star's interior. This equation is particularly relevant for understanding the propagation of internal gravity waves and their influence on stellar oscillations:
+\begin{equation}
+ N^2 = \frac{g}{\rho}\left(\frac{d\rho}{dr} - \frac{1}{\gamma}\frac{dP}{dr}\right)
+\end{equation}
+where \(N\) is the Brunt-Väisälä frequency, \(g\) is the local gravitational acceleration, \(\rho\) is the density, \(P\) is the pressure, \(r\) is the radial distance from the center of the star, and \(\gamma\) is the adiabatic index.
+
+This equation highlights the role of buoyancy forces (\(N^2 > 0\)) in stabilizing or destabilizing a fluid element as it moves vertically within the star. Regions where \(N^2\) is positive are stable against vertical displacements, while regions with negative \(N^2\) are unstable, potentially leading to oscillatory motion.
+
+Additionally, the equations governing the behavior of non-radial oscillations, such as the Laplace tidal equations, involve spherical harmonic functions and can be quite complex. These equations describe the propagation of waves within the star's interior, taking into account factors such as rotation, magnetic fields, and internal structure.
+
+The principles of asteroseismology can also be extended to other celestial objects, such as planets like Saturn. While the scales and mechanisms differ, Saturn's oscillations, observed through atmospheric waves and internal dynamics, share similarities with stellar oscillations. For instance, the analysis of Saturn's oscillations provides insights into its atmospheric composition, internal structure, and gravitational interactions. By studying the frequencies and modes of oscillation in Saturn's atmosphere and interior, scientists can deepen their understanding of planetary dynamics and evolution. In summary, asteroseismology offers a powerful tool for investigating the internal properties of stars through the analysis of their oscillations. By extending these principles to other celestial bodies like Saturn, researchers can broaden their understanding of planetary dynamics and evolution, furthering our knowledge of the universe's diverse phenomena.
+
+
+
+\subsection{The Saturnian Oscillations}
 Saturnian oscillations, which are characterized by their fluid nature, are classified based on the types of displacements that occur during their propagation \cite{Marley1993PlanetaryAM}. In the case of stars and planets, nonradial oscillations can be further subdivided into three main categories: p-modes, g-modes, and f-modes. P-modes are associated with resonant acoustic disturbances, where the primary restoring force is pressure. Similarly, g-modes are linked to resonant internal gravitational disturbances, with gravity serving as the main restoring force. F-modes, also known as the fundamental mode, represent the fundamental oscillation mode observed in either p-modes or g-modes.
 
 
@@ -739,7 +798,7 @@ The phase-correction algorithm applies phase shifts to the wavelet transform and
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\linewidth]{main_and_reconstructed_profiles_atlas21_satellite_waves.png}
+    \includegraphics[width=0.5\linewidth]{main_reconstructed_atlas21.png}
     \caption{[Upper Panel]: Plot of the Normal Optical Depth (with vertical offset) for the wave profile occultations (without phase correction). In this plot, the wave profiles exhibit noise and lack proper alignment in phase. [Lower Panel]: Plot of the Normal Optical Depth (with vertical offset) for the wave profile occultations (with phase correction). Here, the profiles appear less noisy and are mostly well-aligned in phase.}
     \label{fig:enter-label}
 \end{figure}
@@ -1182,8 +1241,8 @@ The errors in these measurements for all wave signals are estimated through the 
 
 \begin{figure}[h]
 \centering 
-\includegraphics[width=0.9\textwidth]{pandora_42_wavefit.png} 
-\caption{A wave-fitting routine for the Pandora 4:2 Satellite resonance..} \label{fig:my_label}
+\includegraphics[width=0.9\textwidth]{pandora42.png} 
+\caption{A wave-fitting routine for the Pandora 4:2 Satellite resonance.} \label{fig:my_label}
 \end{figure}
 
 \begin{table}
@@ -1211,9 +1270,6 @@ Winding Parameter & $x_{f}$ & 2.0115 Km \\
 \end{tabular}
 \caption{Parameter values for wave-fitting routine for W84.64}
 \end{table}
-
-
-
 
 
 
@@ -1430,8 +1486,6 @@ This resonance occurs between Saturn's moon Mimas and its C-ring. $\tau_{av}$ is
 This resonance involves Saturn's moon Pandora and its C-ring. $\tau_{av}$ is 0.361360, indicating the highest opacity among the listed resonances. $\sigma_{0}$ is $1.460548 g/cm^{2}$, suggesting a higher mass density. $\kappa$ is 0.247414 $cm^{2}/g$, indicating a moderate light-blocking efficiency per unit mass. Finally, the Pandora 4:2 resonance presents the highest $\kappa$ value alongside a moderate $\sigma_{0}$. This suggests a relatively dense particle population with high light absorption or scattering efficiency, during such resonance phenomenon.
 %.......................................................................................
 
-
-
 \begin{table}
 \centering
 \rotatebox{90}{
@@ -1455,42 +1509,8 @@ Pandora 4:2 & 89887.00 - 89897.00 & 89893.68 & 3 & 0.361360 & 1.460548 $\pm$ 0.0
 \caption{Data for Average Optical Depth ($\tau_{av}$), Surface Mass Density ($\sigma_{0}$), Mass extinction coefficient ($\kappa$) and Viscosity($\nu$) estimates from theoretical model for spiral density waves excited by Saturn's Satellite resonances.}
 \end{table}
 
-
-
 %.......................................................................................................
 %.......................................................................................................
-%.......................................................................................................
-
-
-%.......................................................................................
-
-%....................................................................................
-
-%....................................................................................
-
-\begin{table}
-\centering
-\vspace{0.01pt} % Adjust the value as needed
-\rotatebox{90}{
-\small
-%\begin{tabular}{lllll}
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
-\hline
-\stackon[0pt]{Name}{\stackon[0pt]{Resonance}} & \stackon[0pt]{(Km)}{\stackon[0pt]{Range}{Radial}} &  $m$ & \stackon[0pt]{(Km)}{\stackon[0pt]{Location}{Resonance}} & \stackon[0pt]{$(^{o}/day)$}{\stackon[0pt]{Speed}{Pattern}} & \stackon[0pt]{Occultations}{\stackon[0pt]{Faulty}} \\
-\hline
-Mimas 4:1 & 74880 - 74895 & 2 & 74890.07 & 762.988 & ["RLyr202e","RCas194e"] \\
-Pan 2:1 & 85090 - 85130 & 2 & 85105.02 & 626.032 & ["L2Pup206e","betPeg108i","betPeg172i","L2Pup201i","RCas191i", "muCep191i","RSCnc085e","RCas106i"]\\
-Atlas 2:1 & 87640 - 87650 & 2 & 87645.68 & 598.312 & ["muCep191i","gamCru094i","RLyr200i"] \\
-Prometheus 4:2 & 88420 - 88440 & 3 & 88434.12 & 782.128 &["alpSco245i","RCas106i","VYCMa269i"] \\
-Mimas 6:2 & 89870 - 89890 & 3 & 89884.00 & 762.977 &  ["RCas243i","L2Pup199e","RCar191i","betPeg170e","gamCru079i","gamCru073i"]\\
-Pandora 4:2 & 89887 - 89897 & 3 & 89893.68 & 762.852 & ["gamCru291i","RCas243i","L2Pup199e","RCar191i","gamCru079i","gamCru073i"]\\
-\hline
-\end{tabular}
-}
-\caption{Excluded occultations for spiral density waves excited by Saturn's Satellite resonances.}
-\end{table}
-
-%.....................................................................................
 
 The table also presents the dataset on satellite resonance viscosity ($\nu$) estimates derived from our theoretical model. Here, $\nu (cm^{2}/s)$ represents the viscosity, which indicates the resistance within Saturn's C-ring, offered to the flow or propagation of density waves by the particles making up the resonance location of the specific wave. Higher viscosity implies higher resistance to propagation of the aforesaid density waves.
 
@@ -1608,66 +1628,66 @@ The Table 8 contains the results for the wave-fitting routine involving non-sate
 %\normal
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
-Wave ID & \stackon[0pt]{(Km)}{\stackon[0pt]{Range}{Radial}} & \stackon[0pt]{(Km)}{\stackon[0pt]{Location ($r_{L}$)}{Resonance}} &  $l$ &  $m$ & \stackon[0pt]{$(^{o}/day)$}{\stackon[0pt]{Speed}{Pattern}} & $a_{fit}$ & $x_{d}$ & $\phi_{0}(rad)$ & $x_{r}(Km)$ & $x_{f}(Km)$ \\
+Wave ID & \stackon[0pt]{(Km)}{\stackon[0pt]{Range}{Radial}} & \stackon[0pt]{(Km)}{\stackon[0pt]{Location ($r_{L}$)}{Resonance}} &  $l$ &  $m$ & \stackon[0pt]{$(^{o}/day)$}{\stackon[0pt]{Speed}{Pattern}} & $a_{fit}(Unit)$ & $x_{d}(Unit)$ & $\phi_{0}(rad)$ & $x_{r}(Km)$ & $x_{f}(Km)$ \\
 \hline
 
-$W74.51^{av}$ & 74501.00 - 74509.00 & 74506.90 & 12 & -8 & 1697.339 & 0.6998 $\pm$ 0.1447 & 2.1436 $\pm$ 0.2624 & -1.6261 $\pm$ 2.9571 & 0.3115 $\pm$ 0.2709 & 0.7179 $\pm$ 0.0745 \\
+$W74.51^{av}$ & 74501.00 - 74509.00 & 74506.900 & 12 & -8 & 1697.339 & 0.6998 $\pm$ 0.1447 & 2.1436 $\pm$ 0.2624 & -1.6261 $\pm$ 2.9571 & 0.3115 $\pm$ 0.2709 & 0.7179 $\pm$ 0.0745 \\
 
-W74.74 & 74736.00 - 74743.00 & 74739.85 & 15 & 13 & 1390.843 & 0.1723 $\pm$ 0.0274 & 1.7856 $\pm$ 0.1474 &  6.0904 $\pm$ 4.7825 & -0.3983 $\pm$ 0.1299 & 0.3919 $\pm$ 0.0349 \\
+W74.74 & 74736.00 - 74743.00 & 74739.850 & 15 & 13 & 1390.843 & 0.1723 $\pm$ 0.0274 & 1.7856 $\pm$ 0.1474 &  6.0904 $\pm$ 4.7825 & -0.3983 $\pm$ 0.1299 & 0.3919 $\pm$ 0.0349 \\
 
-W74.75 & 74746.00 - 74748.00 & 74748.30 & 11 & 11 & 1369.932 & 0.2000 $\pm$ 0.0624 & 1.2123 $\pm$ 0.1070 & -1.7116 $\pm$ 0.2681 & 0.0687 $\pm$ 0.2258 & 0.9133 $\pm$ 0.1862 \\
+W74.75 & 74746.00 - 74748.00 & 74748.300 & 11 & 11 & 1369.932 & 0.2000 $\pm$ 0.0624 & 1.2123 $\pm$ 0.1070 & -1.7116 $\pm$ 0.2681 & 0.0687 $\pm$ 0.2258 & 0.9133 $\pm$ 0.1862 \\
 
-W74.76 & 74752.00 - 74762.00 & 74756.60 & 19 & -11 & 1638.389 & 0.2000 $\pm$ 0.0154 & 1.4920 $\pm$ 0.0744 & -0.8651 $\pm$ 0.1511 & -0.0497 $\pm$ 0.0114 & 0.3314 $\pm$ 0.0040 \\
+W74.76 & 74752.00 - 74762.00 & 74756.600 & 19 & -11 & 1638.389 & 0.2000 $\pm$ 0.0154 & 1.4920 $\pm$ 0.0744 & -0.8651 $\pm$ 0.1511 & -0.0497 $\pm$ 0.0114 & 0.3314 $\pm$ 0.0040 \\
          
-W75.14 & 75142.00 - 75144.00 & 75143.00 & 16 & -10 & 1638.983 & 0.2774 $\pm$ 0.0311 & 1.7827 $\pm$ 0.1049 &  0.8276 $\pm$ 0.5898 & 0.4986 $\pm$ 0.1000 & 0.5114 $\pm$ 0.0339 \\
+W75.14 & 75142.00 - 75144.00 & 75143.000 & 16 & -10 & 1638.983 & 0.2774 $\pm$ 0.0311 & 1.7827 $\pm$ 0.1049 &  0.8276 $\pm$ 0.5898 & 0.4986 $\pm$ 0.1000 & 0.5114 $\pm$ 0.0339 \\
 
-W76.02A & 76016.00 - 76018.00 & 76018.10 & 13 & -9 & 1626.530 & 0.5711 $\pm$ 0.0763 & 1.9183 $\pm$ 0.0596 & 1.4200 $\pm$ 0.1741 & 0.7562 $\pm$ 0.0546 & 0.9157 $\pm$ 0.0231 \\
+W76.02A & 76016.00 - 76018.00 & 76018.100 & 13 & -9 & 1626.530 & 0.5711 $\pm$ 0.0763 & 1.9183 $\pm$ 0.0596 & 1.4200 $\pm$ 0.1741 & 0.7562 $\pm$ 0.0546 & 0.9157 $\pm$ 0.0231 \\
 
-W76.44 & 76433.00 - 76436.00 & 76435.40 & 2 & -2 & 2169.260 & 0.2265 $\pm$ 0.0343 & 2.5640 $\pm$ 0.1227 & -1.3821 $\pm$ 0.1955 & 0.1697 $\pm$ 0.0969 & 0.9200 $\pm$ 0.0248 \\
+W76.44 & 76433.00 - 76436.00 & 76435.400 & 2 & -2 & 2169.260 & 0.2265 $\pm$ 0.0343 & 2.5640 $\pm$ 0.1227 & -1.3821 $\pm$ 0.1955 & 0.1697 $\pm$ 0.0969 & 0.9200 $\pm$ 0.0248 \\
     
-$W76.46^{av}$ & 76457.00 - 76462.00 & 76459.50 & 9 & -7 & 1657.720 & 0.1716 $\pm$ 0.0318 & 2.4535 $\pm$ 0.1146 & -0.3696 $\pm$ 0.4269 & 0.1361 $\pm$ 0.0598 & 0.5913 $\pm$ 0.0132 \\
+$W76.46^{av}$ & 76457.00 - 76462.00 & 76459.500 & 9 & -7 & 1657.720 & 0.1716 $\pm$ 0.0318 & 2.4535 $\pm$ 0.1146 & -0.3696 $\pm$ 0.4269 & 0.1361 $\pm$ 0.0598 & 0.5913 $\pm$ 0.0132 \\
          
-W77.34 & 77337.00 - 77339.00 & 77338.90 & 14 & -10 & 1569.078 & 0.1590 $\pm$ 0.0141 & 2.2988 $\pm$ 0.0356 & -1.6487 $\pm$ 0.0668 & 0.1711 $\pm$ 0.0299 & 0.5362 $\pm$ 0.0119 \\
+W77.34 & 77337.00 - 77339.00 & 77338.900 & 14 & -10 & 1569.078 & 0.1590 $\pm$ 0.0141 & 2.2988 $\pm$ 0.0356 & -1.6487 $\pm$ 0.0668 & 0.1711 $\pm$ 0.0299 & 0.5362 $\pm$ 0.0119 \\
 
-W78.51 & 78503.00 - 78509.00 & 78506.75 & 15 & -11 & 1521.410 & 0.3983 $\pm$ 0.0350 & 1.7636 $\pm$ 0.0614 &  -1.0069 $\pm$ 0.1360 & 0.0743 $\pm$ 0.0275 & 0.6044 $\pm$ 0.0141 \\
+W78.51 & 78503.00 - 78509.00 & 78506.750 & 15 & -11 & 1521.410 & 0.3983 $\pm$ 0.0350 & 1.7636 $\pm$ 0.0614 &  -1.0069 $\pm$ 0.1360 & 0.0743 $\pm$ 0.0275 & 0.6044 $\pm$ 0.0141 \\
 
-W79.04 & 79039.00 - 79045.00 & 79042.30 & 11 & -9 & 1533.336 & 0.0888 $\pm$ 0.0122 & 2.5361 $\pm$ 0.1297 & -3.8004 $\pm$ 0.1893 & 0.2564 $\pm$ 0.0671 & 0.7877 $\pm$ 0.0200 \\
+W79.04 & 79039.00 - 79045.00 & 79042.300 & 11 & -9 & 1533.336 & 0.0888 $\pm$ 0.0122 & 2.5361 $\pm$ 0.1297 & -3.8004 $\pm$ 0.1893 & 0.2564 $\pm$ 0.0671 & 0.7877 $\pm$ 0.0200 \\
 
-W79.55 & 79546.00 - 79550.00 & 79548.92 & 16 & -12 & 1481.152 & 0.0704 $\pm$ 0.0234 & 2.4876 $\pm$ 0.2693 &  -2.1020 $\pm$ 0.8213 & 0.2901 $\pm$ 0.2261 & 0.6299 $\pm$ 0.0481 \\
+W79.55 & 79546.00 - 79550.00 & 79548.920 & 16 & -12 & 1481.152 & 0.0704 $\pm$ 0.0234 & 2.4876 $\pm$ 0.2693 &  -2.1020 $\pm$ 0.8213 & 0.2901 $\pm$ 0.2261 & 0.6299 $\pm$ 0.0481 \\
 
-W80.49 & 80484.00 - 80488.00 & 80486.10 & 17 & -13 & 1446.654 & 0.0515 $\pm$ 0.0112 & 2.0756 $\pm$ 0.3069 &  -3.3740 $\pm$ 0.9352 & -0.2457 $\pm$ 0.3462 & 0.6728 $\pm$ 0.0840 \\
+W80.49 & 80484.00 - 80488.00 & 80486.100 & 17 & -13 & 1446.654 & 0.0515 $\pm$ 0.0112 & 2.0756 $\pm$ 0.3069 &  -3.3740 $\pm$ 0.9352 & -0.2457 $\pm$ 0.3462 & 0.6728 $\pm$ 0.0840 \\
 
-W80.99 & 80983.00 - 80989.00 & 80986.15 & 4 & -4 & 1660.363 & 0.1700 $\pm$ 0.0042 & 3.4683 $\pm$ 0.0364 &  -3.2070 $\pm$ 0.0901 & 0.2585 $\pm$ 0.0361 & 1.5753 $\pm$ 0.0046 \\
+W80.99 & 80983.00 - 80989.00 & 80986.150 & 4 & -4 & 1660.363 & 0.1700 $\pm$ 0.0042 & 3.4683 $\pm$ 0.0364 &  -3.2070 $\pm$ 0.0901 & 0.2585 $\pm$ 0.0361 & 1.5753 $\pm$ 0.0046 \\
 
-W81.023A & 81018.00 - 81030.00 & 81023.10 & 5 & -5 & 1593.630 & 0.0444 $\pm$ 0.0062 & 3.0357 $\pm$ 0.1988 &  -1.7460 $\pm$ 1.0195 & -0.1003 $\pm$ 0.4762 & 1.1562 $\pm$ 0.0928 \\
+W81.023A & 81018.00 - 81030.00 & 81023.100 & 5 & -5 & 1593.630 & 0.0444 $\pm$ 0.0062 & 3.0357 $\pm$ 0.1988 &  -1.7460 $\pm$ 1.0195 & -0.1003 $\pm$ 0.4762 & 1.1562 $\pm$ 0.0928 \\
 
-W81.024B & 81018.00 - 81030.00 & 81024.15 & 13 & -11 & 1450.495 & 0.0582 $\pm$ 0.0024 &  2.8770 $\pm$ 0.0803 & -1.0586 $\pm$ 0.0564 & 0.4178 $\pm$ 0.0396 & 0.9040 $\pm$ 0.0100 \\
+W81.024B & 81018.00 - 81030.00 & 81024.150 & 13 & -11 & 1450.495 & 0.0582 $\pm$ 0.0024 &  2.8770 $\pm$ 0.0803 & -1.0586 $\pm$ 0.0564 & 0.4178 $\pm$ 0.0396 & 0.9040 $\pm$ 0.0100 \\
          
-W81.33 & 81333.00 - 81336.00 & 81334.27 & 18 & -14 & 1416.734 & 0.0378 $\pm$ 0.0025 & 2.1450 $\pm$ 0.1614 & -5.7389 $\pm$ 0.7457 & -0.2744 $\pm$ 0.3107 & 0.5961 $\pm$ 0.0897 \\
+W81.33 & 81333.00 - 81336.00 & 81334.275 & 18 & -14 & 1416.734 & 0.0378 $\pm$ 0.0025 & 2.1450 $\pm$ 0.1614 & -5.7389 $\pm$ 0.7457 & -0.2744 $\pm$ 0.3107 & 0.5961 $\pm$ 0.0897 \\
 
-W81.43 & 81420.00 - 81430.00 & 81429.55 & 6 & -6 & 1538.237 & 0.0197 $\pm$ 0.0042 & 2.6979 $\pm$ 0.2250 &  2.1297 $\pm$ 1.1163 & 0.7173 $\pm$ 0.5615 & 1.2245 $\pm$ 0.1165 \\
+W81.43 & 81420.00 - 81430.00 & 81429.550 & 6 & -6 & 1538.237 & 0.0197 $\pm$ 0.0042 & 2.6979 $\pm$ 0.2250 &  2.1297 $\pm$ 1.1163 & 0.7173 $\pm$ 0.5615 & 1.2245 $\pm$ 0.1165 \\
 
-W81.96 & 81959.00 - 81965.00 & 81962.45 & 7 & -7 & 1492.457 & 0.0299 $\pm$ 0.0024 & 2.8510 $\pm$ 0.1394 &  3.0115 $\pm$ 0.8872 & -0.9500 $\pm$ 0.3823 & 1.0838 $\pm$ 0.0674 \\
+W81.96 & 81959.00 - 81965.00 & 81962.450 & 7 & -7 & 1492.457 & 0.0299 $\pm$ 0.0024 & 2.8510 $\pm$ 0.1394 &  3.0115 $\pm$ 0.8872 & -0.9500 $\pm$ 0.3823 & 1.0838 $\pm$ 0.0674 \\
 
-W82.01 & 82004.00 - 82009.00 & 82007.75 & 3 & -3 & 1736.645 & 0.1009 $\pm$ 0.0013 & 3.7871 $\pm$ 0.0096 &   -0.7900 $\pm$ 0.0265 & -0.2765 $\pm$ 0.0214 & 1.9368 $\pm$ 0.0045 \\
+W82.01 & 82004.00 - 82009.00 & 82007.750 & 3 & -3 & 1736.645 & 0.1009 $\pm$ 0.0013 & 3.7871 $\pm$ 0.0096 &   -0.7900 $\pm$ 0.0265 & -0.2765 $\pm$ 0.0214 & 1.9368 $\pm$ 0.0045 \\
          
-W82.06 & 82055.00 - 82065.00 & 82059.40 & 3 & -3 & 1734.999 & 0.2113 $\pm$ 0.0035 & 3.7659 $\pm$ 0.0351 &  -0.9592 $\pm$ 0.1470 & 0.2273 $\pm$ 0.1551 & 2.5483 $\pm$ 0.0287 \\
+W82.06 & 82055.00 - 82065.00 & 82059.400 & 3 & -3 & 1734.999 & 0.2113 $\pm$ 0.0035 & 3.7659 $\pm$ 0.0351 &  -0.9592 $\pm$ 0.1470 & 0.2273 $\pm$ 0.1551 & 2.5483 $\pm$ 0.0287 \\
 
-W82.21 & 82187.50 - 82207.51 & 82207.50 & 3 & -3 & 1730.293 & 0.2536 $\pm$ 0.0046 & 3.5938 $\pm$ 0.0536 &  -0.8110 $\pm$ 0.0633 & 0.4772 $\pm$ 0.0731 & 1.9758 $\pm$ 0.0167 \\
+W82.21 & 82187.50 - 82207.51 & 82207.500 & 3 & -3 & 1730.293 & 0.2536 $\pm$ 0.0046 & 3.5938 $\pm$ 0.0536 &  -0.8110 $\pm$ 0.0633 & 0.4772 $\pm$ 0.0731 & 1.9758 $\pm$ 0.0167 \\
 
-W82.53 & 82510.00 - 82530.00 & 82528.75 & 8 & -8 & 1454.224 & 0.0109 $\pm$ 0.0029 & 3.4632 $\pm$ 0.3486 &  0.5753 $\pm$ 2.7935 & 0.2177 $\pm$ 0.0556 & 1.0787 $\pm$ 0.0202 \\
+W82.53 & 82510.00 - 82530.00 & 82528.750 & 8 & -8 & 1454.224 & 0.0109 $\pm$ 0.0029 & 3.4632 $\pm$ 0.3486 &  0.5753 $\pm$ 2.7935 & 0.2177 $\pm$ 0.0556 & 1.0787 $\pm$ 0.0202 \\
 
-W82.61 & 82606.00 - 82608.00 & 82607.75 & 15 & -13 & 1390.843 & 0.0214 $\pm$ 0.0028 & 2.6706 $\pm$ 0.0938 &  -1.6706 $\pm$ 0.2270 & 0.5028 $\pm$ 0.0966 & 1.0285 $\pm$ 0.0151 \\
+W82.61 & 82606.00 - 82608.00 & 82607.750 & 15 & -13 & 1390.843 & 0.0214 $\pm$ 0.0028 & 2.6706 $\pm$ 0.0938 &  -1.6706 $\pm$ 0.2270 & 0.5028 $\pm$ 0.0966 & 1.0285 $\pm$ 0.0151 \\
          
-W83.09 & 83086.00 - 83096.00 & 83090.65 & 9 & -9 & 1421.844 & 0.0402 $\pm$ 0.0010 & 2.8967 $\pm$ 0.0856 &  -4.0353 $\pm$ 0.1450 & -0.2088 $\pm$ 0.0609 & 1.1950 $\pm$ 0.0118 \\
+W83.09 & 83086.00 - 83096.00 & 83090.650 & 9 & -9 & 1421.844 & 0.0402 $\pm$ 0.0010 & 2.8967 $\pm$ 0.0856 &  -4.0353 $\pm$ 0.1450 & -0.2088 $\pm$ 0.0609 & 1.1950 $\pm$ 0.0118 \\
 
-W83.63 & 83612.02 - 83637.02 & 83632.02 & 10 & -10 & 1394.056 & 0.2737 $\pm$ 0.0113 & 2.6295 $\pm$ 0.0469 & -0.9169 $\pm$ 0.0708 & 0.3456 $\pm$ 0.0262 & 1.0516 $\pm$ 0.0038 \\
+W83.63 & 83612.02 - 83637.02 & 83632.020 & 10 & -10 & 1394.056 & 0.2737 $\pm$ 0.0113 & 2.6295 $\pm$ 0.0469 & -0.9169 $\pm$ 0.0708 & 0.3456 $\pm$ 0.0262 & 1.0516 $\pm$ 0.0038 \\
 
-W84.15 & 84140.00 - 84150.00 & 84147.10 & 11 & -11 & 1369.910 & 0.0137 $\pm$ 0.0016 & 3.1846 $\pm$ 0.1332 & -5.2746 $\pm$ 0.4688 & 0.2660 $\pm$ 0.1842 & 0.9899 $\pm$ 0.0339 \\
+W84.15 & 84140.00 - 84150.00 & 84147.100 & 11 & -11 & 1369.910 & 0.0137 $\pm$ 0.0016 & 3.1846 $\pm$ 0.1332 & -5.2746 $\pm$ 0.4688 & 0.2660 $\pm$ 0.1842 & 0.9899 $\pm$ 0.0339 \\
 
-W84.64 & 84630.00 - 84650.00 & 84643.20 & 2 & -2 & 1860.752 & 0.1829 $\pm$ 0.0037 & 3.9257 $\pm$ 0.0402 &  1.2049 $\pm$ 0.0867 & 0.3505 $\pm$ 0.0874 & 2.0115 $\pm$ 0.0152 \\
+W84.64 & 84630.00 - 84650.00 & 84643.200 & 2 & -2 & 1860.752 & 0.1829 $\pm$ 0.0037 & 3.9257 $\pm$ 0.0402 &  1.2049 $\pm$ 0.0867 & 0.3505 $\pm$ 0.0874 & 2.0115 $\pm$ 0.0152 \\
 
-W87.19 & 87170.00 - 87210.00 & 87192.80 & 2 & -2 & 1779.548 & 0.0494 $\pm$ 0.0017 & 5.2729 $\pm$ 0.0468 & -4.3997 $\pm$ 2.6259 & 0.3902 $\pm$ 0.0882 & 1.8039 $\pm$ 0.0106 \\
+W87.19 & 87170.00 - 87210.00 & 87192.800 & 2 & -2 & 1779.548 & 0.0494 $\pm$ 0.0017 & 5.2729 $\pm$ 0.0468 & -4.3997 $\pm$ 2.6259 & 0.3902 $\pm$ 0.0882 & 1.8039 $\pm$ 0.0106 \\
 
 \hline
 \end{tabular}
@@ -1742,63 +1762,63 @@ Saturn's C-Ring particles do not have a simple viscosity value. They behave like
 Wave ID & \stackon[0pt]{(Km)}{\stackon[0pt]{Range}{Radial}} & \stackon[0pt]{(Km)}{\stackon[0pt]{Location ($r_{L}$)}{Resonance}} & $l$ & $m$ & \stackon[0pt]{$(^{o}/day)$}{\stackon[0pt]{Speed}{Pattern}} & $\tau_{av}$ & $\sigma_{0} (g/cm^{2})$ & $\kappa = \frac{\tau_{av}}{\sigma_{0}} (cm^{2}/g)$ & $\nu (cm^{2}/s)$\\
 \hline
 
-$W74.51^{av}$ & 74501.00 - 74509.00 & 74506.90 & 12 & -8 & 1697.339 & 0.055950 & 2.042644 $\pm$ 0.424109 & 0.027391 $\pm$ 0.005687 & 18.853480 $\pm$ 9.077400 \\
+$W74.51^{av}$ & 74501.00 - 74509.00 & 74506.900 & 12 & -8 & 1697.339 & 0.055950 & 2.042644 $\pm$ 0.424109 & 0.027391 $\pm$ 0.005687 & 18.853480 $\pm$ 9.077400 \\
 
-W74.74 & 74736.00 - 74743.00 & 74739.85 & 15 & 13 & 1390.843 & 0.036219 & 0.801756 $\pm$ 0.142944 & 0.045175 $\pm$ 0.008054 & 7.025685 $\pm$ 2.560542 \\
+W74.74 & 74736.00 - 74743.00 & 74739.850 & 15 & 13 & 1390.843 & 0.036219 & 0.801756 $\pm$ 0.142944 & 0.045175 $\pm$ 0.008054 & 7.025685 $\pm$ 2.560542 \\
 
-W74.75 & 74746.00 - 74748.00 & 74748.30 & 11 & 11 & 1369.932 & 0.029636 & 3.625972 $\pm$ 1.478684 & 0.008173 $\pm$ 0.003333 & 236.570543 $\pm$ 157.696303 \\
+W74.75 & 74746.00 - 74748.00 & 74748.300 & 11 & 11 & 1369.932 & 0.029636 & 3.625972 $\pm$ 1.478684 & 0.008173 $\pm$ 0.003333 & 236.570543 $\pm$ 157.696303 \\
 
-W74.76 & 74752.00 - 74762.00 & 74756.60 & 19 & -11 & 1638.389 & 0.027992 & 0.572831 $\pm$ 0.013839 & 0.048866 $\pm$ 0.001181 & 7.278997 $\pm$ 1.120804 \\
+W74.76 & 74752.00 - 74762.00 & 74756.600 & 19 & -11 & 1638.389 & 0.027992 & 0.572831 $\pm$ 0.013839 & 0.048866 $\pm$ 0.001181 & 7.278997 $\pm$ 1.120804 \\
 
-W75.14 & 75142.00 - 75144.00 & 75143.00 & 16 & -10 & 1638.983 & 0.029031 & 1.224586 $\pm$ 0.162585 & 0.023707 $\pm$ 0.003148 & 14.181319 $\pm$ 3.774694 \\
+W75.14 & 75142.00 - 75144.00 & 75143.000 & 16 & -10 & 1638.983 & 0.029031 & 1.224586 $\pm$ 0.162585 & 0.023707 $\pm$ 0.003148 & 14.181319 $\pm$ 3.774694 \\
         
-W76.02A & 76016.00 - 76018.00 & 76018.10 & 13 & -9 & 1626.530 & 0.049630 & 3.407717 $\pm$ 0.172025 & 0.014564 $\pm$ 0.000735 & 57.687030 $\pm$ 6.930285 \\
+W76.02A & 76016.00 - 76018.00 & 76018.100 & 13 & -9 & 1626.530 & 0.049630 & 3.407717 $\pm$ 0.172025 & 0.014564 $\pm$ 0.000735 & 57.687030 $\pm$ 6.930285 \\
 
-W76.44 & 76433.00 - 76436.00 & 76435.40 & 2 & -2 & 2169.260 & 0.029827 & 1.009590 $\pm$ 0.054527 & 0.029544 $\pm$ 0.001596 & 7.219514 $\pm$ 1.190432 \\
+W76.44 & 76433.00 - 76436.00 & 76435.400 & 2 & -2 & 2169.260 & 0.029827 & 1.009590 $\pm$ 0.054527 & 0.029544 $\pm$ 0.001596 & 7.219514 $\pm$ 1.190432 \\
     
-$W76.46^{av}$ & 76457.00 - 76462.00 & 76459.50 & 9 & -7 & 1657.720 & 0.030282 & 1.110717 $\pm$ 0.049593 & 0.027264 $\pm$ 0.001217 & 5.850474 $\pm$ 0.908774 \\
+$W76.46^{av}$ & 76457.00 - 76462.00 & 76459.500 & 9 & -7 & 1657.720 & 0.030282 & 1.110717 $\pm$ 0.049593 & 0.027264 $\pm$ 0.001217 & 5.850474 $\pm$ 0.908774 \\
          
-W77.34 & 77337.00 - 77339.00 & 77338.90 & 14 & -10 & 1569.078 & 0.040235 & 1.199843 $\pm$ 0.053105 & 0.033534 $\pm$ 0.001484 & 7.092551 $\pm$ 0.574918 \\
+W77.34 & 77337.00 - 77339.00 & 77338.900 & 14 & -10 & 1569.078 & 0.040235 & 1.199843 $\pm$ 0.053105 & 0.033534 $\pm$ 0.001484 & 7.092551 $\pm$ 0.574918 \\
 
-W78.51 & 78503.00-78509.00 &                78506.75 &   15 &  -11 &          1521.410 & 0.047065 &   1.566088 $\pm$ 0.072900 & 0.030053 $\pm$ 0.001399 & 23.633482 $\pm$ 2.970882 \\
+W78.51 & 78503.00 - 78509.00 & 78506.750 & 15 & -11 & 1521.410 & 0.047065 & 1.566088 $\pm$ 0.072900 & 0.030053 $\pm$ 0.001399 & 23.633482 $\pm$ 2.970882 \\
 
-W79.04 & 79039.00 - 79045.00 & 79042.30 & 11 & -9 & 1533.336 & 0.078261 & 2.157270 $\pm$ 0.109815 & 0.036278 $\pm$ 0.001847 & 14.408114 $\pm$ 2.469182 \\
+W79.04 & 79039.00 - 79045.00 & 79042.300 & 11 & -9 & 1533.336 & 0.078261 & 2.157270 $\pm$ 0.109815 & 0.036278 $\pm$ 0.001847 & 14.408114 $\pm$ 2.469182 \\
          
-W79.55 & 79546.00 - 79550.00 & 79548.92 & 16 & -12 & 1481.152 & 0.072853 & 1.748319 $\pm$ 0.266793 &  0.041670 $\pm$ 0.006359 & 9.993651 $\pm$ 3.971079 \\
+W79.55 & 79546.00 - 79550.00 & 79548.920 & 16 & -12 & 1481.152 & 0.072853 & 1.748319 $\pm$ 0.266793 &  0.041670 $\pm$ 0.006359 & 9.993651 $\pm$ 3.971079 \\
          
-W80.49 & 80484.00 - 80488.00 & 80486.10 & 17 & -13 & 1446.654 & 0.101275 & 2.049558 $\pm$ 0.512051 & 0.049413 $\pm$ 0.012345 & 21.921085 $\pm$ 12.728644 \\
+W80.49 & 80484.00 - 80488.00 & 80486.100 & 17 & -13 & 1446.654 & 0.101275 & 2.049558 $\pm$ 0.512051 & 0.049413 $\pm$ 0.012345 & 21.921085 $\pm$ 12.728644 \\
 
-W80.99 & 80983.00 - 80989.00 & 80986.15 & 4 & -4 & 1660.363 & 0.104347 & 3.914558 $\pm$ 0.023021 & 0.026656 $\pm$ 0.000157 & 21.162051 $\pm$ 0.691595 \\
+W80.99 & 80983.00 - 80989.00 & 80986.150 & 4 & -4 & 1660.363 & 0.104347 & 3.914558 $\pm$ 0.023021 & 0.026656 $\pm$ 0.000157 & 21.162051 $\pm$ 0.691595 \\
 
-W81.023A & 81018.00 - 81030.00 & 81023.10 & 5 & -5 & 1593.630 & 0.102109 & 2.525872 $\pm$ 0.405641 & 0.040425 $\pm$ 0.006492 & 14.964272 $\pm$ 4.651246 \\
+W81.023A & 81018.00 - 81030.00 & 81023.100 & 5 & -5 & 1593.630 & 0.102109 & 2.525872 $\pm$ 0.405641 & 0.040425 $\pm$ 0.006492 & 14.964272 $\pm$ 4.651246 \\
 
-W81.024B & 81018.00 - 81030.00 & 81024.15 & 13 & -11 & 1450.495 & 0.102109 & 3.088057 $\pm$ 0.068118 & 0.033066 $\pm$ 0.000729 & 16.826878 $\pm$ 1.514519 \\
+W81.024B & 81018.00 - 81030.00 & 81024.150 & 13 & -11 & 1450.495 & 0.102109 & 3.088057 $\pm$ 0.068118 & 0.033066 $\pm$ 0.000729 & 16.826878 $\pm$ 1.514519 \\
 
-W81.33 & 81333.00 - 81336.00 & 81334.27 & 18 & -14 & 1416.734 & 0.086512 & 1.652931 $\pm$ 0.497447 & 0.052339 $\pm$ 0.015751 & 14.416529 $\pm$ 7.276442 \\
+W81.33 & 81333.00 - 81336.00 & 81334.275 & 18 & -14 & 1416.734 & 0.086512 & 1.652931 $\pm$ 0.497447 & 0.052339 $\pm$ 0.015751 & 14.416529 $\pm$ 7.276442 \\
 
-W81.43 & 81420.00 - 81430.00 & 81429.55 & 6 & -6 & 1538.237 & 0.094085 & 3.239715 $\pm$ 0.616404 & 0.029041 $\pm$ 0.005526 & 29.184327 $\pm$ 11.076517 \\
+W81.43 & 81420.00 - 81430.00 & 81429.550 & 6 & -6 & 1538.237 & 0.094085 & 3.239715 $\pm$ 0.616404 & 0.029041 $\pm$ 0.005526 & 29.184327 $\pm$ 11.076517 \\
 
-W81.96 & 81959.00 - 81965.00 & 81962.45 & 7 & -7 & 1492.457 & 0.120603 & 2.825534 $\pm$ 0.351220 & 0.042683 $\pm$ 0.005306 & 19.281665 $\pm$ 4.573847 \\
+W81.96 & 81959.00 - 81965.00 & 81962.450 & 7 & -7 & 1492.457 & 0.120603 & 2.825534 $\pm$ 0.351220 & 0.042683 $\pm$ 0.005306 & 19.281665 $\pm$ 4.573847 \\
 
-W82.01 & 82004.00 - 82009.00 & 82007.75 & 3 & -3 & 1736.645 & 0.153753 & 4.502252 $\pm$ 0.020979 &  0.034150 $\pm$ 0.000159 & 23.400998 $\pm$ 0.241861 \\
+W82.01 & 82004.00 - 82009.00 & 82007.750 & 3 & -3 & 1736.645 & 0.153753 & 4.502252 $\pm$ 0.020979 &  0.034150 $\pm$ 0.000159 & 23.400998 $\pm$ 0.241861 \\
 
-W82.06 & 82055.00 - 82065.00 & 82059.40 & 3 & -3 & 1734.999 & 0.131704 & 7.77442 $\pm$ 0.175027 & 0.016941 $\pm$ 0.000381 & 54.118157 $\pm$ 2.372218 \\
+W82.06 & 82055.00 - 82065.00 & 82059.400 & 3 & -3 & 1734.999 & 0.131704 & 7.77442 $\pm$ 0.175027 & 0.016941 $\pm$ 0.000381 & 54.118157 $\pm$ 2.372218 \\
 
-W82.21 & 82187.50 - 82207.51 & 82207.50 & 3 & -3 & 1730.293 & 0.119105 & 4.639812 $\pm$ 0.078567 &  0.025670 $\pm$ 0.000435 & 28.893884 $\pm$ 1.485897 \\
+W82.21 & 82187.50 - 82207.51 & 82207.500 & 3 & -3 & 1730.293 & 0.119105 & 4.639812 $\pm$ 0.078567 &  0.025670 $\pm$ 0.000435 & 28.893884 $\pm$ 1.485897 \\
          
-W82.53 & 82510.00 - 82530.00 & 82528.75 & 8 & -8 & 1454.224 & 0.105020 & 3.063460 $\pm$ 0.114483 & 0.034281 $\pm$ 0.001281 & 11.731227 $\pm$ 3.603032 \\
+W82.53 & 82510.00 - 82530.00 & 82528.750 & 8 & -8 & 1454.224 & 0.105020 & 3.063460 $\pm$ 0.114483 & 0.034281 $\pm$ 0.001281 & 11.731227 $\pm$ 3.603032 \\
 
-W82.61 & 82606.00 - 82608.00 & 82607.75 & 15 & -13 & 1390.843 & 0.114571 & 4.315586 $\pm$ 0.126316 & 0.026548 $\pm$ 0.000777 & 34.433086 $\pm$ 3.931101 \\
+W82.61 & 82606.00 - 82608.00 & 82607.750 & 15 & -13 & 1390.843 & 0.114571 & 4.315586 $\pm$ 0.126316 & 0.026548 $\pm$ 0.000777 & 34.433086 $\pm$ 3.931101 \\
          
-W83.09 & 83086.00 - 83096.00 & 83090.65 & 9 & -9 & 1421.844 & 0.127997 & 4.065678 $\pm$ 0.080627 & 0.031482 $\pm$ 0.000624 & 29.780509 $\pm$ 2.784707 \\
+W83.09 & 83086.00 - 83096.00 & 83090.650 & 9 & -9 & 1421.844 & 0.127997 & 4.065678 $\pm$ 0.080627 & 0.031482 $\pm$ 0.000624 & 29.780509 $\pm$ 2.784707 \\
          
-W83.63 & 83612.02 - 83637.02 & 83632.02 & 10 & -10 & 1394.056 & 0.084198 & 3.374606 $\pm$ 0.024093 &  0.024950 $\pm$ 0.000178 & 29.366600 $\pm$ 1.603583 \\
+W83.63 & 83612.02 - 83637.02 & 83632.020 & 10 & -10 & 1394.056 & 0.084198 & 3.374606 $\pm$ 0.024093 &  0.024950 $\pm$ 0.000178 & 29.366600 $\pm$ 1.603583 \\
          
-W84.15 & 84140.00 - 84150.00 & 84147.10 & 11 & -11 & 1369.910 & 0.102993 & 3.182960 $\pm$ 0.218083 & 0.032358 $\pm$ 0.002217 & 14.814989 $\pm$ 2.403297 \\
+W84.15 & 84140.00 - 84150.00 & 84147.100 & 11 & -11 & 1369.910 & 0.102993 & 3.182960 $\pm$ 0.218083 & 0.032358 $\pm$ 0.002217 & 14.814989 $\pm$ 2.403297 \\
          
-W84.64 & 84630.00 - 84650.00 & 84643.20 & 2 & -2 & 1860.752 & 0.087528 & 3.209390 $\pm$ 0.048403 & 0.027273 $\pm$ 0.000411 & 16.286891 $\pm$ 0.621132 \\
+W84.64 & 84630.00 - 84650.00 & 84643.200 & 2 & -2 & 1860.752 & 0.087528 & 3.209390 $\pm$ 0.048403 & 0.027273 $\pm$ 0.000411 & 16.286891 $\pm$ 0.621132 \\
          
-W87.19 & 87170.00 - 87210.00 & 87192.80 & 2 & -2 & 1779.548 & 0.196865 & 2.292140 $\pm$ 0.027028 & 0.085887 $\pm$ 0.001013 & 4.500236 $\pm$ 0.143787 \\
+W87.19 & 87170.00 - 87210.00 & 87192.800 & 2 & -2 & 1779.548 & 0.196865 & 2.292140 $\pm$ 0.027028 & 0.085887 $\pm$ 0.001013 & 4.500236 $\pm$ 0.143787 \\
 
 \hline
 \end{tabular}
@@ -1833,35 +1853,35 @@ On the other hand, figure 17(b) is a semi-log plot for the normal-mode amplitude
 \hline
 \stackon[0pt]{ID}{\stackon[0pt]{Wave}} & \stackon[0pt]{(Km)}{\stackon[0pt]{Range}{Radial}} & \stackon[0pt]{(Km)}{\stackon[0pt]{Location ($r_{L}$)}{Resonance}} & $l$ & $m$ & \stackon[0pt]{(^{o}/day)}{\stackon[0pt]{Speed ($\Omega_{P}$)}{Pattern}} & \stackon[0pt]{$(\mu Hz)$}{\stackon[0pt]{$\sigma_{l|m|0} = |m|\Omega_{P}$}}& \stackon[0pt]{(Unit)}{\stackon[0pt]{$\mathscr{\bar{A}'}_{l|m|0}\times 10^{-10}$}}\\
 \hline
-$W74.51^{av}$ & 74501.00 - 74509.00 & 74506.90 & 12 & -8 & 1697.339 & 436.556 & 4.188953 $\pm$ 1.625144 \\
-W74.74 & 74736.00 - 74743.00 & 74739.85 & 15 & 13 & 1390.843 & 581.303 & 0.468935 $\pm$ 0.151741 \\
-W74.75 & 74746.00 - 74748.00 & 74748.30 & 11 & 11 & 1369.932 & 484.476 & 1.000367 $\pm$ 0.716662 \\
-W74.76 & 74752.00 - 74762.00 & 74756.60 & 19 & -11 & 1638.389 & 579.416 & 1.128411 $\pm$ 0.096750 \\
-W75.14 & 75142.00 - 75144.00 & 75143.00 & 16 & -10 & 1638.983 & 526.933 & 2.150641 $\pm$ 0.511749 \\
-W76.02A & 76016.00 - 76018.00 & 76018.10 & 13 & -9 & 1626.530 & 470.636 & 8.496996 $\pm$ 1.322658 \\
-W76.44 & 76433.00 - 76436.00 & 76435.40 & 2 & -2 & 2169.260 & 139.483 & 0.349768 $\pm$ 0.060859 \\
-$W76.46^{av}$ & 76457.00 - 76462.00 & 76459.50 & 9 & -7 & 1657.720 & 373.070 & 0.448199 $\pm$ 0.088837 \\
-W77.34 & 77337.00 - 77339.00 & 77338.90 & 14 & -10 & 1569.078 & 504.459 & 1.246061 $\pm$ 0.140534 \\
-W78.51 & 78503.00 - 78509.00 & 78506.75 & 15 & -11 & 1521.410 & 538.047 & 6.120969 $\pm$ 0.702114 \\
-W79.04 & 79039.00 - 79045.00 & 79042.30 & 11 & -9 & 1533.336 & 443.671 & 0.855530 $\pm$ 0.136226 \\
-W79.55 & 79546.00 - 79550.00 & 79548.92 & 16 & -12 & 1481.152 & 571.428 & 1.823376 $\pm$ 0.748287 \\
-W80.49 & 80484.00 - 80488.00 & 80486.10 & 17 & -13 & 1446.654 & 604.629 & 2.371932 $\pm$ 1.070324 \\
-W80.99 & 80983.00 - 80989.00 & 80986.15 & 4 & -4 & 1660.363 & 213.523 & 1.086303 $\pm$ 0.028567 \\
-W81.023A & 81018.00 - 81030.00 & 81023.10 & 5 & -5 & 1593.630 & 256.176 & 0.191079 $\pm$ 0.055287 \\
-W81.024B & 81018.00 - 81030.00 & 81024.15 & 13 & -11 & 1450.495 & 512.968 & 1.607331 $\pm$ 0.086647 \\
-W81.33 & 81333.00 - 81336.00 & 81334.27 & 18 & -14 & 1416.734 & 637.672 & 2.134102 $\pm$ 1.025221 \\
-W81.43 & 81420.00 - 81430.00 & 81429.55 & 6 & -6 & 1538.237 & 296.726 & 0.122626 $\pm$ 0.045158 \\
-W81.96 & 81959.00 - 81965.00 & 81962.45 & 7 & -7 & 1492.457 & 335.877 & 0.194246 $\pm$ 0.041141 \\
-W82.01 & 82004.00 - 82009.00 & 82007.75 & 3 & -3 & 1736.645 & 167.499 & 0.810594 $\pm$ 0.012101 \\
-W82.06 & 82055.00 - 82065.00 & 82059.40 & 3 & -3 & 1734.999 & 167.341 & 2.941676 $\pm$ 0.115643 \\
-W82.21 & 82187.50 - 82207.51 & 82207.50 & 3 & -3 & 1730.293 & 166.887 & 2.125972 $\pm$ 0.068838 \\
-W82.53 & 82510.00 - 82530.00 & 82528.75 & 8 & -8 & 1454.224 & 374.026 & 0.095499 $\pm$ 0.025765 \\
-W82.61 & 82606.00 - 82608.00 & 82607.75 & 15 & -13 & 1390.843 & 581.303 & 1.722142 $\pm$ 0.241385 \\
-W83.09 & 83086.00 - 83096.00 & 83090.65 & 9 & -9 & 1421.844 & 411.411 & 0.597726 $\pm$ 0.023984 \\
-W83.63 & 83612.02 - 83637.02 & 83632.02 & 10 & -10 & 1394.056 & 448.189 & 4.438521 $\pm$ 0.190089 \\
-W84.15 & 84140.00 - 84150.00 & 84147.10 & 11 & -11 & 1369.910 & 484.469 & 0.279899 $\pm$ 0.043982 \\
-W84.64 & 84630.00 - 84650.00 & 84643.20 & 2 & -2 & 1860.752 & 119.646 & 1.349655 $\pm$ 0.042135 \\
-W87.19 & 87170.00 - 87210.00 & 87192.80 & 2 & -2 & 1779.548 & 114.425 & 0.293311 $\pm$ 0.011653 \\
+$W74.51^{av}$ & 74501.00 - 74509.00 & 74506.900 & 12 & -8 & 1697.339 & 436.556 & 4.188953 $\pm$ 1.625144 \\
+W74.74 & 74736.00 - 74743.00 & 74739.850 & 15 & 13 & 1390.843 & 581.303 & 0.468935 $\pm$ 0.151741 \\
+W74.75 & 74746.00 - 74748.00 & 74748.300 & 11 & 11 & 1369.932 & 484.476 & 1.000367 $\pm$ 0.716662 \\
+W74.76 & 74752.00 - 74762.00 & 74756.600 & 19 & -11 & 1638.389 & 579.416 & 1.128411 $\pm$ 0.096750 \\
+W75.14 & 75142.00 - 75144.00 & 75143.000 & 16 & -10 & 1638.983 & 526.933 & 2.150641 $\pm$ 0.511749 \\
+W76.02A & 76016.00 - 76018.00 & 76018.100 & 13 & -9 & 1626.530 & 470.636 & 8.496996 $\pm$ 1.322658 \\
+W76.44 & 76433.00 - 76436.00 & 76435.400 & 2 & -2 & 2169.260 & 139.483 & 0.349768 $\pm$ 0.060859 \\
+$W76.46^{av}$ & 76457.00 - 76462.00 & 76459.500 & 9 & -7 & 1657.720 & 373.070 & 0.448199 $\pm$ 0.088837 \\
+W77.34 & 77337.00 - 77339.00 & 77338.900 & 14 & -10 & 1569.078 & 504.459 & 1.246061 $\pm$ 0.140534 \\
+W78.51 & 78503.00 - 78509.00 & 78506.750 & 15 & -11 & 1521.410 & 538.047 & 6.120969 $\pm$ 0.702114 \\
+W79.04 & 79039.00 - 79045.00 & 79042.300 & 11 & -9 & 1533.336 & 443.671 & 0.855530 $\pm$ 0.136226 \\
+W79.55 & 79546.00 - 79550.00 & 79548.920 & 16 & -12 & 1481.152 & 571.428 & 1.823376 $\pm$ 0.748287 \\
+W80.49 & 80484.00 - 80488.00 & 80486.100 & 17 & -13 & 1446.654 & 604.629 & 2.371932 $\pm$ 1.070324 \\
+W80.99 & 80983.00 - 80989.00 & 80986.150 & 4 & -4 & 1660.363 & 213.523 & 1.086303 $\pm$ 0.028567 \\
+W81.023A & 81018.00 - 81030.00 & 81023.100 & 5 & -5 & 1593.630 & 256.176 & 0.191079 $\pm$ 0.055287 \\
+W81.024B & 81018.00 - 81030.00 & 81024.150 & 13 & -11 & 1450.495 & 512.968 & 1.607331 $\pm$ 0.086647 \\
+W81.33 & 81333.00 - 81336.00 & 81334.275 & 18 & -14 & 1416.734 & 637.672 & 2.134102 $\pm$ 1.025221 \\
+W81.43 & 81420.00 - 81430.00 & 81429.550 & 6 & -6 & 1538.237 & 296.726 & 0.122626 $\pm$ 0.045158 \\
+W81.96 & 81959.00 - 81965.00 & 81962.450 & 7 & -7 & 1492.457 & 335.877 & 0.194246 $\pm$ 0.041141 \\
+W82.01 & 82004.00 - 82009.00 & 82007.750 & 3 & -3 & 1736.645 & 167.499 & 0.810594 $\pm$ 0.012101 \\
+W82.06 & 82055.00 - 82065.00 & 82059.400 & 3 & -3 & 1734.999 & 167.341 & 2.941676 $\pm$ 0.115643 \\
+W82.21 & 82187.50 - 82207.51 & 82207.500 & 3 & -3 & 1730.293 & 166.887 & 2.125972 $\pm$ 0.068838 \\
+W82.53 & 82510.00 - 82530.00 & 82528.750 & 8 & -8 & 1454.224 & 374.026 & 0.095499 $\pm$ 0.025765 \\
+W82.61 & 82606.00 - 82608.00 & 82607.750 & 15 & -13 & 1390.843 & 581.303 & 1.722142 $\pm$ 0.241385 \\
+W83.09 & 83086.00 - 83096.00 & 83090.650 & 9 & -9 & 1421.844 & 411.411 & 0.597726 $\pm$ 0.023984 \\
+W83.63 & 83612.02 - 83637.02 & 83632.020 & 10 & -10 & 1394.056 & 448.189 & 4.438521 $\pm$ 0.190089 \\
+W84.15 & 84140.00 - 84150.00 & 84147.100 & 11 & -11 & 1369.910 & 484.469 & 0.279899 $\pm$ 0.043982 \\
+W84.64 & 84630.00 - 84650.00 & 84643.200 & 2 & -2 & 1860.752 & 119.646 & 1.349655 $\pm$ 0.042135 \\
+W87.19 & 87170.00 - 87210.00 & 87192.800 & 2 & -2 & 1779.548 & 114.425 & 0.293311 $\pm$ 0.011653 \\
 \hline
 \end{tabular}
 \vspace{-1.5cm}
@@ -1889,7 +1909,7 @@ W87.19 & 87170.00 - 87210.00 & 87192.80 & 2 & -2 & 1779.548 & 114.425 & 0.293311
     \hspace{0.5cm}
     \begin{subfigure}[b]{0.5\linewidth}
         \centering
-        \includegraphics[width=\linewidth]{normal_mode_RATIOPLOT.png}
+        \includegraphics[width=\linewidth]{mormalmode_RATIOMAIN.png}
         \caption{}
         \label{fig:normal_mode_RATIOPLOT}
     \end{subfigure}
@@ -1897,22 +1917,35 @@ W87.19 & 87170.00 - 87210.00 & 87192.80 & 2 & -2 & 1779.548 & 114.425 & 0.293311
     \label{fig:saturn_normal_mode_amplitude}
 \end{figure}
 
+
+
 %.................................................................................
 \section{Discussions}
-Here, discuss Chris Mankovitch's plots and how they are related to your results. Talk about the general implications for your research.
 
-2. Here add the Chris Mankovich's ratio table + ratio plots. Discuss both 1 and 2 here.
+More preliminary results regarding normal-mode amplitude computations is shown in figure 17(c), a semi-log plot of normal-mode amplitude versus mode energy mid-point radii estimated with respect to Saturn's equatorial radius($R_{eq}$ = 60,268 Km). The horizontal axis could also be referred to as the depth of the planet, with the origin (center) being the $0.0$ point, while the surface being the $1.0$ point. Trends from this plot show that there might be two classes of normal-mode excitation within Saturn: the deep modes and shallow modes of excitation. Normal-modes with $l = 2,3,4$ could be attributable to sources of excitation deep within the planet's interior, while modes with $l>4$ could be associated with excitation sources at regions close to the surface of the planet.
 
+A similar version of the aforesaid plot is show in the figure 18(a, b). Figure 18(a) shows the simulated mode energy mid-point radii associated with the average energy for the normal-mode amplitude, versus the corresponding angular degree. It shows the mode energy midpoint locations, up to $|m|=14$ and $\ell-|m|=0,2,4,6,8$. The results from this simulation clearly shows that there is a somewhat exponential increase in mode energy mid-point radii with respect to an increase in angular degree. Normal-mode oscillations with lower angular degrees tend to occur at regions close to the center of the planet, while normal-mode oscillations with relatively higher angular degrees are located at regions close to the surface of the planet.
+
+Besides, figure 18(b) shows a metric for mode depth from a simulated Saturn models involving the energy associated with each mode. Looking at $\rho |\vec v|^{2}$, the $\vec v$ is the mode velocity perturbation vector and $\rho$ is just the background density of the planet, which amounts to a kinetic energy density of the mode involved. Integrating this over the volume of the planet simply gives the mode energy for the corresponding normal-mode oscillation. We ascribed a depth to each mode by asking at what radius this mode energy integral reaches half its total value. To arrive at the result shown, we weight the integrand by $r^{2}$ from the volume element. Each mode in the plot has a dot showing the integral's midpoint location. Our observations show that the modes at $\ell=|m|=2,3,4,5$ all have considerable amplitude in the g-mode cavity, which might imply that they all have peak average mode energies at regions close to the center of the planet, while the modes with $\ell > 5$ all have peak average energies at regions close to the surface of the planet, which might mean that there are potentially deep sources and shallow sources of planetary normal-mode excitation for Saturn.
 
 \begin{figure}
     \centering
-    \includegraphics[width=1.1\linewidth]{mode_energy_integrands (2).pdf}
-    \caption{Enter Caption}
-    \label{fig:enter-label}
+    \begin{subfigure}{0.6\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{mode_energy_midpoint_radii.pdf}
+        \caption{Simulated mode energy mid-point radii(for average mode energy) versus angular degree.}
+        \label{fig:sub1}
+    \end{subfigure}
+    \hspace{-5.5cm} % Adjust the horizontal spacing here
+    \begin{subfigure}{1.14\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{mode_energy_integrands (2).pdf}
+        \caption{Simulated mode energy versus mode energy mid-point radii.}
+        \label{fig:sub2}
+    \end{subfigure}
+    \caption{Plots for simulations involving: (a) Mode energy mid-point radii versus angular degree.  (b) Mode energy versus mode energy mid-point radii.}
+    \label{fig:overall}
 \end{figure}
-
-
-
 
 %.................................................................................
 
@@ -1960,73 +1993,524 @@ I gratefully acknowledge the Maker of the Universe, for unending inspiration and
 \section{Appendix}
 \label{sec:appendix}
 
-\subsection{Satellite Resonance}
-\label{subsec:data}
-%................................................................
-\begin{figure}[h]
+
+\subsection{Code Snippets For Density Wave Analysis}
+\label{subsec:code}
+
+\begin{lstlisting}[language=Python, caption=Python code snippet for Spiral Density Wave Analysis.]
+# Import all the required libraries 
+import numpy as np
+import scipy as sp
+import matplotlib.pyplot as plt
+from scipy.io import readsav
+from scipy import signal as signal
+
+# Set Parameters for the specific wave.
+   
+    # datfile = idl save file of the profiles
+    # m = (signed) azimuthal wavenumber of wave
+    # omp = Nominal Wave pattern speed in degrees/day
+    # omr = Range of pattern speeds to consider in degrees/dat
+    # xr = Range of radii to plot and compute wavelets (in 1000 km)
+    # rback = Radius range of blank region for identifying good profiles (in km)
+    # rwave = Radius range  containing the wave (in km)
+    # wrange(frange) = Range of spatial wavelegths(frequencies) to compute in the wavelet
+    # mthres = Threshold deviation for normal optical depth in range rback
+    # rthres = Maximum allowed resolution in range rwave
+    # rangedisp = range of signals shown in power wavelets
+    # badoccnames = Names of occultations to be removed that look problematic on visual inspection
+
+datfile = '...'
+m = ...
+omp = ...
+omr = ...
+xr=  [...]
+rback = [...]
+rwave = [...] 
+wrange = [...]
+mthres = ...
+rthres = ...
+rangedisp = ...
+
+badoccnames = ["...","..."] # Either one or more occultations could be bad.
+
+# Read the data file into python
+data = readsav(datfile)
+radi = data.radi
+lons = data.lon
+times = data.etime
+resrs = data.res
+dat = np.transpose(data.dat)
+radi = np.array(radi)
+dat = np.array(dat)
+lons = np.array(np.transpose(lons))
+times = np.array(np.transpose(times))
+resrs = np.array(np.transpose(resrs))
+
+nf = len(data.labs)
+nr = len(radi)
+
+# Convert to Normal Optical Depth
+dat[dat<1e-10] = 1e-10 #Removes negative signals to avoid numerical errors for log transform
+tau = -np.log(dat)
+for i in range(nf):
+    tau[i] = tau[i]*np.abs(np.sin(data.b[i]*3.14159/180.))
+
+# yr is year of observation after 2000    
+yr = times[0:nf,0]/24/3600/365.25
+
+# Determine average optical depth and maximum resolution in regions
+taum = np.mean(tau[0:nf,(radi > rwave[0]) &(radi < rwave[1])], axis=1)
+rmax = np.max(resrs[0:nf,(radi > rwave[0]) &(radi < rwave[1])], axis=1)
+
+mtaum = np.median(taum)
+
+# Select profiles with reasonable optical depths and resolution, also can include cut on times here
+taux = tau[(np.abs(taum-mtaum) < mthres) & (rmax<rthres) & (yr < 18),0:nr]
+lonx = lons[(np.abs(taum-mtaum)<mthres) & (rmax<rthres) & (yr < 18),0:nr]
+timex = times[(np.abs(taum-mtaum)<mthres)& (rmax<rthres) & (yr < 18),0:nr]
+labx = data.labs[(np.abs(taum-mtaum)<mthres)& (rmax<rthres) & (yr < 18)]
+nfx = len(taux)
+print(nfx)
+
+# Plot the profiles for visual inspection
+print('Automatically Selected Profiles')
+
+plt.figure(figsize=(6,30))
+for i in range(0,len(taux)):
+    plt.plot(radi/1e3,taux[i]+i)
+    plt.text(xr[1],i,labx[i])
+plt.xlim(xr)
+plt.xlabel('Radius (1000 km)')
+plt.ylabel('Normal Optical Depth + offset')
+plt.show()
+
+# Remove occs flagged as bad by visual inspection
+badoccs = np.zeros(nfx)
+for i in range(0,len(badoccnames)):
+    for j in range(0,nfx):
+        occname=str(labx[j])
+        if badoccnames[i] in occname:
+                badoccs[j]=1
+
+taux = taux[(badoccs == 0),0:nr]
+lonx = lonx[(badoccs == 0),0:nr]
+timex = timex[(badoccs == 0),0:nr]
+labx = labx[(badoccs == 0)]
+nfx = len(taux)
+                      
+# Plot the profiles for visual inspection after removing named occs
+print('After Excluding Profiles by hand')
+plt.figure(figsize=(6,30))
+for i in range(0,len(taux)):
+    plt.plot(radi/1e3,taux[i]+0.14*i)
+    plt.text(xr[1],0.14*i,labx[i])
+plt.xlim(xr)
+plt.xlabel('Radius (1000 km)')
+plt.ylabel('Normal Optical Depth + offset')
+plt.show()
+
+# Select out the parts of the profiles shown (speeds up wavelet transforms)
+taux = taux[0:nfx,(radi>xr[0]*1e3) & (radi<xr[1]*1e3)]
+lonx = lonx[0:nfx,(radi>xr[0]*1e3) & (radi<xr[1]*1e3)]
+timex = timex[0:nfx,(radi>xr[0]*1e3) & (radi<xr[1]*1e3)]
+radix = radi[(radi>xr[0]*1e3) & (radi<xr[1]*1e3)]
+nrx = len(radix)
+
+# Codes for Continous Wavelet Transform (and Parameters)
+def waveletls(x, y, lambdas, param, wave=None):
+    # nx is the number of elements in x
+    nx = len(x)
+    # nl is the number of elements in lambdas
+    nl = len(lambdas)
+    # fy is the Fourier Transform of y. We still need to import the fft module for this step.
+    fy = np.fft.fft(y)
+    # dx is the difference between the first and second elements of x
+    dx = x[1] - x[0]
+    # k is an array of evenly spaced values between 0 and nx
+    k = np.arange(nx)
+    # omegak is the frequency of each value in k
+    omegak = 2*np.pi*k/nx/dx
+    # q is a boolean array of the values in k greater than nx/2
+    q = np.where(k > nx/2)
+    # For elements in omegak where the corresponding value in k is greater than nx/2,
+    # The value of omegak is set to 0 minus the frequency of the corresponding value in k
+    omegak[q] = 0 - 2*np.pi*k[q]/nx/dx
+    # omegakx is a matrix where each row is a copy of omegak
+    omegakx = np.outer(omegak, np.ones(nl))
+    # scales is the result of multiplying lambdas by a constant term
+    scales = (param + np.sqrt(param**2 + 2))*(lambdas)/4/np.pi
+    # scalex is a matrix where each column is a copy of scales
+    scalex = np.outer(np.ones(nx), scales)
+    
+    scalex = scalex.astype(float) # This line of code was added to boycott the issues with the lambdas parameter
+    
+    # morlet is the wavelet transform of fy and lambdas
+    morlet = 1/np.pi**.25*np.exp(-(scalex*omegakx - param)**2/2.0)
+    # wave is a complex matrix with dimensions nx by nl
+    if wave is None:
+        wave = np.empty((nx, nl), dtype=complex) # Changed positions of nx and nl 2/14/2023
+    # for each row of morlet, wave is set to the inverse Fourier Transform of the product of fy and the row
+    for i in range(nl):
+        wave[:,i] = np.fft.ifft(fy*morlet[:,i], axis=-1)
+    # return the final computed wavelet matrix
+    return wave, morlet
+
+# Link Continous Wavelet Transforms to signal properties
+nw = len(radix)
+param = 6.
+lambdas = np.linspace(wrange[0], wrange[1], nw, retstep=True)[0]
+x = radix
+scales = (param + np.sqrt(param**2 + 2))*(lambdas)/4/np.pi
+cwtmatmat = np.zeros([nfx,nrx,nw], dtype=complex)
+
+# Implementation of Continous wavelet transforms to signal data
+for i in range(0,nfx):
+        print(i,labx[i])
+        cwtmatmat[i,0:nrx,0:nw], morlet = waveletls(x, taux[i,0:nrx], lambdas, param, wave=None)
+        plt.imshow((np.abs(cwtmatmat[i,0:nrx,0:nw])),
+             vmin=0, vmax=rangedisp, origin='lower', extent=[wrange[0],wrange[1],xr[0],xr[1]], aspect='auto')
+        plt.xlabel('Spatial Wavelength (km)')
+        plt.ylabel('Radius (1000 km)')
+        plt.show()
+
+# Compute the phases for the nominal pattern speed
+et0 = 10.0*365.25*24*3600   # Epoch of ten (10) years
+npat = 20 # Must be even
+phases = np.zeros([nfx,nrx])
+phases[0:nfx,0:nrx] = np.abs(m)*(lonx-(omp)/24/3600*(timex-et0))
+print(np.min(phases), np.max(phases))
+phases = ((phases % 360.)+360.)%360.
+print(np.min(phases), np.max(phases))
+cp = np.cos(phases*np.pi/180)
+sp = np.sin(phases*np.pi/180)
+
+# Apply phase shifts to the wavelet transform
+# Also plots Power of the Average phase corrected wavelet for visual inspection
+cwaver = np.real(cwtmatmat)
+cwavei = np.imag(cwtmatmat)
+cwavex = np.zeros([nfx,nw,nrx])
+cwavey = np.zeros([nfx,nw,nrx])
+for i in range(0,nw):
+    cwavex[0:nfx,i,0:nrx] = cwaver[0:nfx,i,0:nrx]*cp[0:nfx,0:nrx]+cwavei[0:nfx,i,0:nrx]*sp[0:nfx,0:nrx]
+    cwavey[0:nfx,i,0:nrx] = cwavei[0:nfx,i,0:nrx]*cp[0:nfx,0:nrx]-cwaver[0:nfx,i,0:nrx]*sp[0:nfx,0:nrx]
+
+# Compute average phase corrected wavelets for each pattern speed 
+cwaverc = np.mean(cwavex, axis=0)
+cwaveic = np.mean(cwavey, axis=0)
+
+# Compute average wavelet power, power of average phase-corrected wavelet for nominal case, and power ratio and make plots of all of them
+cwavea = np.mean(np.sqrt(cwavex**2+cwavey**2), axis=0)
+cwavez = np.sqrt(cwaverc**2+cwaveic**2)
+cwavezz = np.zeros([npat,nw,nrx])
+cwavezz = cwavez/cwavea
+
+print('Average Wavelet Power')
+plt.imshow(cwavea,
+           vmin=0, vmax=rangedisp, origin='lower', extent=[wrange[0],wrange[1],xr[0],xr[1]], aspect='auto')
+plt.xlabel('Spatial Wavelength (1/km)') 
+plt.ylabel('Radius (1000 km)')
+plt.show()
+
+print('Power of Average PCW')
+plt.imshow(cwavez,
+           vmin=0, vmax=rangedisp, origin='lower', extent=[wrange[0],wrange[1],xr[0],xr[1]], aspect='auto')
+plt.xlabel('Spatial Wavelength (1/km)')
+plt.ylabel('Radius (1000 km)')
+plt.show()
+
+print('Power Ratio')
+plt.imshow(cwavezz,
+           vmin=0, vmax=rangedisp+1, origin='lower', extent=[wrange[0],wrange[1],xr[0],xr[1]], aspect='auto')
+plt.xlabel('Spatial Wavelength (1/km)')
+plt.ylabel('Radius (1000 km)')
+plt.show()
+
+# Continous Wavelet Transform Reconstruction
+scales = (param + np.sqrt(param**2 + 2))*(lambdas)/4/np.pi
+widths = scales
+widthx = np.zeros([nrx,nw])
+for i in range(0,nrx):
+        widthx[i,0:nw]=widths
+#for i in range(0,nw):
+cwaverec = 6*(wrange[1]-wrange[0])*np.mean(np.real(cwaverc)/((widthx)), axis=1)
+cwaverec2 = 6*(wrange[1]-wrange[0])*np.mean(np.real(cwaveic)/((widthx)), axis=1)
+profrec=cwaverec
+profrec2=cwaverec2
+taub=np.median(taux, axis=0) 
+# Or use t_av = np.mean(tau_av) where necessary: tau_av = taub[(radix>rwave[0]) & (radix<rwave[1])]
+nprofrec = profrec/taub
+
+# Plot all three quantities
+plt.figure(figsize=(19,9))
+print('Reconstructed Profile')
+plt.plot(radix/1e3,profrec)
+plt.xlim(xr)
+plt.xlabel('Radius (1000 km)')
+plt.ylabel('Normal Optical Depth')
+plt.show()
+
+plt.figure(figsize=(19,9))
+print('Average Background Profile')
+plt.plot(radix/1e3,taub)
+plt.xlim(xr)
+plt.xlabel('Radius (1000 km)')
+plt.ylabel('Normal Optical Depth')
+plt.show()
+
+plt.figure(figsize=(19,9))
+print('Reconstructed Profile (Normalized to background Optical Depth)')
+plt.plot(radix/1e3,nprofrec)
+plt.xlim(xr)
+plt.xlabel('Radius (1000 km)')
+plt.ylabel('Normal Optical Depth')
+plt.show()
+
+# Codes For Wave-fitting Routine
+
+# Linear Density Wave Equation for the Spiral Wave, as given in the PDF document attached
+def wavefunc(x,a,xd,phi0,xr,xf):
+     return (a/xf)*((x - xr)/1)*np.exp(-(np.abs((x - xr)/xf))**3/xd**3)*np.cos(
+           phi0-(((x - xr))**2/xf ** 2)-(3*np.pi / 4))*(1+np.sign(m)*np.sign((x-xr)/xf))
+
+# Import the curve_fit routine from Scipy
+from scipy.optimize import curve_fit
+
+# We run the code to fit the parameters in wavefunc to prof versus radi.
+# Best-fit values are output as fit
+# It returns covar, which are the covariances in the fit parameters
+# Bounds forces a to be between 0 to 0.1, 
+# xd to be between 1 and 40,
+# phi0 to be between 0 and 2pi, 
+# xr to be between -10 and 10 and 
+# xf to be between 0.5 and 4
+# Note that these ranges may not work for all waves, they may vary in some cases.
+
+# Define the radial offset
+radaf = radix - $r_{L}$ # The resonant radius is different for each wave.
+
+fit, covar=curve_fit(wavefunc,radaf,nprofrec, bounds= ([...]), method='trf')
+
+# Print the fit parameters
+print('Fit Parameters nprofrec')
+print('Amplitude',fit[0])
+print('Damping Length',fit[1])
+print('Initial Phase',fit[2])
+print('Resonance Offset',fit[3])
+print('Winding Parameter',fit[4])
+
+# Compute the model profile given the fit parameters.
+mod2=wavefunc(radaf,fit[0],fit[1],fit[2],fit[3],fit[4])
+
+# Remote sensing data (in blue) and the fit model (in orange)
+plt.figure(figsize=(19,9))
+plt.xlabel('Radius (km)')
+plt.ylabel('Spiral Density Wave Signal')
+plt.plot(radaf,nprofrec)
+plt.plot(radaf,mod2)
+plt.xlim([...])
+plt.ylim([...])
+plt.title("...")
+\end{lstlisting}
+
+
+
+\subsection{Additional Analysis For Satellite and Planetary Resonances}
+
+
+\paragraph{List of Faulty Occultations Excluded: Satellite and Planetary Resonances}
+
+
+\begin{table}
+\centering
+\vspace{-1.5cm}
+%\vspace{0.01pt} % Adjust the value as needed
+\rotatebox{90}{
+\normal
+%\begin{tabular}{lllll}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+\hline
+\stackon[0pt]{Name}{\stackon[0pt]{Resonance}} & \stackon[0pt]{(Km)}{\stackon[0pt]{Range}{Radial}} & \stackon[0pt]{(Km)}{\stackon[0pt]{Location}{Resonance}} & $l$ & $m$ & Faulty Occultations \\
+\hline
+\stackon[0pt]{Resonance}{\stackon[0pt]{Satellite}} & & & & & \\
+\hline
+Mimas 4:1 & 74880.00 - 74895.00 &  74890.07 & - & 2 & ["RLyr202e","RCas194e"] \\
+Pan 2:1 & 85090.00 - 85130.00 & 85105.02 & - & 2 & ["L2Pup206e","betPeg108i","betPeg172i","L2Pup201i","RCas191i",  "muCep191i","RSCnc085e","RCas106i"] \\
+Atlas 2:1 & 87640.00 - 87650.00 & 87645.68 & - & 2 & ["muCep191i","gamCru094i","RLyr200i"] \\
+Prometheus 4:2 & 88420.00 - 88440.00 & 88434.12 & - & 3 & ["alpSco245i","RCas106i","VYCMa269i"] \\
+Mimas 6:2 & 89870.00 - 89890.00 & 89884.00 & - & 3 & ["RCas243i","L2Pup199e","RCar191i","betPeg170e","gamCru079i","gamCru073i"] \\
+Pandora 4:2 & 89887.00 - 89897.00 & 89893.68 & - & 3 & ["gamCru291i","RCas243i","L2Pup199e","RCar191i","gamCru079i","gamCru073i"] \\
+\hline
+\stackon[0pt]{Resonance}{\stackon[0pt]{Planetary}} & & & & & \\
+\hline
+$W74.51^{av}$ & 74501.00 - 74509.00 & 74506.90 & 12 & -8 & ["RCas243i","gamCru094i","RCas194e","RCas191i","RLyr199i"] \\
+W74.74 & 74736.00 - 74743.00 & 74739.85 & 15 & 13 & ["RLyr199i","gamCru291i","gamCru089i","RCas191i","alpAur041i","RCas243i"] \\
+W74.75 & 74746.00 - 74748.00 & 74748.30 & 11 & 11 & ["RLyr199i","gamCru291i","alpAur041i","RCas243i","RCas191i","RCas185i"] \\
+W74.76 & 74752.00 - 74762.00 & 74756.60 & 19 & -11 & ["RLyr199i","alpAur041i","RCas243i"]\\
+W75.14 & 75142.00 - 75144.00 & 75143.00 & 16 & -10 & ["alpAur041i","RLyr208e","RLyr202e","L2Pup206e","L2Pup201i","muCep191i","muCep185e"] \\
+W76.02A & 76016.00 - 76018.00 & 76018.10 & 13 & -9 & ["RCas243i","lamVel268i"]\\
+W76.44 & 76433.00 - 76436.00 & 76435.40 & 2 & -2 & ["gamCru255i","gamCru268i","gamCru100i","RLyr198i"] \\
+$W76.46^{av}$ & 76457.00 - 76462.00 & 76459.50 & 9 & -7 &  ["gamCru255i","RLyr198i","muCep193i","muCep191i","gamCru100i"] \\
+W77.34 & 77337.00 - 77339.00 & 77338.900 & 14 & -10 & ["muCep191i","2Cen194e","lamVel173i"] \\
+W78.51 & 78503.00 - 78509.00 & 78506.750 & 15 & -11 & ["gamCru187e","RCar191i","gamCru276i","alpAur041i"]\\
+W79.04 & 79039.00 - 79045.00 & 79042.300 & 11 & -9 & ["L2Pup205e","RCas185i","RCas191i","alpSco115i"]\\
+W79.55 & 79546.00 - 79550.00 & 79548.920 & 16 & -12 & ["alpAur041i","gamCru264i","gamCru255i"]\\
+W80.49 & 80484.00 - 80488.00 & 80486.100 & 17 & -13 & ["RCas185i","muCep185e"]\\
+W80.99 & 80983.00 - 80989.00 & 80986.150 & 4 & -4 & ["gamCru268i","L2Pup205e"]\\
+W81.023A & 81018.00 - 81030.00 & 81023.100 & 5 & -5 & ["RCas185i","RLyr202e"]\\
+W81.024B & 81018.00 - 81030.00 & 81024.150 & 13 & -11 & ["RLyr202e","RCas185i"]\\
+W81.33 & 81333.00 - 81336.00 & 81334.275 & 18 & -14 & ["gamCru269i"]\\
+W81.43 & 81420.00 - 81430.00 & 81429.550 & 6 & -6 & ["L2Pup201i","RCas185i","RHya036i","RSCnc080e","WHya180i"]\\
+W81.96 & 81959.00 - 81965.00 & 81962.450 & 7 & -7 & ["RCas185i","RCar191i"]\\
+W82.01 & 82004.00 - 82009.00 & 82007.750 & 3 & -3 & ["VYCMa269i","RCas194e","L2Pup201i","RCar191i","WHya186e"]\\
+W82.06 & 82055.00 - 82065.00 & 82059.400 & 3 & -3 & ["VYCMa269i","RCas243i","RCas194e","L2Pup201i","RCar191i"]\\
+W82.21 & 82187.50 - 82207.51 & 82207.500 & 3 & -3 & ["alpAur041i","RCas106i","RCas185i","muCep185e","muCep193i","L2Pup201i","L2Pup206e","RCas243i"]\\
+W82.53 & 82510.00 - 82530.00 & 82528.750 & 8 & -8 & ["RCas185i","gamCru089i","gamCru081i","gamCru094i"]\\
+W82.61 & 82606.00 - 82608.00 & 82607.750 & 15 & -13 & ["RLyr200i","RSCnc080e","muCep191i","muCep193i","RCas185i"]\\
+W83.09 & 83086.00 - 83096.00 & 83090.650 & 9 & -9 & ["RCar191i","RSCnc080i","RSCnc085i","muCep191i","RLyr199i"]\\
+W83.63 & 83612.02 - 83637.02 & 83632.020 & 10 & -10 & ["RCas185i","RCar191i","RSCnc080i"]\\
+W84.15 & 84140.00 - 84150.00 & 84147.100 & 11 & -11 & ["alpAur041i","gamCru269i","RCas194e","RCas185i","muCep185e","RSCnc087e"]\\
+W84.64 & 84630.00 - 84650.00 & 84643.200 & 2 & -2 & ["gamCru093i","L2Pup201i","RCas185i","2Cen194i","RCar191i"]\\
+W87.19 & 87170.00 - 87210.00 & 87192.800 & 2 & -2 & ["L2Pup206e","RCas194e","RCas185i"]\\
+\hline
+\end{tabular}
+\vspace{-1.5cm}
+}
+\caption{Excluded occultations for satellite and planetary resonances.}
+\end{table}
+
+
+
+%.......................................................................................
+
+\paragraph{Plots for Wave-fitting Routine: Satellite and Planetary Resonances}
+
+\begin{figure}
     \centering
-
-    \begin{subfigure}{0.35\linewidth}
-        \includegraphics[width=\linewidth]{mimas41_wavefit.png}
-        %\caption{Caption for Mimas41}
-        \label{fig:mimas41}
-    \end{subfigure}
-    \hspace{1\linewidth} % Adjust the horizontal space between subfigures
-
-    \begin{subfigure}{0.35\linewidth}
-        \includegraphics[width=\linewidth]{pan_21_wavefit.png}
-        %\caption{Caption for Pan21}
-        \label{fig:pan21}
-    \end{subfigure}
-    \hspace{1\linewidth}
-
-    \begin{subfigure}{0.35\linewidth}
-        \includegraphics[width=\linewidth]{atlas_21_wavefit.png}
-        %\caption{Caption for Atlas21}
-        \label{fig:atlas21}
-    \end{subfigure}
-    \\ % Start a new line for the next row of subfigures
-
-    \begin{subfigure}{0.35\linewidth}
-        \includegraphics[width=\linewidth]{prometheus_42_wavefit.png}
-        %\caption{Caption for Prometheus42}
-        \label{fig:prometheus42}
-    \end{subfigure}
-    \hspace{1\linewidth}
-
-    \begin{subfigure}{0.35\linewidth}
-        \includegraphics[width=\linewidth]{mimas_62_wavefit.png}
-        %\caption{Caption for Mimas62}
-        \label{fig:mimas62}
-    \end{subfigure}
-    \hspace{1\linewidth}
-
-    \begin{subfigure}{0.35\linewidth}
-        \includegraphics[width=\linewidth]{pandora_42_wavefit.png}
-        %\caption{Caption for Pandora42}
-        \label{fig:pandora42}
-    \end{subfigure}
-
-    \caption{A panel of wave-fitting plots for given Satellite resonances.}
-    \label{fig:common-label}
+    \begin{tabular}{ccc}
+        \subcaptionbox{Mimas 4:1}{\includegraphics[width=0.3\textwidth, height=0.2\textheight, keepaspectratio]{mimas41.png}} &
+        \subcaptionbox{Pan 2:1}{\includegraphics[width=0.3\textwidth, height=0.2\textheight, keepaspectratio]{pan21.png}} &        
+        \subcaptionbox{Atlas 2:1}{\includegraphics[width=0.3\textwidth, height=0.2\textheight, keepaspectratio]{atlas21.png}} \\        
+        \subcaptionbox{Prometheus 4:2}{\includegraphics[width=0.3\textwidth, height=0.2\textheight, keepaspectratio]{prometheus42.png}} &        
+        \subcaptionbox{Mimas 6:2}{\includegraphics[width=0.3\textwidth, height=0.2\textheight, keepaspectratio]{mimas62.png}} &        
+        \subcaptionbox{Pandora 4:2}{\includegraphics[width=0.3\textwidth, height=0.2\textheight, keepaspectratio]{pandora42.png}} \\        
+        \subcaptionbox{$W74.51^{av}$}{\includegraphics[width=0.3\textwidth, height=0.2\textheight, keepaspectratio]{w7451mp.png}} &
+        \subcaptionbox{W74.74}{\includegraphics[width=0.3\textwidth, height=0.2\textheight, keepaspectratio]{w7474mp.png}} &
+        \subcaptionbox{W74.75}{\includegraphics[width=0.3\textwidth, height=0.2\textheight, keepaspectratio]{w7475mp.png}} \\
+        \subcaptionbox{W74.76}{\includegraphics[width=0.3\textwidth, height=0.2\textheight, keepaspectratio]{w7476mp.png}} &
+        \subcaptionbox{W75.14}{\includegraphics[width=0.3\textwidth, height=0.2\textheight, keepaspectratio]{w7514mp.png}} &
+        \subcaptionbox{W76.02A}{\includegraphics[width=0.3\textwidth, height=0.2\textheight, keepaspectratio]{w7602mp.png}} \\
+        \subcaptionbox{W76.44}{\includegraphics[width=0.3\textwidth, height=0.2\textheight, keepaspectratio]{w7644mp.png}} &
+        \subcaptionbox{$W76.46^{av}$}{\includegraphics[width=0.3\textwidth, height=0.2\textheight, keepaspectratio]{w7646avmp.png}} &
+        \subcaptionbox{W77.34}{\includegraphics[width=0.3\textwidth, height=0.2\textheight, keepaspectratio]{w7734mp.png}} \\
+        \subcaptionbox{W78.51}{\includegraphics[width=0.3\textwidth, height=0.2\textheight, keepaspectratio]{w7851mp.png}} &
+        \subcaptionbox{W79.04}{\includegraphics[width=0.3\textwidth, height=0.2\textheight, keepaspectratio]{w7904mp.png}} &
+        \subcaptionbox{W79.55}{\includegraphics[width=0.3\textwidth, height=0.2\textheight, keepaspectratio]{w7955mp.png}} \\
+    \end{tabular}
+    \caption{A catalogue of plots from wave-fitting routine exercise for given satellite and planetary resonances.}
 \end{figure}
 
+\afterpage{%
+    \clearpage% Flush earlier floats (otherwise order might not be correct)
+    \begin{figure}
+        \centering
+        \ContinuedFloat
+        \begin{tabular}{ccc}
+            \subcaptionbox{W80.49}{\includegraphics[width=0.3\textwidth, height=0.2\textheight, keepaspectratio]{w8049mp.png}} &
+            \subcaptionbox{W80.99}{\includegraphics[width=0.3\textwidth, height=0.2\textheight, keepaspectratio]{w8099mp.png}} &
+            \subcaptionbox{W81.023A}{\includegraphics[width=0.3\textwidth, height=0.2\textheight, keepaspectratio]{w81023amp.png}} \\
+            \subcaptionbox{W81.024B}{\includegraphics[width=0.3\textwidth, height=0.2\textheight, keepaspectratio]{w81024mp.png}} &
+            \subcaptionbox{W81.33}{\includegraphics[width=0.3\textwidth, height=0.2\textheight, keepaspectratio]{w8133mp.png}} &
+            \subcaptionbox{W81.43}{\includegraphics[width=0.3\textwidth, height=0.2\textheight, keepaspectratio]{w8143mp.png}} \\
+            \subcaptionbox{W81.96}{\includegraphics[width=0.3\textwidth, height=0.2\textheight, keepaspectratio]{w8196mp.png}} &
+            \subcaptionbox{W82.01}{\includegraphics[width=0.3\textwidth, height=0.2\textheight, keepaspectratio]{w8201mp.png}} &
+            \subcaptionbox{W82.06}{\includegraphics[width=0.3\textwidth, height=0.2\textheight, keepaspectratio]{w8206mp.png}} \\
+            \subcaptionbox{W82.21}{\includegraphics[width=0.3\textwidth, height=0.2\textheight, keepaspectratio]{w8221mp.png}} &
+            \subcaptionbox{W82.53}{\includegraphics[width=0.3\textwidth, height=0.2\textheight, keepaspectratio]{w8253mp.png}} &
+            \subcaptionbox{W82.61}{\includegraphics[width=0.3\textwidth, height=0.2\textheight, keepaspectratio]{w8261mp.png}} \\
+            \subcaptionbox{W83.09}{\includegraphics[width=0.3\textwidth, height=0.2\textheight, keepaspectratio]{w8309mp.png}} &
+            \subcaptionbox{W83.63}{\includegraphics[width=0.3\textwidth, height=0.2\textheight, keepaspectratio]{w8363mp.png}} &
+            \subcaptionbox{W84.15}{\includegraphics[width=0.3\textwidth, height=0.2\textheight, keepaspectratio]{w8415mp.png}} \\
+            \subcaptionbox{W84.64}{\includegraphics[width=0.3\textwidth, height=0.2\textheight, keepaspectratio]{w8464mp.png}} &
+            \subcaptionbox{W87.19}{\includegraphics[width=0.3\textwidth, height=0.2\textheight, keepaspectratio]{w8719mp.png}} &
+        \end{tabular}
+        \caption{A catalogue of plots from wave-fitting routine exercise for given satellite and planetary resonances. (continued)}
+    \end{figure}
+}
 
 
-\subsection{Planetary Resonance}
-\label{subsec:data}
+
+\paragraph{Bounds for Wave-fitting Routine: Satellite and Planetary Resonances}
+
+\begin{table}
+\centering
+\vspace{0.01pt} % Adjust the value as needed
+\rotatebox{90}{
+\normal
+%\begin{tabular}{lllll}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+\hline
+\stackon[0pt]{Name}{\stackon[0pt]{Resonance}} & \stackon[0pt]{(Km)}{\stackon[0pt]{Range}{Radial}} & \stackon[0pt]{(Km)}{\stackon[0pt]{Location}{Resonance}} & $l$ & $m$ & $a_{fit,b}$ & $x_{d,b}$ & $\phi_{0,b} (rad)$ & $x_{r,b} (Km)$ & $x_{f,b} (Km)$ \\
+\hline
+\stackon[0pt]{Resonance}{\stackon[0pt]{Satellite}} & \saturn & \saturn & \saturn & \saturn & \saturn & \saturn & \saturn & \saturn & \saturn \\
+\hline
+Mimas 4:1 & 74880.00 - 74895.00 &  74890.07 & - & 2 & (0, 1) & (1, 5) & (-2\pi, 2\pi) & (-10, 10) & (0, 4) \\
+Pan 2:1 & 85090.00 - 85130.00 & 85105.02 & - & 2 & (0, 1) & (1, 15) & (-2\pi, 2\pi) & (-10, 10) & (0, 4) \\
+Atlas 2:1 & 87640.00 - 87650.00 & 87645.68 & - & 2 & (0, 1) & (1, 15) & (-2\pi, 2\pi) & (-10, 10) & (0, 2) \\
+Prometheus 4:2 & 88420.00 - 88440.00 & 88434.12 & - & 3 & (0, 1) & (1, 15) & (-2\pi, 2\pi) & (-10, 10) & (0, 3) \\
+Mimas 6:2 & 89870.00 - 89890.00 & 89884.00 & - & 3 & (0, 1) & (1, 15) & (-2\pi, 2\pi) & (-10, 10) & (0, 4) \\
+Pandora 4:2 & 89887.00 - 89897.00 & 89893.68 & - & 3 & (0, 1) & (1, 15) & (-2\pi, 2\pi) & (-10, 10) & (0, 3) \\
+\hline
+\stackon[0pt]{Resonance}{\stackon[0pt]{Planetary}} & \saturn & \saturn & \saturn & \saturn & \saturn & \saturn & \saturn & \saturn & \saturn \\
+\hline
+$W74.51^{av}$ & 74501.00 - 74509.00 & 74506.900 & 12 & -8 & (0, 0.7) & (1, 30) & (-2\pi, 2\pi) &(-10, 10) &(0.5, 2) \\
+W74.74 & 74736.00 - 74743.00 & 74739.850 & 15 & 13 & (0, 0.2) & (1, 10) & (-2\pi, 2\pi) & (-10, 10) & (0, 1) \\
+W74.75 & 74746.00 - 74748.00 & 74748.300 & 11 & 11 & (0, 0.2) & (1, 35) & (-2\pi, 2\pi) & (-10, 10) & (0, 1) \\
+W74.76 & 74752.00 - 74762.00 & 74756.600 & 19 & -11 & (0, 0.2) & (1, 10) & (-2\pi, 2\pi) & (-10, 10) & (0, 1) \\
+W75.14 & 75142.00 - 75144.00 & 75143.000 & 16 & -10 & (0, 0.8) & (1, 40) & (-2\pi, 2\pi) & (-10, 10) & (0, 1) \\
+W76.02A & 76016.00 - 76018.00 & 76018.100 & 13 & -9 & (0, 0.6) & (1, 10) & (-2\pi, 2\pi) & (-10, 10) & (0, 2) \\
+W76.44 & 76433.00 - 76436.00 & 76435.400 & 2 & -2 & (0, 0.6) & (1, 25) & (-2\pi, 2\pi) & (-10, 10) & (0, 2) \\
+$W76.46^{av}$ & 76457.00 - 76462.00 & 76459.500 & 9 & -7 & (0, 0.4) & (1, 40) & (-2\pi, 2\pi) & (-10, 10) & (0, 1) \\
+W77.34 & 77337.00 - 77339.00 & 77338.900 & 14 & -10 & (0, 0.3) & (1, 35) & (-2\pi, 2\pi) & (-10, 10) & (0, 1) \\
+W78.51 & 78503.00 - 78509.00 & 78506.750 & 15 & -11 & (0, 0.8) & (1, 20) & (-2\pi, 2\pi) & (-10, 10) & (0, 1) \\
+W79.04 & 79039.00 - 79045.00 & 79042.300 & 11 & -9 & (0, 0.4) & (1, 25) & (-2\pi, 2\pi) & (-10, 10) & (0, 1) \\
+W79.55 & 79546.00 - 79550.00 & 79548.920 & 16 & -12 & (0, 0.2) & (1, 25) & (-2\pi, 2\pi) & (-10, 10) & (0, 1) \\
+W80.49 & 80484.00 - 80488.00 & 80486.100 & 17 & -13 & (0, 0.3) & (1, 25) & (-2\pi, 2\pi) & (-10, 10) & (0, 1) \\
+W80.99 & 80983.00 - 80989.00 & 80986.150 & 4 & -4 & (0, 0.2) & (1, 25) & (-2\pi, 2\pi) & (-10, 10) & (0, 2) \\
+W81.023A & 81018.00 - 81030.00 & 81023.100 & 5 & -5 & (0, 0.2) & (1, 25) & (-2\pi, 2\pi) & (-10, 10) & (0, 2) \\
+W81.024B & 81018.00 - 81030.00 & 81024.150 & 13 & -11 & (0, 0.3) & (1, 25) & (-2\pi, 2\pi) & (-10, 10) & (0, 1) \\
+W81.33 & 81333.00 - 81336.00 & 81334.275 & 18 & -14 & (0, 0.3) & (1, 25) & (-2\pi, 2\pi) & (-10, 10) & (0, 1) \\
+W81.43 & 81420.00 - 81430.00 & 81429.550 & 6 & -6 & (0, 0.2) & (1, 30) & (-2\pi, 2\pi) & (-10, 10) & (0, 2) \\
+W81.96 & 81959.00 - 81965.00 & 81962.450 & 7 & -7 & (0, 0.1) & (1, 15) & (-2\pi, 2\pi) & (-5, 0) & (0, 2) \\
+W82.01 & 82004.00 - 82009.00 & 82007.750 & 3 & -3 & (0, 0.2) & (1, 5) & (-2\pi, 2\pi) & (-10, 10) & (0, 4) \\
+W82.06 & 82055.00 - 82065.00 & 82059.400 & 3 & -3 & (0, 0.5) & (1, 40) & (-2\pi, 2\pi) & (-10, 10) & (0, 3) \\
+W82.21 & 82187.50 - 82207.51 & 82207.500 & 3 & -3 & (0, 0.3) & (1, 6) & (-2\pi, 2\pi) & (-15, 15) & (0, 4) \\
+W82.53 & 82510.00 - 82530.00 & 82528.750 & 8 & -8 & (0, 0.1) & (1, 15) & (-2\pi, 2\pi) & (-10, 10) & (0, 2) \\
+W82.61 & 82606.00 - 82608.00 & 82607.750 & 15 & -13 & (0, 0.2) & (1, 25) & (-2\pi, 2\pi) & (-10, 10) & (0, 2) \\
+W83.09 & 83086.00 - 83096.00 & 83090.650 & 9 & -9 & (0, 0.2) & (1, 25) & (-2\pi, 2\pi) & (-10, 10) & (0, 2) \\
+W83.63 & 83612.02 - 83637.02 & 83632.020 & 10 & -10 & (0, 0.3) & (1, 20) & (-2\pi, 2\pi) & (-10, 10) & (0, 2) \\
+W84.15 & 84140.00 - 84150.00 & 84147.100 & 11 & -11 & (0, 0.2) & (1, 25) & (-2\pi, 2\pi) & (-10, 10) & (0, 1) \\
+W84.64 & 84630.00 - 84650.00 & 84643.200 & 2 & -2 & (0, 0.3) & (1, 25) & (-2\pi, 2\pi) & (-10, 10) & (0, 3) \\
+W87.19 & 87170.00 - 87210.00 & 87192.800 & 2 & -2 & (0, 0.2) & (1, 40) & (-2\pi, 2\pi) & (-10, 10) & (0, 3) \\
+\hline
+\end{tabular}
+}
+\caption{Wave-fit bounds for satellite and planetary resonances.}
+\end{table}
+
 
 \subsection{Additional Data}
 \label{subsec:data}
 
 % Insert your additional data here
-
-\subsection{Code Snippets}
-\label{subsec:code}
-
+%\subsection{Code Snippets}
+%\label{subsec:code}
 % Insert your code snippets here
 
 \subsection{Mathematics of log-linear scatter plots with error bars}
+A log-linear plot, also known as a semi-logarithmic plot, is a visualization technique commonly used in various scientific fields to represent data that covers a wide range of values. It combines a logarithmic scale along one axis (usually the y-axis) with a linear scale along the other axis (usually the x-axis). 
+
+The principle behind the log-linear plot lies in the fact that using a logarithmic scale for one of the axes allows for a better representation of data that spans several orders of magnitude. In such plots, the relationship between the plotted variable and the axis is not linear but logarithmic. This means that equal distances on the axis correspond to equal ratios of the plotted variable, rather than equal differences.
 
 \textbf{Logarithmic Scaling}:
 In a log-linear plot, one axis (typically the y-axis) is scaled logarithmically. This means that instead of representing values directly, the logarithms of those values are plotted along the logarithmic axis. For example, if $y = \lambda a^{\gamma x}$, taking the logarithm (base $b$) of both sides yields:
@@ -2059,118 +2543,9 @@ Now, multiplying both sides by $\sigma_i$:
 \Delta \log_b(y_i) = \frac{\sigma_i}{y_i \ln(b)}
 \]
 
-This represents the change in $\log_b(y_i)$ due to the error $\sigma_i$ in $y_i$. For symmetric error bars, we take the error bars to be $\pm \Delta \log_b(y_i)$, so the error bars on $\log_b(y_i)$ are $\pm \frac{\sigma_i}{{y_i \ln(b)}}$ \cite{taylor2022introduction}\cite{bevington2003data}\cite{press2007numerical}.
+This represents the change in $\log_b(y_i)$ due to the error $\sigma_i$ in $y_i$. For symmetric error bars, we take the error bars to be $\pm \Delta \log_b(y_i)$, so the error bars on $\log_b(y_i)$ are $\pm \frac{\sigma_i}{{y_i \ln(b)}}$\cite{bevington2003data,press2007numerical,taylor2022introduction}. The concept of the semi-log plot and its error analysis can be seen in figures (16) and (17).
+%...........................................................................
 
-Error bars represent uncertainty or variability associated with each data point. For simplicity, let's assume symmetric error bars. If $y_i$ has an associated error $\sigma_i$, the error bars for $\log_b(y_i)$ would typically be $\pm \frac{\sigma_i}{{y_i \ln(b)}}$. This accounts for the fact that the relative error in $y$ (as a percentage) is more relevant than the absolute error, due to the logarithmic scaling\cite{taylor2022introduction}\cite{bevington2003data}\cite{press2007numerical}.
-
-\textbf{Propagation of Errors}:
-When combining data points or performing calculations involving quantities derived from data with error bars, the errors must be appropriately propagated. For example, if we calculate a quantity $z = \frac{y}{x}$ from data points with errors, the error in $z$ can be determined using error propagation formulas, accounting for the errors in both $x$ and $y$.
-
-\textbf{Interpretation}:
-Interpretation involves understanding the logarithmic scaling and considering the implications of errors on the analysis. When interpreting slopes, for instance, one must recognize that a slope of $\gamma$ corresponds to a multiplicative change of $a^\gamma$ in $y$ for each unit change in $x$.
-
-
-
-\subsection{Using log-linear Scales}
-A log-linear plot, also known as a semi-logarithmic plot, is a visualization technique commonly used in various scientific fields to represent data that covers a wide range of values. It combines a logarithmic scale along one axis (usually the y-axis) with a linear scale along the other axis (usually the x-axis). 
-
-The principle behind the log-linear plot lies in the fact that using a logarithmic scale for one of the axes allows for a better representation of data that spans several orders of magnitude. In such plots, the relationship between the plotted variable and the axis is not linear but logarithmic. This means that equal distances on the axis correspond to equal ratios of the plotted variable, rather than equal differences.
-
-Let's denote the plotted variable as \( y \) and the independent variable (on the linear axis) as \( x \). In a log-linear plot, the relationship between \( x \) and \( y \) can be expressed as:
-
-\[ y = A \cdot \exp(Bx) \]
-
-Where:
-- \( A \) and \( B \) are constants determined by the data and the nature of the relationship.
-- \( \exp \) denotes the exponential function.
-
-When \( x \) is plotted on a linear scale and \( y \) is plotted on a logarithmic scale, the plot will visually compress large values of \( y \) and expand small values of \( y \). This compression and expansion result in shrinking the error bars at the upper part of the plot and slightly increasing the error bars at the base of the plot.
-
-Mathematically, if we have error bars on \( y \), denoted as \( \Delta y \), the error bars in the log-linear plot will be proportional to \( y \):
-
-\[ \Delta(\log y) = \frac{\Delta y}{y} \]
-
-So, as \( y \) increases, \( \Delta y \) gets relatively smaller, leading to shrinking error bars at the upper part of the plot. Conversely, as \( y \) decreases, \( \Delta y \) gets relatively larger, which slightly increases the error bars at the base of the plot.
-
-This property of log-linear plots makes them particularly useful for visualizing data with a wide range of values and for emphasizing exponential relationships or trends.
-
-A log-linear plot, also known as a semi-log plot, is a type of graph where one axis (usually the $y$-axis) is scaled logarithmically while the other axis (usually the $x$-axis) is scaled linearly. This type of scaling is particularly useful when dealing with data that spans several orders of magnitude. The principle behind the log-linear plot lies in the transformation of the data onto a logarithmic scale, which compresses larger values and expands smaller values, thereby allowing for a clearer visualization of the entire data range.
-
-When examining error bars in a log-linear plot, it's important to understand how the logarithmic scaling affects the perception of the data distribution. In a log-linear plot, each equal interval on the logarithmic axis represents a multiplication factor rather than a fixed numerical increment. This means that the same physical distance on the $y$-axis corresponds to a larger numerical range at higher values and a smaller numerical range at lower values.
-
-Let's consider the implications for error bars:
-
-\begin{enumerate}
-    \item \textbf{Shrinking error bars at the upper part of the plot}: Due to the logarithmic scaling, as values increase along the $y$-axis, the spacing between them increases exponentially. Consequently, the error bars, which represent a fixed percentage or absolute error, appear relatively smaller in comparison to the overall magnitude of the data points at higher values. This is because the same absolute error translates to a smaller proportion of the total value as the values increase logarithmically.
-    
-    \item \textbf{Slightly increasing error bars at the base of the plot}: Conversely, at the lower end of the plot, the spacing between values decreases exponentially. As a result, the same absolute error is a larger proportion of the total value, leading to slightly larger error bars in comparison to the data points. However, this increase is often negligible compared to the decrease in error bar size at higher values due to the logarithmic scaling.
-\end{enumerate}
-
-The mathematics behind this can be illustrated using a simple example. Let's assume we have a set of data points $y_i$ with corresponding errors $\Delta y_i$. In a log-linear plot, the data points are plotted as $\log(y_i)$ against the linearly scaled $x$-axis.
-
-The error bars can be expressed as a percentage of the data point, such that $\Delta y_i = \epsilon y_i$, where $\epsilon$ is the relative error. When transformed onto the logarithmic scale, the error bars become $\Delta(\log(y_i)) = \frac{\Delta y_i}{y_i}$. 
-
-Thus, the error bars on the log-linear plot are determined by the relative error $\epsilon$ and the value of $y_i$.
-
-It's worth noting that while log-linear plots offer advantages in visualizing data across wide ranges, they also have limitations, such as potential distortion of linear relationships and the need for careful interpretation due to the logarithmic scaling. Researchers should consider the appropriateness of log-linear plots based on the characteristics of their data and the insights they aim to convey.
-
-References:
-\begin{itemize}
-    \item Weisstein, Eric W. "Log-Log Plot." From MathWorld--A Wolfram Web Resource. \texttt{https://mathworld.wolfram.com/Log-LogPlot.html}
-\end{itemize}
-
-\subsection{Using lo-g-linear Scales II}
-
-Understanding Log-Linear Plots
-A log-linear plot utilizes a combination of linear and logarithmic scales. One axis, typically the vertical (y), is scaled logarithmically while the other (x) remains linear. This specialized visualization technique offers unique advantages in specific data analysis contexts.
-
-Shrinking Error Bars at the Top
-One notable characteristic of log-linear plots is the compression of error bars at the top compared to their linear counterparts. This compression arises from the nature of logarithmic scales. Consider an error bar representing a percentage variation (e.g., ±10%). On a linear scale, this equates to the same absolute value regardless of the actual measurement. However, on a logarithmic scale, a 10% change at higher values represents a smaller absolute difference compared to lower values.
-
-For example, a 10% error on a measurement of 100 translates to ±10, while on a measurement of 1000, it translates to ±100. Logarithmically, these become log(110)−log(100)≈0.046 and log(1100)−log(1000)≈0.096, respectively. As evident, the error bar "shrinks" when expressed logarithmically as the absolute difference remains constant but spans a smaller proportional range compared to the actual measurement.
-
-Expanding Error Bars at the Base
-Conversely, error bars at the lower end of the logarithmic scale appear slightly larger than on a linear scale. This effect is again due to the inherent behavior of logarithms. As values approach zero, even small absolute changes translate to significant proportional changes on the logarithmic scale.
-
-Continuing the previous example, consider a 10% error on a measurement of 1 (i.e., ±0.1). This becomes log(1.1)−log(1)≈0.095 on the logarithmic scale. While the absolute difference remains 0.1, it now spans a proportionally larger range compared to higher values, leading to a visually "expanded" error bar.
-
-Mathematical Expressions
-The logarithmic transformation applied to one axis in a log-linear plot depends on the chosen base. Commonly used bases are 10 (denoted by log) and 2 (denoted by log2​).
-
-For the y-axis (logarithmic):
-
-Base 10: y′=log(y)
-Base 2: y′=log2​(y)
-For the x-axis (linear): x′=x
-
-where:
-
-y: original data value on the y-axis
-x: original data value on the x-axis
-y′: transformed data value on the y-axis
-x′: transformed data value on the x-axis
-These transformations compress the proportional differences at the top and expand them at the base, leading to the observed changes in error bar representation.
-
-Advantages and Use Cases
-Log-linear plots offer several advantages:
-
-Visualizing data spanning wide ranges: By compressing large variations, log-linear plots enable visualizing data across several orders of magnitude on a single graph.
-Highlighting exponential relationships: Exponential trends appear as straight lines on log-linear plots, facilitating their identification and analysis.
-Reducing visual dominance of large values: Error bars associated with large measurements become less distracting, allowing better comparison with smaller values.
-These advantages make log-linear plots valuable tools in various fields, including:
-
-Biology: Visualizing population growth, enzyme kinetics, and gene expression data.
-Chemistry: Representing reaction rates, concentration-dependent responses, and equilibrium constants.
-Physics: Analyzing decay curves, radioactive dating, and signal attenuation.
-Economics: Studying economic growth, income distribution, and price changes.
-Remember to choose the appropriate base for your data and consider potential limitations, such as the inability to represent negative values on a logarithmic scale. Consult specific literature and resources for detailed applications and best practices in your field.
-
-Citations:
-
-https://en.wikipedia.org/wiki/Logarithmic_scale: https://en.wikipedia.org/wiki/Logarithmic_scale
-https://en.wikipedia.org/wiki/Semi-log_plot: https://en.wikipedia.org/wiki/Semi-log_plot
-https://reference.wolfram.com/language/ref/LogLinearPlot.html: https://reference.wolfram.com/language/ref/LogLinearPlot.html
-%.................................................................................
 
 
 %...........................................................................

@@ -24,6 +24,7 @@
 \usepackage{subfig}
 \usepackage{afterpage}
 \usepackage{wasysym}
+\usepackage{mathabx}
 \usepackage{listings} % for code snippets
 \usepackage{color} % for defining colors
 % Define colors for syntax highlighting
@@ -730,58 +731,30 @@ where $\alpha=\frac{ln2}{C_{\delta}\psi(0)}$, $C_{\delta}= 0.776$ \cite{APractic
 $x_{\alpha,\phi}(t)$ is the final, reconstructed phase-corrected form of $x(t)$. We will use this expression in our Python computational analysis in the section below. 
 
 \subsubsection{Sample Reconstruction}
-In a bid to verify the authenticity of our customized wavelet reconstruction formula, we assume a noisy signal given by the equation:
+In a bid to verify the authenticity of our customized wavelet reconstruction formula, we shall use a "fictitious" signal given by the equation:
 \begin{equation}
-   x(t) = 5\sin\left(\frac{2\pi t}{0.02} + 10\right) + 3\sin\left(\frac{2 \pi t}{0.05}\right)
+   x(t) = 5\sin(\omega_1 t + \phi_1) + 3\sin(\omega_2 t + \phi_2)
 \end{equation}
-where $t = \texttt{np.linspace(0, 1, nrx=1000)}$ in Python computations, $\Delta a=1$, $\tilde{\epsilon}=\tilde{\phi} = 6.0$, and other constants having the same value as defined previously.
+where $t = \texttt{np.linspace(0, 1, nrx=1000)}$ in Python computations, $\Delta a=1$, $\tilde{\epsilon}=\tilde{\phi} = 6.0$, and other constants having the same value as defined previously. We also replicate this "fictitious signal" once, to mimic a real occurence of occultation in a particular wave signal.
+
+To determine the best values of $\phi_1$ and $\phi_2$ for Fourier analysis, we typically aim to minimize spectral leakage and maximize the resolution of the spectral peaks (signal). Spectral leakage occurs when the frequencies of the signal do not exactly match the frequencies sampled by the Fourier transform, leading to spreading of energy across multiple frequency bins. In our case, the signal is a combination of two sinusoids with frequencies $\omega_1 = \frac{2\pi}{0.02}$ and $\omega_2 = \frac{2\pi}{0.05}$. To minimize spectral leakage, we want these frequencies to fall exactly on the frequency grid points of the Fourier transform. The frequencies that our signal contains are $\omega_1$ and $\omega_2$. For best results, we want these frequencies to be integer multiples of the fundamental frequency of the Fourier analysis. Let us denote the fundamental frequency as $f_0$ (which corresponds to the spacing between frequency bins in the Fourier spectrum). For $\omega_1$: $\omega_1 = \frac{2\pi}{0.02} = 100\pi$, $\omega_1 = 2\pi f_0 \cdot n$; therefore, $f_0 = \frac{1}{100}$. Likewise, for $\omega_2$: $\omega_2 = \frac{2\pi}{0.05} = 40\pi$, $\omega_2 = 2\pi f_0 \cdot m$; therefore, $f_0 = \frac{1}{40}$. For both frequencies to be integer multiples of $f_0$, the values of $n$ and $m$ must be integers. Hence, $n = 100$ and $m = 40$. Therefore, the best values for $\phi_1$ and $\phi_2$ would be such that when added to the respective sinusoidal functions, the resulting signals align with the Fourier analysis grid.
+
+In practice, we needed to iterate and test various values of $\phi_1$ and $\phi_2$ to find the ones that give the best alignment with the Fourier analysis grid, typically aiming for values close to multiples of $\pi$ to ensure efficient signal optimization with the frequency bins, allowing for a lower tolerance value. The optimized result for our case, and given the nature of the "fictitious signal," works well with the total phase, $\phi_{T}$, given in terms of the condition $\phi_T = \{(-1)^n \cdot 2n\pi \mid n \in \mathbb{N}\}$, where $\phi_T = \phi_1 + \phi_2$. This notation captures both negative and positive patterns for the variations in the total phase difference. When $n$ is odd, it results in positive odd multiples of $\pi$, and when $n$ is even, it results in negative even multiples of $\pi$. The total phase is implemented in the process of phase-correcting the "fictitious signal," using $\phi_1 = 5\pi/2$ and $\phi_2 = -\pi/2$.
 
 %We are going to compare our plot with that obtained using the PyWavelet Python library, below.
 
 \begin{figure}[h]
-\centering 
-\includegraphics[width=0.8\textwidth]{Python_Wavelet_Transform_Plot_Combined.png} 
-\caption{Sample Wavelet Plots (Main and Reconstructed Signals)} \label{fig:my_label}
+    \centering
+    \includegraphics[width=0.8\linewidth]{waveTransform_main_reconstructed.png}
+    \caption{A panel showing sample wavelet Plots: Main versus Reconstructed signals(Upper panel) and Approximation Error (Lower panel)}
+    \label{fig:enter-label}
 \end{figure}
 
+From figure (8), the customized algorithm very closely matches the real output for the sample signal, $x(t)$ owing to its flexibility in terms of varying the parameters for accurate results. Also, the plot we have generated below the panel depicts the absolute difference between the main signal $x(t)$ and the reconstructed signal $x_{\alpha,\phi}(t)$, over the time interval from 0 to 1 (second). The plot allows us to assess how closely the reconstructed signal matches the original signal at different points within the time interval. An absolute value difference around 0 (precisely a minimum of $7.709274124467758 \times 10^{-6}$) indicates an almost perfect signal reconstruction, meaning $x_{\alpha,\phi}(t)$ exactly almost replicates $x(t)$ at that moment. With a maximum value of roughly $0.020846158762722666$, we observe that the reconstructed signal can deviate from the original signal by up to roughly this amount. By examining the overall reconstruction quality, we see that the average value is around $0.007696527357833956$ over the entire time interval, which makes it easy to gauge the overall quality of the reconstruction. Since we technically have a relatively lower average value, this suggests a more accurate reconstruction, while a higher value would have indicated larger discrepancies between the original and reconstructed signals.
 
-%\begin{table}[h]
-%\centering
-%\begin{tabularx}{0.8\textwidth} { 
- % | >{\raggedright\arraybackslash}X 
-  %| >{\centering\arraybackslash}X 
-  %| >{\raggedleft\arraybackslash}X | }
- %\hline
- %Method & Correction Factor & Flexibility \\
- %\hline
- %Customized Algorithm  & 1.0130  & High  \\
-%\hline
-%PyWavelet Package  & 1.0155  & Limited  \\
-%\hline
-%Scipy.signal Package  & ---  & No Algorithm  \\
-%\hline
-%\end{tabularx}
-%\caption{Comparison of correction factor and flexibility between different methods (Figure 5).}
-%\label{table:comparison}
-%\end{table}
+On the other hand, the plot also reveals evidence of temporal variations in the magnitude of $|x(t)-x_{\alpha,\phi}(t)|$ over the considered time scale. If it had remained relatively constant, it could have suggested consistent error throughout the duration. However, the fluctuations might indicate that certain segments of the signal pose challenges for accurate reconstruction. This is an expected behavior from a "fictitious" or somewhat stochastic signal model that was used to test the validity of the theory behind our signal reconstruction mechanism, besides the influence of edge-effects and the artefacts of the algorithm. Analysis of regions where the approximation error is highest provides insights into the "fictitious" signal dynamics. These regions may correspond to signal peaks, rapid transitions, or other complex features where the reconstruction process struggles to accurately capture the original signal's behavior.
 
-\begin{table}[h]
-\centering
-\begin{tabularx}{0.8\textwidth} { 
-  | >{\raggedright\arraybackslash}X 
-  | >{\centering\arraybackslash}X 
-  | >{\raggedleft\arraybackslash}X | }
- \hline
- Method & Correction Factor & Flexibility \\
- \hline
- Customized Algorithm  & 1.0130  & High  \\
-\hline
-\end{tabularx}
-\caption{Outline of properties for Customized algorithm (Figure 7).}
-\label{table:comparison}
-\end{table}
-
-From the plots and table, the customized algorithm has the lowest correction factor and a high flexibility in terms of varying the parameters for accurate results. This factor represents how much the wavelet transform has modified the original signal in terms of relative magnitude. Specifically, a factor greater than 1 means that the modified signal has larger amplitude than the original signal, while a factor less than 1 means that the modified signal has smaller amplitude than the original signal. The next section discusses the main results of using our customized codes on real wavelet data from the recent Cassini missions (2004 to 2017).  
+Generally, the reconstructed signal has a negligible approximation error amplitude compared to the original signal. Using a variant of the Weierstrass Approximation Theorem \cite{pereyra2012harmonic}, we can attest that $|x(t)-x_{\alpha,\phi}(t)| < \epsilon$ such that $\epsilon > 0  (\text{and} \lessapprox 21.0 \times 10^{-3})  \forall  \text{t} \in [0,1]$. The next section discusses the main results of using our customized reconstruction algorithm on real wavelet data from the recent Cassini missions (which took place between 2004 to 2017).  
 
 %......................................................................................
 \subsection{Implementation Routine}
@@ -2042,38 +2015,26 @@ Besides, figure 18(b) shows a metric for mode depth from a simulated Saturn mode
 %.................................................................................
 
 \section{Future Directions}
-There is still much to learn about spiral density waves in Saturn's rings, and efficient algorithms for Fourier transforms are an important tool for their analysis. One promising direction for future research is the use of Fourier transforms to study the interaction between spiral waves and other phenomena in the rings, such as resonances with nearby moons. Additionally, new data from the Cassini spacecraft and future missions to Saturn could provide even more detailed information about the structure and dynamics of the rings, opening up new avenues for analysis. To help achieve these objectives, we plan to achieve a more efficient correction factor for our customized algorithm, to help produce efficient and effective results during usage. 
 
+Unveiling Saturn's interior no doubt involves a holistic look at normal-mode oscillations. Our current knowledge of Saturn's internal structure, derived from analyzing density waves in its C-Ring, offers an incomplete picture. This section explores the exciting potential of bending waves as a complementary approach to reveal a more comprehensive view of the planet's normal-mode oscillation spectrum.
 
+Density waves, excited by specific oscillation modes (where $\ell - |m|$ is even), leave their imprint on the C-Ring. Bending waves, however, provide a crucial, complementary perspective. These waves, triggered when $\ell - |m|$ is odd, offer a distinct geometric window into the oscillation spectrum. Analyzing both types of waves will lead to a richer understanding. Several hurdles must be overcome to unlock the secrets hidden within bending waves. A critical requirement is a robust model that can relate the planet's gravitational pull on the rings to the bending wave excitation. This model, similar to the one used for density waves, would establish a clear link for calculating the normal-mode amplitude spectrum. A part of the model will rely heavily on sophisticated algorithms, like those required for efficient weighted wavelet averaging for wavelet-signal analysis. Efficient Fourier transforms coupled with weighted wavelet averaging techniques are essential tools for analyzing bending waves due to their geometric complexities.
 
+While the model offers valuable insights, its limitations must be acknowledged. The complex interplay of gravitational and collisional interactions within the rings might not be fully captured, leading to potential discrepancies between model predictions and real-world observations. These discrepancies highlight the need for continuous model refinement and additional observational data. Furthermore, the model might not account for the dynamic nature of the rings, where particle distribution and properties can evolve over time due to collisions, interactions with moons, and external forces. A time-dependent linear density wave model could shed light on these time-varying features.
 
-\textbf{Beyond the Table: Considerations and Open Questions}
+These limitations underscore the importance of ongoing research. Incorporating additional factors like gravitational perturbations and collisions will enhance the model's accuracy.  A multifaceted approach, combining data from various missions, telescopes, and theoretical models, is key to gaining a comprehensive understanding of both ring dynamics and Saturn's interior structure. Long-term observations will be essential in revealing how the rings evolve due to various celestial interactions.
 
-While the model computations provide valuable insights, it is crucial to acknowledge potential limitations and open questions:
+Another critical step involves addressing data gaps. Focusing on specific, currently understudied regions within the C-Ring (75,000-76,000 Km, 77,000-78,500 Km, 85,000-87,000 Km, and 88,500-90,000 Km) will be crucial. Additionally, exploring bending waves within the A-Ring, known for harboring a significant number, holds great promise.
 
-Model simplifications: The model might not incorporate all the complex gravitational and collisional interactions in play within the rings, leading to potential discrepancies with real-world observations.
-Uncertainty estimates: The reported uncertainties in both $\sigma_{0}$ and $\kappa$ highlight the need for further refinement of the model and additional observational data to improve accuracy.
-Temporal variations: The model might not capture the dynamic nature of the rings, where particle distribution and properties might change over time due to collisions, interactions with moons, and external forces.
-
-These limitations and open questions underline the importance of ongoing research efforts:
-
-Refining the model: Incorporating additional factors like non-axisymmetric gravitational perturbations and collisional processes could enhance the model's accuracy and predictive power.
-Combining models and observations: Utilizing a multi-pronged approach that combines data from various missions, telescopes, and theoretical models can provide a more comprehensive understanding of ring dynamics.
-Investigating temporal variations: Monitoring the rings over time through long-term observations can reveal insights into how their structure and properties evolve due to various celestial interactions.
-
-By addressing these limitations and pursuing further research, we can solidify our understanding of the intricate dance between Saturn's moons, its captivating rings, and the dynamic forces shaping this awe-inspiring planetary system.
-
-
-
-
-
-
+By addressing these challenges and pursuing further exploration, we can unlock a deeper understanding of the relationship between Saturn's internal dynamics, its external environment (including moons and rings), and the forces shaping this remarkable planetary system.
 
 \section{Conclusion}
 
-Satellite Resonances: The results suggests that different moons of Saturn trigger distinct density wave patterns with varying degrees of damping and viscosity. This information is crucial for understanding the dynamics of Saturn's rings and the interactions between the planet and its moons.
+Our study has shed new light on the behavior of normal-mode oscillations within Saturn, which are rhythmic vibrations in the planet's interior, and how they influence its C-Ring. We have identified two types of excitations, mainly: deep modes, which penetrate deeper into Saturn's interior, and shallow modes, which occur closer to the surface. Additionally, we have observed that the latitude of specific regions on Saturn affects the characteristics of these oscillations.
 
-In conclusion, our study has shed new light on the behavior of waves within Saturn's rings and the factors that influence them. By using efficient Fourier transform algorithms, we were able to quantify the impact of the planet's internal structure on the behavior of these waves. As we continue to uncover new information about Saturn and its rings, these findings will serve as a critical foundation for future research efforts aimed at further exploring the mysteries of our solar system.
+By examining trends in the normal-mode amplitude spectrum, we can quantitatively analyze Saturn's density distribution and other planetary properties related to its spectrum for normal-mode amplitudes. This allows us to gain insights into the planet's internal structure and understand how it influences the behavior of these waves and their impact on Saturn's environment.
+
+Our findings provide a critical foundation for future research efforts aimed at further exploring the mysteries of our solar system. By delving deeper into Saturn's dynamics and the interactions between its interior, its rings and external environment in general, we can advance our understanding of planetary formation and evolution. This research not only contributes to our knowledge of Saturn but also has implications for understanding other gas-giant planetary systems within our universe.
 
 \section{Data Availability Statement}
 The corresponding authors are committed to promoting open and transparent research practices. They are willing to share the data, models, or codes to facilitate further analysis and validation of the research findings. Collaborators, fellow researchers, and interested parties are encouraged to reach out to the corresponding authors to obtain the requested information. It is important to note that the availability of the data, models, or codes is subject to any applicable legal, ethical, or privacy restrictions. The corresponding authors will ensure that any shared materials comply with relevant regulations and guidelines to protect the privacy and confidentiality of participants or sensitive information. Additionally, the corresponding authors may provide supplementary materials or documentation to enhance the understanding and reproducibility of the research. These additional resources can assist readers in replicating the study or building upon its findings. The corresponding authors can be contacted via their provided contact details or through the designated communication channels outlined in the research publication. They will endeavor to respond to requests in a timely manner, keeping in mind the complexity and scope of the information being requested. Overall, the corresponding authors are dedicated to fostering a culture of collaboration and knowledge sharing, aiming to contribute to the advancement of scientific inquiry and progress.
@@ -2589,15 +2550,6 @@ W87.19 & 87170.00 - 87210.00 & 87192.800 & 2 & -2 & (0, 0.2) & (1, 40) & (-2\pi,
 \caption{Wave-fit bounds for satellite and planetary resonances.}
 \end{table}
 
-
-\subsection{Additional Data}
-\label{subsec:data}
-
-% Insert your additional data here
-%\subsection{Code Snippets}
-%\label{subsec:code}
-% Insert your code snippets here
-
 \subsection{Mathematics of log-linear scatter plots with error bars}
 A log-linear plot, also known as a semi-logarithmic plot, is a visualization technique commonly used in various scientific fields to represent data that covers a wide range of values. It combines a logarithmic scale along one axis (usually the y-axis) with a linear scale along the other axis (usually the x-axis). 
 
@@ -2638,6 +2590,13 @@ This represents the change in $\log_b(y_i)$ due to the error $\sigma_i$ in $y_i$
 %...........................................................................
 
 
+\subsection{Additional Data}
+\label{subsec:data}
+
+% Insert your additional data here
+%\subsection{Code Snippets}
+%\label{subsec:code}
+% Insert your code snippets here
 
 %...........................................................................
 \bibliographystyle{plain}
